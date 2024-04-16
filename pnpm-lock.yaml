@@ -40,6 +40,9 @@ devDependencies:
   '@storybook/addon-onboarding':
     specifier: 8.1.0-alpha.7
     version: 8.1.0-alpha.7
+  '@storybook/addon-styling-webpack':
+    specifier: ^1.0.0
+    version: 1.0.0(webpack@5.91.0)
   '@storybook/blocks':
     specifier: 8.1.0-alpha.7
     version: 8.1.0-alpha.7(@types/react@18.2.79)(react-dom@18.2.0)(react@18.2.0)
@@ -2157,6 +2160,15 @@ packages:
       ts-dedent: 2.2.0
     dev: true
 
+  /@storybook/addon-styling-webpack@1.0.0(webpack@5.91.0):
+    resolution: {integrity: sha512-jo1kzn7pi+NA+LZxrWoRvW6w7dXIKY/BjTG80XX2uU92lIKT+X1k/9vYk/0KPVK3Bsf4tO6ToAuqIRyOk7MHtg==}
+    peerDependencies:
+      webpack: ^5.0.0
+    dependencies:
+      '@storybook/node-logger': 8.0.8
+      webpack: 5.91.0(esbuild@0.20.2)
+    dev: true
+
   /@storybook/addon-toolbars@8.1.0-alpha.7:
     resolution: {integrity: sha512-JBBrqYJGqokCdCPuAjvLmJ8R2G/ievUppvWV1nruru/R2a7H2qXgbFW/6YZkCqoAGqsEUP0RM3bgIEqW24UZwg==}
     dev: true
@@ -2700,6 +2712,10 @@ packages:
       - webpack-dev-server
       - webpack-hot-middleware
       - webpack-plugin-serve
+    dev: true
+
+  /@storybook/node-logger@8.0.8:
+    resolution: {integrity: sha512-ymps3MMTxtMWq0eDiXk1iO7iv0Eg0PuUvOpPPohEJauGzU9THv81xx01aaHKSprFFJYD2LMQr1aFuUplItO12g==}
     dev: true
 
   /@storybook/node-logger@8.1.0-alpha.7:

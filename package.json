@@ -24,6 +24,7 @@
     "@storybook/addon-interactions": "8.1.0-alpha.7",
     "@storybook/addon-links": "8.1.0-alpha.7",
     "@storybook/addon-onboarding": "8.1.0-alpha.7",
+    "@storybook/addon-styling-webpack": "^1.0.0",
     "@storybook/blocks": "8.1.0-alpha.7",
     "@storybook/nextjs": "8.1.0-alpha.7",
     "@storybook/react": "8.1.0-alpha.7",
