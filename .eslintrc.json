@@ -1,11 +1,10 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "plugin:storybook/recommended",
-    "prettier"
-  ],
-  "plugins": ["@tanstack/query", "prettier"],
-  "rules": {
-    "@tanstack/query/prefer-query-object-syntax": "error"
-  }
+  "root": true,
+  "extends": ["next/core-web-vitals", "plugin:storybook/recommended", "prettier"],
+  "plugins": ["@tanstack/query", "@typescript-eslint", "prettier"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"]
+    }
+  ]
 }
