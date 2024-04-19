@@ -1,6 +1,11 @@
 {
   "extends": [
     "next/core-web-vitals",
-    "plugin:storybook/recommended"
-  ]
+    "plugin:storybook/recommended",
+    "prettier"
+  ],
+  "plugins": ["@tanstack/query", "prettier"],
+  "rules": {
+    "@tanstack/query/prefer-query-object-syntax": "error"
+  }
 }

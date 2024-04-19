@@ -1,0 +1,11 @@
+{
+    "eslint.validate": ["json"],
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": false, // required
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "eslint.format.enable": true,
+}
+  
