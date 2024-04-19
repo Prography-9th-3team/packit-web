@@ -1,22 +1,37 @@
 {
   "root": true,
-  "extends": ["next/core-web-vitals", "plugin:storybook/recommended", "prettier"],
-  "plugins": ["@tanstack/query", "@typescript-eslint", "prettier"],
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "plugin:storybook/recommended",
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": ["@tanstack/query", "@typescript-eslint", "prettier", "react", "react-hooks"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"]
     }
   ],
   "rules": {
+    "no-undef": "off",
+    "no-duplicate-imports": "error",
     "@next/next/no-html-link-for-pages": "error",
-    "@typescript-eslint/no-explicit-any": 0,
-    "@typescript-eslint/no-unused-expressions": 0,
     "@tanstack/query/stable-query-client": "error",
     "prettier/prettier": "error",
-    "no-console": "warn",
-    "no-unused-vars": "warn",
-    "no-undef": "warn",
-    "no-constant-condition": "warn"
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/no-unescaped-entities": "off",
+    "react/no-unknown-property": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
+      { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] },
+      { "blankLine": "always", "prev": ["case", "default"], "next": "*" }
+    ]
   },
   "env": {
     "browser": true,
