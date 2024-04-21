@@ -1,0 +1,10 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+if pnpm lint-staged; then
+  echo "✅ Lint success: 모든 스테이지된 파일이 규칙을 준수했습니다."
+  exit 0
+else
+  echo "❌ Lint failed: 커밋이 중단되었습니다."
+  exit 1
+fi

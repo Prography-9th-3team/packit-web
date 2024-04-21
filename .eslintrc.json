@@ -1,3 +1,50 @@
 {
-  "extends": "next/core-web-vitals"
+  "root": true,
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "plugin:storybook/recommended",
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": ["@tanstack/query", "@typescript-eslint", "prettier", "react", "react-hooks"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"]
+    }
+  ],
+  "rules": {
+    "no-undef": "off",
+    "no-duplicate-imports": "error",
+    "@next/next/no-html-link-for-pages": "error",
+    "@tanstack/query/stable-query-client": "error",
+    "prettier/prettier": "error",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/no-unescaped-entities": "off",
+    "react/no-unknown-property": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
+      { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] },
+      { "blankLine": "always", "prev": ["case", "default"], "next": "*" }
+    ]
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true,
+    "es2021": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  }
 }
