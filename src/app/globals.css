@@ -26,3 +26,133 @@ body {
     text-wrap: balance;
   }
 }
+
+/* typography */
+@layer components {
+  /* heading */
+  .typo-h-5xl {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 60px;
+  }
+  .typo-h-4xl {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 45px;
+  }
+  .typo-h-3xl {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 37.5px;
+  }
+  .typo-h-2xl {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+  }
+  .typo-h-xl {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+  }
+  .typo-h-lg {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+  }
+  .typo-h-lg-bold {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 28px;
+  }
+  .typo-h-md {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+  .typo-h-md-bold {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  /* body */
+  .typo-b-lg {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+  .typo-b-lg-bold {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+  .typo-b-md {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+  .typo-b-md-bold {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+  }
+  .typo-b-sm {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+  }
+  .typo-b-sm-bold {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 18px;
+  }
+
+  /* label */
+
+  .typo-l-3xl-bold {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 30px;
+  }
+  .typo-l-xl-bold {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+  }
+  .typo-l-lg {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+  .typo-l-lg-bold {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+  .typo-l-md {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+  .typo-l-md-bold {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+  .typo-l-sm {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+  .typo-l-sm-bold {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+  }
+  .typo-l-xs {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 12px;
+  }
+}
