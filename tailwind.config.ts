@@ -1,5 +1,6 @@
-import { spacing } from 'styles/theme';
 import type { Config } from 'tailwindcss';
+
+import { boxShadow, spacing } from './styles/theme';
 
 const config: Config = {
   content: [
@@ -10,6 +11,7 @@ const config: Config = {
   theme: {
     extend: {
       spacing,
+      boxShadow,
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
