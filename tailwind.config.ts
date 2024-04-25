@@ -1,3 +1,4 @@
+import { spacing } from 'styles/theme';
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
@@ -8,6 +9,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      spacing,
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',

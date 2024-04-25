@@ -1,7 +1,8 @@
 export default function Home() {
   return (
-    <main className='flex min-h-screen flex-col items-center justify-between p-24'>
-      <h1>Main Header</h1>
+    <main className=''>
+      <h1 className=' text-2xl'>Main Header</h1>
+      <button className='p-160'>button</button>
     </main>
   );
 }
