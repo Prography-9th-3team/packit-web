@@ -29,7 +29,8 @@
     ".next/types/**/*.ts",
     "src/__test__/page.test.jsx",
     "jest.config.js",
-    "jest.config.ts"
+    "jest.config.ts",
+    "tailwind.config.js"
   ],
   "exclude": ["node_modules"]
 }

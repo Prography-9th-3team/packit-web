@@ -1,8 +1,7 @@
-import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
+import { boxShadow, colors, spacing, typography } from './styles/theme';
 
-import { boxShadow, colors, spacing } from './styles/theme';
-
-const config: Config = {
+const config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -19,7 +18,12 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    plugin(function ({ addUtilities }) {
+      addUtilities([typography]);
+    }),
+  ],
 };
 
 export default config;

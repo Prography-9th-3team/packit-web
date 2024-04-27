@@ -10,9 +10,9 @@ export const colors = {
   'secondary-pressed': '#E2E5E9',
 
   // critcal
-  critcal: '#FE5868',
-  'critcal-hover': '#FE7683',
-  'critcal-pressed': '#FECDD3',
+  critical: '#FE5868',
+  'critical-hover': '#FE7683',
+  'critical-pressed': '#FECDD3',
 
   disabled: '#EAEBEC',
 };
