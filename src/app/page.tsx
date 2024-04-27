@@ -1,4 +1,4 @@
-export default function Home() {
+const Home = () => {
   return (
     <main className=''>
       <h1 className='heading-5xl-bd text-primary'>Main Header</h1>
@@ -22,4 +22,6 @@ export default function Home() {
       </div>
     </main>
   );
-}
+};
+
+export default Home;
