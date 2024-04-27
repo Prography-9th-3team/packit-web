@@ -1,0 +1,118 @@
+{
+  "path": "cz-emoji",
+  "config": {
+    "cz-emoji": {
+      "subjectMaxLength": 200,
+      "conventional": true,
+      "symbol": true,
+      "skipQuestions": [
+        "breaking",
+        "scope",
+        "issues"
+      ],
+      "types": [
+        {
+          "emoji": "✨",
+          "code": ":sparkles:",
+          "description": "새로운 기능 추가 및 기능 변경",
+          "name": "FEAT"
+        },
+        {
+          "emoji": "🐛",
+          "code": ":bug:",
+          "description": "일반적인 버그 수정",
+          "name": "FIX"
+        },
+        {
+          "emoji": "🚑️",
+          "code": ":ambulance:",
+          "description": "긴급한 핫픽스 수정",
+          "name": "HOTFIX"
+        },
+        {
+          "emoji": "♻️",
+          "code": ":recycle:",
+          "description": "코드 리펙토링 (더 좋은 코드를 위한 수정 및 삭제)",
+          "name": "REFACTOR"
+        },
+        {
+          "emoji": "💄",
+          "code": ":lipstick:",
+          "description": "CSS 등 사용자 UI 디자인 변경",
+          "name": "DESIGN"
+        }
+        {
+          "emoji": "🔥",
+          "code": ":fire:",
+          "description": "코드나 파일 삭제",
+          "name": "REMOVE"
+        },
+        {
+          "emoji": "🎨",
+          "code": ":art:",
+          "description": "코드 포맷팅, 세미콜론 누락, 코드 변경이 없는 경우",
+          "name": "STYLE"
+        },
+        {
+          "emoji": "🚑",
+          "code": ":ambulance:",
+          "description": "긴급한 핫픽스 수정",
+          "name": "HOTFIX"
+        },
+        {
+          "emoji": "⚡️",
+          "code": ":zap:",
+          "description": "성능 개선 작업",
+          "name": "PERF"
+        },
+        {
+          "emoji": "🚧",
+          "code": ":construction:",
+          "description": "작업중인 코드",
+          "name": "WIP"
+        },
+        {
+          "emoji": "🔀",
+          "code": ":twisted_rightwards_arrows:",
+          "description": "브랜치 머지 관련 커밋 (Git Pull, Git Merge)",
+          "name": "MERGE"
+        },
+        {
+          "emoji": "🚨",
+          "code": ":rotating_light:",
+          "description": "빌드 에러 수정",
+          "name": "BUILD-ERROR"
+        },
+        {
+          "emoji": "⏪",
+          "code": ":rewind:",
+          "description": "변경사항 Revert",
+          "name": "REVERT"
+        },
+        {
+          "emoji": "✅",
+          "code": ":white_check_mark:",
+          "description": "테스트 코드 추가",
+          "name": "TEST"
+        },
+        {
+          "emoji": "🔧",
+          "code": ":wrench:",
+          "description": "세팅 관련 파일 (ESLint, Tailwind, package.json, etc.) 추가 및 변경",
+          "name": "CHORE"
+        },
+        {
+          "emoji": "📝",
+          "ci": ":memo:",
+          "description": "문서화 작업 (README.md, Wiki, etc.)",
+          "name": "DOCS"
+        }
+      ],
+      "questions": {
+        "type": "해당 커밋의 종류를 골라주세요",
+        "subject": "커밋 메세지를 작성해주세요",
+        "body": "[actionable] Github URL or [packit-web] Issue URL (선택사항 - Enter로 스킵)"
+      }
+    }
+  }
+}
