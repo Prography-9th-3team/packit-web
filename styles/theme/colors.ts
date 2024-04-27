@@ -98,7 +98,13 @@ export const colors = {
     sub: '#717680',
   },
 
-  'filed-disabled': '#7378820D',
-  backdrop: '#00000026',
-  disabled: '#EAEBEC',
+  'filed-disabled': {
+    DEFALUT: '#7378820D',
+  },
+  backdrop: {
+    DEFAULT: '#00000026',
+  },
+  disabled: {
+    DEFAULT: '#EAEBEC',
+  },
 };
