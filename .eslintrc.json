@@ -12,7 +12,7 @@
   "plugins": ["@tanstack/query", "@typescript-eslint", "prettier", "react", "react-hooks"],
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx"]
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx", "*.mdx"]
     }
   ],
   "rules": {
