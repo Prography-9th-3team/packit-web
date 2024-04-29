@@ -17,6 +17,7 @@
   ],
   "rules": {
     "no-undef": "off",
+    "no-unused-vars": "off",
     "no-duplicate-imports": "error",
     "@next/next/no-html-link-for-pages": "error",
     "@tanstack/query/stable-query-client": "error",
@@ -27,7 +28,6 @@
     "react/no-unknown-property": "off",
     "react-hooks/rules-of-hooks": "off",
     "@typescript-eslint/ban-ts-comment": "off",
-    "no-unused-vars": "warn",
     "padding-line-between-statements": [
       "error",
       { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
