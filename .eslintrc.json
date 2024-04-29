@@ -27,6 +27,7 @@
     "react/no-unknown-property": "off",
     "react-hooks/rules-of-hooks": "off",
     "@typescript-eslint/ban-ts-comment": "off",
+    "no-unused-vars": "warn",
     "padding-line-between-statements": [
       "error",
       { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
