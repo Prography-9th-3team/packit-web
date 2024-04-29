@@ -4,7 +4,37 @@ import { colors } from 'styles/theme';
 <Meta title='Colors' />
 
 <ColorPalette>
-  {Object.keys(colors).map((item) => {
-    return <ColorItem key={item} title={item} subtitle={item + ' color'} colors={colors[item]} />;
+  {Object.keys(colors).map((category) => {
+    const categoryValue = colors[category];
+    if (typeof categoryValue === 'object' && !Array.isArray(categoryValue) && categoryValue !== null) {
+      // 색상이 객체로 further nested된 경우
+      return Object.keys(categoryValue).map((subCategory) => {
+        const subCategoryValue = categoryValue[subCategory];
+        if (typeof subCategoryValue === 'object' && !Array.isArray(subCategoryValue) && subCategoryValue !== null) {
+          // 더욱 세부적인 nested colors 처리
+          return (
+            <ColorItem
+              key={`${category}-${subCategory}`}
+              title={`theme.color.${category}.${subCategory}`}
+              subtitle={`${subCategory} colors of ${category}`}
+              colors={subCategoryValue}
+            />
+          );
+        } else {
+          // Single depth color 처리
+          return (
+            <ColorItem
+              key={`${category}-${subCategory}`}
+              title={`theme.color.${category}.${subCategory}`}
+              subtitle={`${category} ${subCategory}`}
+              colors={{ [subCategory]: subCategoryValue }}
+            />
+          );
+        }
+      });
+    } else {
+      // Single depth color 처리
+      return <ColorItem key={category} title={`theme.color.${category}`} subtitle={`${category}`} colors={{ [category]: categoryValue }} />;
+    }
   })}
 </ColorPalette>
