@@ -12,7 +12,7 @@
   "plugins": ["@tanstack/query", "@typescript-eslint", "prettier", "react", "react-hooks"],
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx"]
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx", "*.mdx"]
     }
   ],
   "rules": {
@@ -26,6 +26,7 @@
     "react/no-unescaped-entities": "off",
     "react/no-unknown-property": "off",
     "react-hooks/rules-of-hooks": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
     "padding-line-between-statements": [
       "error",
       { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
