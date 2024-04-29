@@ -21,6 +21,7 @@ const config = {
   plugins: [
     require('tailwindcss-animate'),
     plugin(function ({ addUtilities }) {
+      // @ts-ignore
       addUtilities([typography]);
     }),
   ],

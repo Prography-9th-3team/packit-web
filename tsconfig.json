@@ -30,7 +30,7 @@
     "src/__test__/page.test.jsx",
     "jest.config.js",
     "jest.config.ts",
-    "tailwind.config.js"
+    "tailwind.config.ts"
   ],
   "exclude": ["node_modules"]
 }
