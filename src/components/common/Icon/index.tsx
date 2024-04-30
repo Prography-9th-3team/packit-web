@@ -1,16 +1,17 @@
-import { IconComponents } from './IconComponents';
+import { SVGProps } from 'react';
+import * as iconTypes from './lib/index';
 
-interface IIcon {
-  name: keyof typeof IconComponents;
-  width?: number;
-  height?: number;
-  fill?: string;
+export type IconTypes = keyof typeof iconTypes;
+
+export interface IconProps extends SVGProps<SVGSVGElement> {
+  name: IconTypes;
+  className?: string;
 }
 
-const Icon = ({ name, width = 21, height = 21, fill = '#14142b' }: IIcon) => {
-  const IconComponent = IconComponents[name];
+const Icon = ({ name, className, ...props }: IconProps) => {
+  const IconComponent = iconTypes[name];
 
-  return <IconComponent width={width} height={height} fill={fill} />;
+  return <IconComponent className={className} {...props} />;
 };
 
 export default Icon;
