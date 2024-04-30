@@ -83,6 +83,7 @@ export const Error: Story = {
     return (
       <div className='flex gap-5'>
         <Toast {...args}>
+          <ToastIcon />
           <ToastLabel>텍스트</ToastLabel>
           <ToastButton>버튼</ToastButton>
         </Toast>
