@@ -1,7 +1,7 @@
 export const colors = {
   action: {
     primary: {
-      default: '#7BC600',
+      DEFAULT: '#7BC600',
       hover: '#A3D74D',
       pressed: '#BDE280',
       tonal: '#7BC6001A',
@@ -13,7 +13,7 @@ export const colors = {
       disabled: '#EAEBEC',
     },
     critical: {
-      default: '#FE5856',
+      DEFAULT: '#FE5856',
       hover: '#FE5868',
       pressed: '#FECDD3',
       disabled: '#EAEBEC',
@@ -21,48 +21,48 @@ export const colors = {
   },
 
   border: {
-    default: '#DBDEE3',
+    DEFAULT: '#DBDEE3',
     'critical-hover': '#FEA3AC',
     focus: '#7BC600',
     hover: '#A3D74D',
   },
 
   divide: {
-    default: '#E2E5E9',
+    DEFAULT: '#E2E5E9',
     primary: '#7BC600',
     minimal: '#EFF1F4',
     on: '#15181E',
   },
 
   'filed-disabled': {
-    default: '#7378820D',
+    DEFAULT: '#7378820D',
   },
   backdrop: {
-    default: 'rgba(0, 0, 0, 0.15)',
+    DEFAULT: 'rgba(0, 0, 0, 0.15)',
   },
 
   icon: {
-    default: '#4B515B',
+    DEFAULT: '#4B515B',
     disabled: '#BCC0C6',
     minimal: '#9298A7',
     sub: '#717680',
     on: '#FFFFFF',
     critical: {
-      default: '#FE5868',
+      DEFAULT: '#FE5868',
       hover: '#FE7683',
     },
     primary: {
-      default: '#7BC600',
+      DEFAULT: '#7BC600',
       hover: '#A3D74D',
     },
     secondary: {
-      default: '#717680',
+      DEFAULT: '#717680',
       hover: '#9FA3AB',
     },
   },
 
   surface: {
-    default: '#FFFFFF',
+    DEFAULT: '#FFFFFF',
     critical: '#FFF2F3',
     empty: '#E2E5E9',
     minimal: '#FDFDFD',
@@ -70,46 +70,46 @@ export const colors = {
   },
 
   text: {
-    default: '#15181E',
+    DEFAULT: '#15181E',
     disabled: '#BCC0C6',
     minimal: '#9298A7',
     on: '#FFFFFF',
     sub: '#717680',
 
     critical: {
-      default: '#FE5868',
+      DEFAULT: '#FE5868',
       hover: '#FE7683',
     },
     primary: {
-      default: '#7BC600',
+      DEFAULT: '#7BC600',
       hover: '#A3D74D',
     },
     secondary: {
-      default: '#717680',
+      DEFAULT: '#717680',
       hover: '#9FA3AB',
     },
   },
 
   // 아래부터는 팔레트
   primary: {
-    default: '#7BC600',
+    DEFAULT: '#7BC600',
     hover: '#A3D74D',
     pressed: '#BDE280',
   },
 
   secondary: {
-    default: '#717680',
+    DEFAULT: '#717680',
     hover: '#9FA3AB',
     pressed: '#E2E5E9',
   },
 
   critical: {
-    default: '#FE5868',
+    DEFAULT: '#FE5868',
     hover: '#FE7683',
     pressed: '#FECDD3',
   },
 
   disabled: {
-    default: '#EAEBEC',
+    DEFAULT: '#EAEBEC',
   },
 };
