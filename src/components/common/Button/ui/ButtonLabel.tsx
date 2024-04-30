@@ -1,9 +1,10 @@
 import { cn } from '@/lib/utils';
 import { cva } from 'class-variance-authority';
+import { PropsWithChildren } from 'react';
 import { useButtonState } from '../modules/ButtonStateContext';
 
-export interface IButtonLabel {
-  children: React.ReactNode;
+export interface IButtonLabel extends PropsWithChildren {
+  // TODO: 나중에 필요한 props 있으면 추가!
 }
 
 const ButtonLabel = ({ children }: IButtonLabel) => {
