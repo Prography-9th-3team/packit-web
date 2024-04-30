@@ -2,8 +2,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es5",
-    "module": "es2015",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "declaration": true,
@@ -22,7 +26,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
   "include": [
@@ -35,5 +41,7 @@
     "jest.config.ts",
     "tailwind.config.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
