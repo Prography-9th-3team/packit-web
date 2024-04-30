@@ -16,4 +16,4 @@ const config: Config = {
   preset: 'ts-jest',
 };
 
-export default createJestConfig(config);
+createJestConfig(config);
