@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Toast } from '.';
+import ToastLabel from './ui/ToastLabel';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -15,13 +16,13 @@ type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Defualt: Story = {
-  args: { type: 'defualt' },
+  args: { type: 'defualt', children: <ToastLabel>텍스트</ToastLabel> },
 };
 
 export const Success: Story = {
-  args: { type: 'success' },
+  args: { type: 'success', children: <ToastLabel>텍스트</ToastLabel> },
 };
 
 export const Error: Story = {
-  args: { type: 'error' },
+  args: { type: 'error', children: <ToastLabel>텍스트</ToastLabel> },
 };
