@@ -3,11 +3,13 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { PropsWithChildren } from 'react';
 import { ToastContext } from '../modules/ToastStateContext';
 
-export interface IToastMain extends PropsWithChildren, VariantProps<typeof toastMainVariants> {}
+export interface IToastMain extends PropsWithChildren, VariantProps<typeof toastMainVariants> {
+  handleOnClick?: () => void;
+}
 
-const ToastMain = ({ type, children }: IToastMain) => {
+const ToastMain = ({ type, children, handleOnClick }: IToastMain) => {
   return (
-    <ToastContext.Provider value={''}>
+    <ToastContext.Provider value={{ handleOnClick }}>
       <div className={cn(toastMainVariants({ type }))}>{children}</div>
     </ToastContext.Provider>
   );
@@ -18,13 +20,13 @@ export const toastMainVariants = cva(
   {
     variants: {
       type: {
-        defualt: 'bg-toast',
+        default: 'bg-toast',
         success: 'bg-toast-success',
         error: 'bg-toast-error',
       },
     },
     defaultVariants: {
-      type: 'defualt',
+      type: 'default',
     },
   },
 );
