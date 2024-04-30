@@ -34,7 +34,7 @@ export const colors = {
     on: '#15181E',
   },
 
-  'filed-disabled': {
+  'filled-disabled': {
     DEFAULT: '#7378820D',
   },
   backdrop: {
