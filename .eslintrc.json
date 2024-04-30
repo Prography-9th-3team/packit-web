@@ -17,6 +17,7 @@
   ],
   "rules": {
     "no-undef": "off",
+    "no-unused-vars": "off",
     "no-duplicate-imports": "error",
     "@next/next/no-html-link-for-pages": "error",
     "@tanstack/query/stable-query-client": "error",
