@@ -1,11 +1,9 @@
 import { createContext, useContext } from 'react';
-import { BUTTON_SIZE } from '../types';
 
 interface DefaultValueState {
+  // 공유할 State -> Main뿐만 아니라, Icon, Label에서도 쓰이면 Context로 전달!
   isLoading: boolean;
   disabled: boolean;
-  type: BUTTON_SIZE[keyof BUTTON_SIZE];
-  size: BUTTON_SIZE[keyof BUTTON_SIZE];
 }
 
 export const ButtonContext = createContext<DefaultValueState | null>(null);

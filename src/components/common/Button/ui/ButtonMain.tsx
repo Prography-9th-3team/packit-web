@@ -1,17 +1,25 @@
+import { cn } from '@/lib/utils';
 import { VariantProps, cva } from 'class-variance-authority';
 import { PropsWithChildren } from 'react';
+import { ButtonContext } from '../modules/ButtonStateContext';
 
-interface IButtonMain extends PropsWithChildren, VariantProps<typeof buttonVariants> {
-  isLoading?: boolean;
-  isIconMoe?: boolean;
+interface IButtonMain extends PropsWithChildren, VariantProps<typeof buttonMainVariants> {
+  isLoading: boolean;
+  disabled: boolean;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const ButtonMain = ({ children }: IButtonMain) => {
-  return <div>{children}</div>;
+const ButtonMain = ({ size, type, children, onClick, isLoading, disabled }: IButtonMain) => {
+  return (
+    <ButtonContext.Provider value={{ isLoading, disabled }}>
+      <button className={cn(buttonMainVariants({ type, size }))} onClick={onClick}>
+        {children}
+      </button>
+    </ButtonContext.Provider>
+  );
 };
 
-const buttonVariants = cva(['flex justify-center items-center'], {
+const buttonMainVariants = cva(['flex justify-center items-center'], {
   variants: {
     size: {
       large: 'min-w-80 px-16 py-12 rounded-lg gap-8',
@@ -26,6 +34,11 @@ const buttonVariants = cva(['flex justify-center items-center'], {
       secondary: 'hover:bg-action-secondary-hover active:bg-action-secondary-pressed',
       critical: 'bg-critical hover:bg-critical-hover active:bg-critical-pressed',
     },
+  },
+
+  defaultVariants: {
+    size: 'medium',
+    type: 'primary',
   },
 });
 
