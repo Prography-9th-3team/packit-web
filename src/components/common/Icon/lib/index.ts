@@ -17,4 +17,4 @@ export { default as placeholder_s } from './placeholder.svg';
 export { default as plus_s } from './plus.svg';
 export { default as searchSm_s } from './search_sm.svg';
 export { default as warningTriangle_f } from './warning_triangle.svg';
-export { default as xClos_s } from './x_close.svg';
+export { default as xClose_s } from './x_close.svg';
