@@ -7,7 +7,7 @@ const meta = {
   component: Toast,
   tags: ['autodocs'],
   args: {},
-  argTypes: {},
+  argTypes: { type: ['primary', 'secondary', 'critical'] },
 } satisfies Meta<typeof Toast>;
 
 export default meta;
