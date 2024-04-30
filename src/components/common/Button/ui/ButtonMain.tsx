@@ -3,7 +3,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { PropsWithChildren } from 'react';
 import { ButtonContext } from '../modules/ButtonStateContext';
 
-interface IButtonMain extends PropsWithChildren, VariantProps<typeof buttonMainVariants> {
+export interface IButtonMain extends PropsWithChildren, VariantProps<typeof buttonMainVariants> {
   isLoading: boolean;
   disabled: boolean;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
