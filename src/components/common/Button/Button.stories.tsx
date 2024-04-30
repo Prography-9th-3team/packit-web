@@ -8,13 +8,23 @@ const meta = {
   component: Button,
   tags: ['autodocs'],
   args: { onClick: fn() },
+  argTypes: {
+    type: {
+      options: ['primary', 'outline', 'secondary', 'critical'],
+      control: { type: 'select' },
+    },
+    size: {
+      options: ['large', 'medium', 'small', 'tiny'],
+      control: { type: 'select' },
+    },
+  },
 } satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const PrimaryButton: Story = {
+export const Primary: Story = {
   args: {
     type: 'primary',
     size: 'large',
