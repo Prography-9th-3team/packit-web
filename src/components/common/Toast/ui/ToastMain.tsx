@@ -16,7 +16,7 @@ const ToastMain = (props: IToastMain) => {
 };
 
 export const toastMainVariants = cva(
-  ['inline-flex justify-center items-center gap-8 py-16 px-20 rounded-full'],
+  ['inline-flex justify-center items-center gap-8 py-16 px-20 rounded-full '],
   {
     variants: {
       // size: {
@@ -26,13 +26,13 @@ export const toastMainVariants = cva(
       //   tiny: 'px-8 py-6 rounded-md gap-4',
       // },
       type: {
-        primary: 'bg-action-primary',
-        secondary: '',
-        critical: 'bg-icon-critical',
+        defualt: 'bg-toast',
+        success: 'bg-toast-success',
+        error: 'bg-toast-error',
       },
     },
     defaultVariants: {
-      type: 'primary',
+      type: 'defualt',
     },
   },
 );
