@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Toast } from '.';
 import ToastButton from './ui/ToastButton';
+import ToastIcon from './ui/ToastIcon';
 import ToastLabel from './ui/ToastLabel';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
@@ -24,11 +25,13 @@ export const Defualt: Story = {
     return (
       <div className='flex gap-5'>
         <Toast {...args}>
+          <ToastIcon />
           <ToastLabel>텍스트</ToastLabel>
           <ToastButton>버튼</ToastButton>
         </Toast>
 
         <Toast {...args}>
+          <ToastIcon />
           <ToastLabel>텍스트</ToastLabel>
         </Toast>
 
@@ -51,11 +54,13 @@ export const Success: Story = {
     return (
       <div className='flex gap-5'>
         <Toast {...args}>
+          <ToastIcon />
           <ToastLabel>텍스트</ToastLabel>
           <ToastButton>버튼</ToastButton>
         </Toast>
 
         <Toast {...args}>
+          <ToastIcon />
           <ToastLabel>텍스트</ToastLabel>
         </Toast>
 
@@ -83,6 +88,7 @@ export const Error: Story = {
         </Toast>
 
         <Toast {...args}>
+          <ToastIcon />
           <ToastLabel>텍스트</ToastLabel>
         </Toast>
 
