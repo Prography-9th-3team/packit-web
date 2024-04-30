@@ -4,14 +4,21 @@ import { PropsWithChildren } from 'react';
 import { ButtonContext } from '../modules/ButtonStateContext';
 
 export interface IButtonMain extends PropsWithChildren, VariantProps<typeof buttonMainVariants> {
-  isLoading: boolean;
-  disabled: boolean;
+  isLoading?: boolean;
+  disabled?: boolean;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const ButtonMain = ({ size, type, children, onClick, isLoading, disabled }: IButtonMain) => {
+const ButtonMain = ({
+  size,
+  type,
+  children,
+  onClick,
+  isLoading = false,
+  disabled = false,
+}: IButtonMain) => {
   return (
-    <ButtonContext.Provider value={{ isLoading, disabled }}>
+    <ButtonContext.Provider value={{ size, type, isLoading, disabled }}>
       <button className={cn(buttonMainVariants({ type, size }))} onClick={onClick}>
         {children}
       </button>
@@ -19,7 +26,7 @@ const ButtonMain = ({ size, type, children, onClick, isLoading, disabled }: IBut
   );
 };
 
-const buttonMainVariants = cva(['flex justify-center items-center'], {
+export const buttonMainVariants = cva(['flex justify-center items-center'], {
   variants: {
     size: {
       large: 'min-w-80 px-16 py-12 rounded-lg gap-8',
