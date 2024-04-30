@@ -3,11 +3,7 @@
     "baseUrl": ".",
     "target": "es5",
     "module": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "declaration": true,
@@ -26,9 +22,7 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
   "include": [
@@ -39,9 +33,8 @@
     "src/__test__/page.test.jsx",
     "jest.config.js",
     "jest.config.ts",
-    "tailwind.config.ts"
+    "tailwind.config.ts",
+    "postcss.config.mjs"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
