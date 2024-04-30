@@ -29,12 +29,13 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "**/*.cjs",
     ".next/types/**/*.ts",
     "src/__test__/page.test.jsx",
     "jest.config.js",
     "jest.config.ts",
     "tailwind.config.ts",
-    "postcss.config.mjs"
+    "postcss.config.cjs"
   ],
   "exclude": ["node_modules"]
 }
