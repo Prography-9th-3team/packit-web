@@ -24,7 +24,7 @@ const TagMain = ({ size, disabled = false, isButton = false, children, onClick }
 };
 
 export const tagMainVariants = cva(
-  ['inline-flex items-center bg-surface-sub rounded-[9999px] backdrop-blur-[6px]'],
+  ['inline-flex items-center bg-surface-sub rounded-full backdrop-blur-[6px]'],
   {
     variants: {
       size: {
