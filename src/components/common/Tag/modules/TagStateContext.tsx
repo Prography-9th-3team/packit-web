@@ -1,6 +1,8 @@
+import { VariantProps } from 'class-variance-authority';
 import { createContext, useContext } from 'react';
+import { tagMainVariants } from '../ui/TagMain';
 
-interface DefaultValueState {
+interface DefaultValueState extends VariantProps<typeof tagMainVariants> {
   // 공유할 State -> Main뿐만 아니라, Icon, Label에서도 쓰이면 Context로 전달!
   disabled: boolean;
 }

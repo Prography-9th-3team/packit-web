@@ -1,7 +1,23 @@
-import { cva } from 'class-variance-authority';
+import { cn } from '@/lib/utils';
+import { VariantProps, cva } from 'class-variance-authority';
+import { PropsWithChildren } from 'react';
+import { TagContext } from '../modules/TagStateContext';
 
-const TagMain = () => {
-  return <div>TagMain</div>;
+export interface ITagMain extends PropsWithChildren, VariantProps<typeof tagMainVariants> {
+  disabled?: boolean;
+  isButton?: boolean;
+}
+
+const TagMain = ({ size, disabled = false, isButton = false, children }: ITagMain) => {
+  return (
+    <TagContext.Provider value={{ size, disabled }}>
+      {isButton ? (
+        <button className={cn(tagMainVariants({ size }))}>{children}</button>
+      ) : (
+        <div className={cn(tagMainVariants({ size }))}>{children}</div>
+      )}
+    </TagContext.Provider>
+  );
 };
 
 export const tagMainVariants = cva(
@@ -13,6 +29,9 @@ export const tagMainVariants = cva(
         sm: 'min-w-24 px-8 py-4 gap-4',
         default: 'min-28 px-10 py-2 gap-4',
       },
+    },
+    defaultVariants: {
+      size: 'default',
     },
   },
 );
