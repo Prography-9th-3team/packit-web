@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Toast } from '.';
-import ToastButton from './ui/ToastButton';
 import ToastIcon from './ui/ToastIcon';
-import ToastLabel from './ui/ToastLabel';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -26,22 +24,22 @@ export const Defualt: Story = {
       <div className='flex gap-5'>
         <Toast {...args}>
           <ToastIcon />
-          <ToastLabel>텍스트</ToastLabel>
-          <ToastButton>버튼</ToastButton>
+          <Toast.Label>텍스트</Toast.Label>
+          <Toast.Button>버튼</Toast.Button>
         </Toast>
 
         <Toast {...args}>
           <ToastIcon />
-          <ToastLabel>텍스트</ToastLabel>
+          <Toast.Label>텍스트</Toast.Label>
         </Toast>
 
         <Toast {...args}>
-          <ToastLabel>텍스트</ToastLabel>
-          <ToastButton>버튼</ToastButton>
+          <Toast.Label>텍스트</Toast.Label>
+          <Toast.Button>버튼</Toast.Button>
         </Toast>
 
         <Toast {...args}>
-          <ToastLabel>텍스트</ToastLabel>
+          <Toast.Label>텍스트</Toast.Label>
         </Toast>
       </div>
     );
@@ -55,22 +53,22 @@ export const Success: Story = {
       <div className='flex gap-5'>
         <Toast {...args}>
           <ToastIcon />
-          <ToastLabel>텍스트</ToastLabel>
-          <ToastButton>버튼</ToastButton>
+          <Toast.Label>텍스트</Toast.Label>
+          <Toast.Button>버튼</Toast.Button>
         </Toast>
 
         <Toast {...args}>
           <ToastIcon />
-          <ToastLabel>텍스트</ToastLabel>
+          <Toast.Label>텍스트</Toast.Label>
         </Toast>
 
         <Toast {...args}>
-          <ToastLabel>텍스트</ToastLabel>
-          <ToastButton>버튼</ToastButton>
+          <Toast.Label>텍스트</Toast.Label>
+          <Toast.Button>버튼</Toast.Button>
         </Toast>
 
         <Toast {...args}>
-          <ToastLabel>텍스트</ToastLabel>
+          <Toast.Label>텍스트</Toast.Label>
         </Toast>
       </div>
     );
@@ -84,22 +82,22 @@ export const Error: Story = {
       <div className='flex gap-5'>
         <Toast {...args}>
           <ToastIcon />
-          <ToastLabel>텍스트</ToastLabel>
-          <ToastButton>버튼</ToastButton>
+          <Toast.Label>텍스트</Toast.Label>
+          <Toast.Button>버튼</Toast.Button>
         </Toast>
 
         <Toast {...args}>
           <ToastIcon />
-          <ToastLabel>텍스트</ToastLabel>
+          <Toast.Label>텍스트</Toast.Label>
         </Toast>
 
         <Toast {...args}>
-          <ToastLabel>텍스트</ToastLabel>
-          <ToastButton>버튼</ToastButton>
+          <Toast.Label>텍스트</Toast.Label>
+          <Toast.Button>버튼</Toast.Button>
         </Toast>
 
         <Toast {...args}>
-          <ToastLabel>텍스트</ToastLabel>
+          <Toast.Label>텍스트</Toast.Label>
         </Toast>
       </div>
     );
