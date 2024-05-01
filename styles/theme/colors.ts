@@ -90,6 +90,13 @@ export const colors = {
     },
   },
 
+  // Toast 추가 컬러
+  toast: {
+    DEFAULT: '#0B0C0ED9',
+    success: '#7BC600D9',
+    error: '#FE5868D9',
+  },
+
   // 아래부터는 팔레트
   primary: {
     DEFAULT: '#7BC600',
