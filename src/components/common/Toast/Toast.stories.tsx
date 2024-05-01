@@ -7,7 +7,7 @@ const meta = {
   title: 'Common/Toast',
   component: Toast,
   tags: ['autodocs'],
-  args: { handleOnClick: () => alert('Toast Click') },
+  args: { onClick: () => alert('Toast Click') },
   argTypes: {
     type: { options: ['default', 'success', 'error'], control: { type: 'select' } },
   },
