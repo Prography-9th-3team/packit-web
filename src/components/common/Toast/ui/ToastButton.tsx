@@ -4,10 +4,10 @@ import { useToastState } from '../modules/ToastStateContext';
 export interface IToastButton extends PropsWithChildren {}
 
 const ToastButton = ({ children }: IToastButton) => {
-  const { handleOnClick } = useToastState();
+  const { onClick } = useToastState();
 
   return (
-    <button className='cursor-pointer label-md text-secondary' onClick={handleOnClick}>
+    <button className='cursor-pointer label-md text-secondary' onClick={onClick}>
       {children}
     </button>
   );

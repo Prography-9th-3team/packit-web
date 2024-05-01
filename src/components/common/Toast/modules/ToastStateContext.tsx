@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
 interface DefaultValueState {
-  handleOnClick?: () => void;
+  onClick?: () => void;
 }
 
 export const ToastContext = createContext<DefaultValueState | null>(null);

@@ -4,12 +4,12 @@ import { PropsWithChildren } from 'react';
 import { ToastContext } from '../modules/ToastStateContext';
 
 export interface IToastMain extends PropsWithChildren, VariantProps<typeof toastMainVariants> {
-  handleOnClick?: () => void;
+  onClick?: () => void;
 }
 
-const ToastMain = ({ type, children, handleOnClick }: IToastMain) => {
+const ToastMain = ({ type, children, onClick }: IToastMain) => {
   return (
-    <ToastContext.Provider value={{ handleOnClick }}>
+    <ToastContext.Provider value={{ onClick }}>
       <div className={cn(toastMainVariants({ type }))}>{children}</div>
     </ToastContext.Provider>
   );
