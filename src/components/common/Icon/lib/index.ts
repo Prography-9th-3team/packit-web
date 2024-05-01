@@ -17,5 +17,6 @@ export { default as home04_s } from './home_04.svg';
 export { default as placeholder_s } from './placeholder.svg';
 export { default as plus_s } from './plus.svg';
 export { default as searchSm_s } from './search_sm.svg';
+export { default as user_s } from './user.svg';
 export { default as warningTriangle_f } from './warning_triangle.svg';
 export { default as xClose_s } from './x_close.svg';
