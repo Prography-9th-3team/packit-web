@@ -6,13 +6,16 @@ import { TagContext } from '../modules/TagStateContext';
 export interface ITagMain extends PropsWithChildren, VariantProps<typeof tagMainVariants> {
   disabled?: boolean;
   isButton?: boolean;
+  onClick?: () => void;
 }
 
-const TagMain = ({ size, disabled = false, isButton = false, children }: ITagMain) => {
+const TagMain = ({ size, disabled = false, isButton = false, children, onClick }: ITagMain) => {
   return (
     <TagContext.Provider value={{ size, disabled }}>
       {isButton ? (
-        <button className={cn(tagMainVariants({ size }))}>{children}</button>
+        <button className={cn(tagMainVariants({ size }))} onClick={!disabled ? onClick : () => {}}>
+          {children}
+        </button>
       ) : (
         <div className={cn(tagMainVariants({ size }))}>{children}</div>
       )}
