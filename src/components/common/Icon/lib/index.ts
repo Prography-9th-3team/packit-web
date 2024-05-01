@@ -1,4 +1,5 @@
 // fill이 current면 맨 뒤에 f를, stroke가 current면 맨 뒤에 s를 붙여준다.
+// svg 태그에 붙어있는 width, height는 삭제하고, viewbox는 남긴다.
 
 /*사용법  
 1. fill이 current 인 경우 
