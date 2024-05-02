@@ -2,15 +2,16 @@ import { cn } from '@/lib/utils';
 import { ChangeEvent, useState } from 'react';
 import Icon from '../Icon';
 
-interface ICheck {
+export interface ICheck {
   name?: string;
   checked?: boolean;
   onChange?: (checked: boolean) => void;
+  defaultChecked?: boolean;
 }
 
-const Check = ({ name, checked: controlledChecked, onChange }: ICheck) => {
+const Check = ({ name, checked: controlledChecked, onChange, defaultChecked = false }: ICheck) => {
   const isControlled = controlledChecked !== undefined;
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(defaultChecked);
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
