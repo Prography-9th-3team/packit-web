@@ -1,6 +1,12 @@
-import { createContext, useContext } from 'react';
+import { ChangeEvent, createContext, useContext } from 'react';
 
-interface DefaultValueState {}
+interface DefaultValueState {
+  text: string;
+  placeholder?: string;
+  tagList?: Array<string>;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onAddTag?: () => void;
+}
 
 export const SelectContext = createContext<DefaultValueState | null>(null);
 
