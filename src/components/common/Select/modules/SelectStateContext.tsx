@@ -4,9 +4,10 @@ interface DefaultValueState {
   type: 'default' | 'invalid';
   text: string;
   placeholder?: string;
-  tagList?: Array<string>;
+  tagList?: Array<{ id: number; label: string }>;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onAddTag?: () => void;
+  onRemoveTag?: (id: number) => void;
   isDisabled?: boolean;
 }
 

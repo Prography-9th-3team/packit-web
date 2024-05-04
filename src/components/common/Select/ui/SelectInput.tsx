@@ -13,6 +13,7 @@ const SelectInput = () => {
     tagList = [],
     onChange,
     onAddTag,
+    onRemoveTag,
     isDisabled: disabled,
   } = useSelectState();
 
@@ -22,13 +23,18 @@ const SelectInput = () => {
     }
   };
 
+  const handleDeleteTag = (id: number) => {
+    if (!onRemoveTag) return;
+    onRemoveTag(id);
+  };
+
   return (
     <div className={cn(selectInputWrapperVariants({ type, disabled }))}>
       {tagList?.length > 0 && (
         <div className='flex items-center gap-4'>
-          {tagList?.map((tag, idx) => (
-            <Tag key={idx} isButton>
-              <Tag.Label>{tag}</Tag.Label>
+          {tagList?.map((tag) => (
+            <Tag key={tag.id} isButton onClick={() => handleDeleteTag(tag.id)}>
+              <Tag.Label>{tag.label}</Tag.Label>
               <Icon name='xClose_s' className='w-16 h-16 stroke-icon-sub' />
             </Tag>
           ))}
@@ -52,7 +58,7 @@ const SelectInput = () => {
 };
 
 export const selectInputWrapperVariants = cva(
-  ['w-full min-h-48 flex items-center justify-between gap-8 px-16 py-10 border rounded-lg'],
+  ['w-full max-h-48 h-full flex items-center justify-between gap-8 px-16 py-12 border rounded-lg'],
   {
     variants: {
       type: {

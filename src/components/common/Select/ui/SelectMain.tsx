@@ -5,9 +5,10 @@ export interface ISelectMain extends PropsWithChildren {
   type?: 'default' | 'invalid';
   text: string;
   placeholder?: string;
-  tagList?: Array<string>;
+  tagList?: Array<{ id: number; label: string }>;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onAddTag?: () => void;
+  onRemoveTag?: (id: number) => void;
   isDisabled?: boolean;
 }
 
@@ -18,12 +19,13 @@ const SelectMain = ({
   tagList,
   onChange,
   onAddTag,
-  children,
+  onRemoveTag,
   isDisabled,
+  children,
 }: ISelectMain) => {
   return (
     <SelectContext.Provider
-      value={{ type, text, placeholder, tagList, onChange, onAddTag, isDisabled }}
+      value={{ type, text, placeholder, tagList, onChange, onAddTag, onRemoveTag, isDisabled }}
     >
       <div className='flex flex-col gap-6'>{children}</div>
     </SelectContext.Provider>
