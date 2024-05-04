@@ -1,9 +1,9 @@
-import { useSelectState } from '../modules/SelectStateContext';
+import { PropsWithChildren } from 'react';
 
-const SelectLabel = () => {
-  const { label } = useSelectState();
+export interface ISelectLabel extends PropsWithChildren {}
 
-  return <label className='label-md-bold'>{label}</label>;
+const SelectLabel = ({ children }: ISelectLabel) => {
+  return <label className='label-md-bold'>{children}</label>;
 };
 
 export default SelectLabel;

@@ -7,7 +7,12 @@ const meta = {
   title: 'Common/Select',
   component: Select,
   tags: ['autodocs'],
-  args: { type: 'default', placeholder: '플레이스홀더', text: '', onChange: (e) => e },
+  args: {
+    type: 'default',
+    placeholder: '플레이스홀더',
+    text: '',
+    onChange: (e) => e,
+  },
   argTypes: {
     type: {
       options: ['default', 'invalid'],
@@ -21,7 +26,7 @@ type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Default: Story = {
-  args: { label: 'Label', subText: 'Helptext' },
+  args: {},
   render: (args) => {
     const [text, setText] = useState<string>('');
     const [tags, setTags] = useState<Array<string>>([]);
@@ -38,7 +43,7 @@ export const Default: Story = {
     };
 
     return (
-      <div className='flex gap-5'>
+      <div className='w-[500px] flex flex-col gap-32'>
         <Select
           {...args}
           text={text}
@@ -46,9 +51,175 @@ export const Default: Story = {
           onChange={handleChangeText}
           onAddTag={handleAddTag}
         >
-          <Select.Label />
+          <Select.Label>Label</Select.Label>
           <Select.Input />
-          <Select.Text />
+          <Select.Text>HelpText</Select.Text>
+        </Select>
+
+        <Select
+          {...args}
+          text={text}
+          tagList={tags}
+          onChange={handleChangeText}
+          onAddTag={handleAddTag}
+        >
+          <Select.Input />
+          <Select.Text>HelpText</Select.Text>
+        </Select>
+
+        <Select
+          {...args}
+          text={text}
+          tagList={tags}
+          onChange={handleChangeText}
+          onAddTag={handleAddTag}
+        >
+          <Select.Label>Label</Select.Label>
+          <Select.Input />
+        </Select>
+
+        <Select
+          {...args}
+          text={text}
+          tagList={tags}
+          onChange={handleChangeText}
+          onAddTag={handleAddTag}
+        >
+          <Select.Input />
+        </Select>
+      </div>
+    );
+  },
+};
+
+export const Invalid: Story = {
+  args: { type: 'invalid' },
+  render: (args) => {
+    const [text, setText] = useState<string>('');
+    const [tags, setTags] = useState<Array<string>>([]);
+
+    const handleChangeText = (e: ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+
+      setText(value);
+    };
+
+    const handleAddTag = () => {
+      setTags((prev) => [...prev, text]);
+      setText('');
+    };
+
+    return (
+      <div className='w-[500px] flex flex-col gap-32'>
+        <Select
+          {...args}
+          text={text}
+          tagList={tags}
+          onChange={handleChangeText}
+          onAddTag={handleAddTag}
+        >
+          <Select.Label>Label</Select.Label>
+          <Select.Input />
+          <Select.Text>HelpText</Select.Text>
+        </Select>
+
+        <Select
+          {...args}
+          text={text}
+          tagList={tags}
+          onChange={handleChangeText}
+          onAddTag={handleAddTag}
+        >
+          <Select.Input />
+          <Select.Text>HelpText</Select.Text>
+        </Select>
+
+        <Select
+          {...args}
+          text={text}
+          tagList={tags}
+          onChange={handleChangeText}
+          onAddTag={handleAddTag}
+        >
+          <Select.Label>Label</Select.Label>
+          <Select.Input />
+        </Select>
+
+        <Select
+          {...args}
+          text={text}
+          tagList={tags}
+          onChange={handleChangeText}
+          onAddTag={handleAddTag}
+        >
+          <Select.Input />
+        </Select>
+      </div>
+    );
+  },
+};
+
+export const Disabled: Story = {
+  args: { isDisabled: true },
+  render: (args) => {
+    const [text, setText] = useState<string>('');
+    const [tags, setTags] = useState<Array<string>>([]);
+
+    const handleChangeText = (e: ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+
+      setText(value);
+    };
+
+    const handleAddTag = () => {
+      setTags((prev) => [...prev, text]);
+      setText('');
+    };
+
+    return (
+      <div className='w-[500px] flex flex-col gap-32'>
+        <Select
+          {...args}
+          text={text}
+          tagList={tags}
+          onChange={handleChangeText}
+          onAddTag={handleAddTag}
+        >
+          <Select.Label>Label</Select.Label>
+          <Select.Input />
+          <Select.Text>HelpText</Select.Text>
+        </Select>
+
+        <Select
+          {...args}
+          text={text}
+          tagList={tags}
+          onChange={handleChangeText}
+          onAddTag={handleAddTag}
+        >
+          <Select.Input />
+          <Select.Text>HelpText</Select.Text>
+        </Select>
+
+        <Select
+          {...args}
+          text={text}
+          tagList={tags}
+          onChange={handleChangeText}
+          onAddTag={handleAddTag}
+        >
+          <Select.Label>Label</Select.Label>
+          <Select.Input />
+        </Select>
+
+        <Select
+          {...args}
+          text={text}
+          tagList={tags}
+          onChange={handleChangeText}
+          onAddTag={handleAddTag}
+        >
+          <Select.Input />
         </Select>
       </div>
     );

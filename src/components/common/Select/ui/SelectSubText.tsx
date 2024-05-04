@@ -1,9 +1,9 @@
-import { useSelectState } from '../modules/SelectStateContext';
+import { PropsWithChildren } from 'react';
 
-const SelectSubText = () => {
-  const { subText } = useSelectState();
+export interface ISelectSubText extends PropsWithChildren {}
 
-  return <p className='text-text-sub label-sm'>{subText}</p>;
+const SelectSubText = ({ children }: ISelectSubText) => {
+  return <p className='text-text-sub label-sm'>{children}</p>;
 };
 
 export default SelectSubText;

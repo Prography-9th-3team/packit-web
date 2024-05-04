@@ -3,8 +3,6 @@ import { SelectContext } from '../modules/SelectStateContext';
 
 export interface ISelectMain extends PropsWithChildren {
   type?: 'default' | 'invalid';
-  label?: string;
-  subText?: string;
   text: string;
   placeholder?: string;
   tagList?: Array<string>;
@@ -16,8 +14,6 @@ export interface ISelectMain extends PropsWithChildren {
 const SelectMain = ({
   type = 'default',
   text,
-  label,
-  subText,
   placeholder,
   tagList,
   onChange,
@@ -27,7 +23,7 @@ const SelectMain = ({
 }: ISelectMain) => {
   return (
     <SelectContext.Provider
-      value={{ type, label, subText, text, placeholder, tagList, onChange, onAddTag, isDisabled }}
+      value={{ type, text, placeholder, tagList, onChange, onAddTag, isDisabled }}
     >
       <div className='flex flex-col gap-6'>{children}</div>
     </SelectContext.Provider>

@@ -52,7 +52,7 @@ const SelectInput = () => {
 };
 
 export const selectInputWrapperVariants = cva(
-  ['min-w-[300px] min-h-48 flex items-center justify-between gap-8 px-16 py-10 border rounded-lg'],
+  ['w-full min-h-48 flex items-center justify-between gap-8 px-16 py-10 border rounded-lg'],
   {
     variants: {
       type: {

@@ -2,8 +2,6 @@ import { ChangeEvent, createContext, useContext } from 'react';
 
 interface DefaultValueState {
   type: 'default' | 'invalid';
-  label?: string;
-  subText?: string;
   text: string;
   placeholder?: string;
   tagList?: Array<string>;
