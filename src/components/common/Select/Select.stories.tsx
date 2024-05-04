@@ -7,8 +7,13 @@ const meta = {
   title: 'Common/Select',
   component: Select,
   tags: ['autodocs'],
-  args: {},
-  argTypes: {},
+  args: { type: 'default', placeholder: '플레이스홀더', text: '', onChange: (e) => e },
+  argTypes: {
+    type: {
+      options: ['default', 'invalid'],
+      control: { type: 'select' },
+    },
+  },
 } satisfies Meta<typeof Select>;
 
 export default meta;
@@ -16,13 +21,8 @@ type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Default: Story = {
-  args: {
-    text: '',
-    onChange(e) {
-      e;
-    },
-  },
-  render: () => {
+  args: { label: 'Label', subText: 'Helptext' },
+  render: (args) => {
     const [text, setText] = useState<string>('');
     const [tags, setTags] = useState<Array<string>>([]);
 
@@ -40,15 +40,15 @@ export const Default: Story = {
     return (
       <div className='flex gap-5'>
         <Select
+          {...args}
           text={text}
-          placeholder='플레이스홀더'
           tagList={tags}
           onChange={handleChangeText}
           onAddTag={handleAddTag}
         >
-          <Select.Label>Label</Select.Label>
+          <Select.Label />
           <Select.Input />
-          <Select.Text>Helptext</Select.Text>
+          <Select.Text />
         </Select>
       </div>
     );
