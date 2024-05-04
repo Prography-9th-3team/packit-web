@@ -10,7 +10,7 @@ export interface ICheck {
 }
 
 const Check = ({ name, checked: controlledChecked, onChange, defaultChecked = false }: ICheck) => {
-  const isControlled = controlledChecked !== undefined;
+  const isControlled = !!controlledChecked;
   const [checked, setChecked] = useState(defaultChecked);
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +33,7 @@ const Check = ({ name, checked: controlledChecked, onChange, defaultChecked = fa
             isChecked ? 'bg-action-primary border-action-primary' : 'border-border',
           )}
         >
-          {isChecked && <Icon name='checkOn_f' className={cn('text-icon-on', 'w-16', 'h-16')} />}
+          {isChecked && <Icon name='checkOn_f' className='text-icon-on w-16 h-16' />}
         </div>
         <input name={name} type='checkbox' checked={isChecked} onChange={handleOnChange} hidden />
       </label>
