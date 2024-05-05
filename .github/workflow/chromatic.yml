@@ -4,7 +4,6 @@ name: 'Chromatic Storybook Auto Deployment'
 # Event for the workflow
 on:
   push:
-    branches: [main]
     paths: ['src/components/**']
 
 # List of jobs
