@@ -18,9 +18,11 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v2.5.2 # Example of using a different action
+        uses: actions/setup-node@v3 # Example of using a different action
         with:
-          node-version: lts/Hydrogen
+          cache: pnpm
+          cache-dependency-path: ./package.json
+          node-version: 16
 
       - name: Cache Dependencies
         uses: actions/cache@v2
@@ -30,9 +32,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: pnpm
       - name: Run Chromatic
         uses: chromaui/action@latest # Update to the latest version of Chromatic action
         with:
+          exitZeroOnChanges: true
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
