@@ -23,7 +23,7 @@ jobs:
           node-version: 18
 
       - name: Install pnpm
-        run: npm install -g pnpm
+        run: npm install -g pnpm@8.15.6
 
       - name: Cache Dependencies
         uses: actions/cache@v2
