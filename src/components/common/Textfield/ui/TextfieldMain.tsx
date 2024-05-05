@@ -19,7 +19,7 @@ const TextfieldMain = ({
 }: ITextfieldMain) => {
   return (
     <TextfieldContext.Provider value={{ disabled, isInvalid, placeholder, onChange, value }}>
-      <div className='flex flex-col gap-6'>{children}</div>
+      <div className='flex flex-col gap-6 items-start'>{children}</div>
     </TextfieldContext.Provider>
   );
 };
