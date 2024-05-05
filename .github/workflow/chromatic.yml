@@ -1,0 +1,38 @@
+# Workflow name
+name: 'Chromatic Storybook Auto Deployment'
+
+# Event for the workflow
+on:
+  push:
+    paths: ['**.stories.tsx', '**.stories.ts', '**.stories.js', '**.stories.jsx']
+
+# List of jobs
+jobs:
+  storybook:
+    # Operating System
+    runs-on: ubuntu-latest
+    # Job steps
+    steps:
+      - uses: actions/checkout@v4 # Update to the latest version of checkout action
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.2 # Example of using a different action
+        with:
+          node-version: lts/Hydrogen
+
+      - name: Cache Dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - run: pnpm
+      - name: Run Chromatic
+        uses: chromaui/action@latest # Update to the latest version of Chromatic action
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
