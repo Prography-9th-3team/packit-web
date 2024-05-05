@@ -59,7 +59,7 @@ export const CriticalButton: Story = {
     type: 'critical',
     size: 'large',
     isLoading: false,
-    disabled: true,
+    disabled: false,
     children: <Button.Label>버튼</Button.Label>,
   },
 };
