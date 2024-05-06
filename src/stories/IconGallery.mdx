@@ -1,0 +1,17 @@
+import { Meta, Title, IconGallery, IconItem } from '@storybook/blocks';
+import * as iconTypes from '../components/common/Icon/lib/index';
+import Icon from '../components/common/Icon';
+
+<Meta title='Icons' />
+
+<h1>Icons</h1>
+<p>기본 사이즈 16 x 16 / 컬러 stroke-icon-sub</p>
+
+<br />
+<IconGallery>
+  {Object.keys(iconTypes).map((key) => (
+    <IconItem name={key}>
+      <Icon name={key} />
+    </IconItem>
+  ))}
+</IconGallery>
