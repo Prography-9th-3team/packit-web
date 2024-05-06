@@ -1,14 +1,12 @@
 import { ChangeEvent, createContext, useContext } from 'react';
 
 interface DefaultValueState {
-  type: 'default' | 'invalid';
-  text: string;
+  value: string;
   placeholder?: string;
   tagList?: Array<{ id: number; label: string }>;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  onAddTag?: () => void;
-  onRemoveTag?: (id: number) => void;
-  isDisabled?: boolean;
+  disabled?: boolean;
+  isInvalid?: boolean;
 }
 
 export const SelectContext = createContext<DefaultValueState | null>(null);

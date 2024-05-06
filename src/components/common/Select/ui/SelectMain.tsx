@@ -2,31 +2,23 @@ import { ChangeEvent, PropsWithChildren } from 'react';
 import { SelectContext } from '../modules/SelectStateContext';
 
 export interface ISelectMain extends PropsWithChildren {
-  type?: 'default' | 'invalid';
-  text: string;
+  value: string;
   placeholder?: string;
-  tagList?: Array<{ id: number; label: string }>;
+  disabled?: boolean;
+  isInvalid?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  onAddTag?: () => void;
-  onRemoveTag?: (id: number) => void;
-  isDisabled?: boolean;
 }
 
 const SelectMain = ({
-  type = 'default',
-  text,
+  value,
   placeholder,
-  tagList,
   onChange,
-  onAddTag,
-  onRemoveTag,
-  isDisabled,
+  disabled = false,
+  isInvalid = false,
   children,
 }: ISelectMain) => {
   return (
-    <SelectContext.Provider
-      value={{ type, text, placeholder, tagList, onChange, onAddTag, onRemoveTag, isDisabled }}
-    >
+    <SelectContext.Provider value={{ value, placeholder, onChange, disabled, isInvalid }}>
       <div className='flex flex-col gap-6'>{children}</div>
     </SelectContext.Provider>
   );
