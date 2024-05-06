@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ChangeEvent, useState } from 'react';
 import { Select } from '.';
+import Check from '../Check';
 import Icon from '../Icon';
+import { Option } from '../Option';
 import { Tag } from '../Tag';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
@@ -249,10 +251,6 @@ export const Tag_Select: Story = {
         id: 0,
         label: 'Tag',
       },
-      {
-        id: 1,
-        label: 'Tag',
-      },
     ]);
 
     const handleChangeText = (e: ChangeEvent<HTMLInputElement>) => {
@@ -273,7 +271,7 @@ export const Tag_Select: Story = {
 
     return (
       <div className='w-[500px] flex flex-col gap-32'>
-        <div className='relative'>
+        <div className='relative h-fit'>
           <Select {...args} value={text} onChange={handleChangeText}>
             <Select.Label>Label</Select.Label>
             <Select.InputWrapper>
@@ -299,8 +297,19 @@ export const Tag_Select: Story = {
             <Select.Text>HelpText</Select.Text>
           </Select>
           {text && (
-            <div className='absolute -bottom-24 w-full p-8 bg-white rounded-lg shadow-layer'>
-              <div onClick={handleAddTag}>추가 "{text}"</div>
+            <div className='absolute top-[84%] w-full flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer'>
+              <Option onClick={handleAddTag}>
+                <Option.Label>
+                  <b className='body-md-bold'>추가</b>"{text}"
+                </Option.Label>
+                <Icon name='plus_s' className='w-20 h-20 stroke-text-minimal' />
+              </Option>
+              {tags.map((tag) => (
+                <Option key={tag.id}>
+                  <Check />
+                  <Option.Label>{tag.label}</Option.Label>
+                </Option>
+              ))}
             </div>
           )}
         </div>
