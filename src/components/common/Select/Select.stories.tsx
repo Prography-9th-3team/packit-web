@@ -166,7 +166,7 @@ export const Invalid: Story = {
 export const Disabled: Story = {
   args: { disabled: true },
   render: (args) => {
-    const { isInvalid } = args;
+    const { isInvalid, value } = args;
     const [text, setText] = useState<string>('');
 
     const handleChangeText = (e: ChangeEvent<HTMLInputElement>) => {
@@ -177,7 +177,7 @@ export const Disabled: Story = {
 
     return (
       <div className='w-[500px] flex flex-col gap-32'>
-        <Select {...args} value={text} onChange={handleChangeText}>
+        <Select {...args} value={value} onChange={handleChangeText}>
           <Select.Label>Label</Select.Label>
           <Select.InputWrapper>
             <Select.Input />
