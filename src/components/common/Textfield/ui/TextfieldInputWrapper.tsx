@@ -21,11 +21,11 @@ const textfieldInputWrapperVariants = cva(
   ],
   {
     variants: {
-      isDisabled: {
-        true: 'bg-filled-disabled text-text-disabled border-none hover:border-none focus-within:border-none',
-      },
       isInvalid: {
-        true: 'bg-surface-critical border-surface-critical hover:border-1 hover:border-critical-hover  focus-within:border-critical-hover focus-within:border',
+        true: 'bg-surface-critical border-surface-critical hover:border-critical-hover focus-within:border-critical-hover',
+      },
+      isDisabled: {
+        true: 'bg-filled-disabled text-text-disabled border-filled-disabled hover:border-filled-disabled focus-within:border-filled-disabled',
       },
     },
   },
