@@ -7,10 +7,10 @@ export interface ITextfieldInput extends PropsWithChildren {}
 
 // TextfieldInput 무조건 들어가야하고, Icon은 선택적으로 들어갈 수 있음.
 const TextfieldInputWrapper = ({ children }: ITextfieldInput) => {
-  const { disabled, isInvalid } = useTextfieldState();
+  const { isDisabled, isInvalid } = useTextfieldState();
 
   return (
-    <div className={cn(textfieldInputWrapperVariants({ disabled, isInvalid }))}>{children}</div>
+    <div className={cn(textfieldInputWrapperVariants({ isDisabled, isInvalid }))}>{children}</div>
   );
 };
 
@@ -21,7 +21,7 @@ const textfieldInputWrapperVariants = cva(
   ],
   {
     variants: {
-      disabled: {
+      isDisabled: {
         true: 'bg-filled-disabled text-text-disabled border-none hover:border-none focus-within:border-none',
       },
       isInvalid: {

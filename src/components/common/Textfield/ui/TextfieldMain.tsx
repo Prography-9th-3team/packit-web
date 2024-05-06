@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 import { TextfieldContext } from '../module/TextfieldStateContext';
 
 export interface ITextfieldMain extends PropsWithChildren {
-  disabled?: boolean;
+  isDisabled?: boolean;
   isInvalid?: boolean;
   placeholder: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -11,14 +11,14 @@ export interface ITextfieldMain extends PropsWithChildren {
 
 const TextfieldMain = ({
   children,
-  disabled = false,
+  isDisabled = false,
   isInvalid = false,
   placeholder,
   onChange,
   value,
 }: ITextfieldMain) => {
   return (
-    <TextfieldContext.Provider value={{ disabled, isInvalid, placeholder, onChange, value }}>
+    <TextfieldContext.Provider value={{ isDisabled, isInvalid, placeholder, onChange, value }}>
       <div className='flex flex-col gap-6 items-start'>{children}</div>
     </TextfieldContext.Provider>
   );

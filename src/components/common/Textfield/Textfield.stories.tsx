@@ -22,10 +22,10 @@ export const Primary: Story = {
     placeholder: '입력해주세요.',
     value: '',
     onChange: () => {},
-    disabled: false,
+    isDisabled: false,
     isInvalid: false,
   },
-  render: ({ placeholder, value, onChange, disabled, isInvalid }) => {
+  render: ({ placeholder, value, onChange, isDisabled, isInvalid }) => {
     const [value_2, setValue] = useState(value);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setValue(e.target.value);
@@ -38,7 +38,7 @@ export const Primary: Story = {
           placeholder={placeholder}
           value={value_2}
           onChange={handleChange}
-          disabled={disabled}
+          isDisabled={isDisabled}
           isInvalid={isInvalid}
         >
           <Textfield.Label>Label</Textfield.Label>
@@ -58,10 +58,10 @@ export const No_Label_Textfield: Story = {
     placeholder: '입력해주세요.',
     value: '',
     onChange: () => {},
-    disabled: false,
+    isDisabled: false,
     isInvalid: false,
   },
-  render: ({ placeholder, value, onChange, disabled, isInvalid }) => {
+  render: ({ placeholder, value, onChange, isDisabled, isInvalid }) => {
     const [value_2, setValue] = useState(value);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setValue(e.target.value);
@@ -74,7 +74,7 @@ export const No_Label_Textfield: Story = {
           placeholder={placeholder}
           value={value_2}
           onChange={handleChange}
-          disabled={disabled}
+          isDisabled={isDisabled}
           isInvalid={isInvalid}
         >
           <Textfield.InputWrapper>
@@ -93,10 +93,10 @@ export const Pure_Textfield: Story = {
     placeholder: '입력해주세요.',
     value: '',
     onChange: () => {},
-    disabled: false,
+    isDisabled: false,
     isInvalid: false,
   },
-  render: ({ placeholder, value, onChange, disabled, isInvalid }) => {
+  render: ({ placeholder, value, onChange, isDisabled, isInvalid }) => {
     const [value_2, setValue] = useState(value);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setValue(e.target.value);
@@ -109,7 +109,7 @@ export const Pure_Textfield: Story = {
           placeholder={placeholder}
           value={value_2}
           onChange={handleChange}
-          disabled={disabled}
+          isDisabled={isDisabled}
           isInvalid={isInvalid}
         >
           <Textfield.InputWrapper>

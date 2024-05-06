@@ -1,7 +1,7 @@
 import { useTextfieldState } from '../module/TextfieldStateContext';
 
 const TextfieldInput = () => {
-  const { placeholder, value, onChange, disabled } = useTextfieldState();
+  const { placeholder, value, onChange, isDisabled } = useTextfieldState();
 
   return (
     <input
@@ -9,7 +9,7 @@ const TextfieldInput = () => {
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      disabled={disabled}
+      disabled={isDisabled}
     />
   );
 };

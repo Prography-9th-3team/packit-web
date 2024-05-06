@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
 interface DefaultValueState {
-  disabled: boolean;
+  isDisabled: boolean;
   isInvalid: boolean;
   placeholder: string;
   value: string;
