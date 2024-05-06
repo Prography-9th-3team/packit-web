@@ -3,26 +3,26 @@ import { cva } from 'class-variance-authority';
 import { useSelectState } from '../modules/SelectStateContext';
 
 const SelectInput = () => {
-  const { value, placeholder, onChange, disabled } = useSelectState();
+  const { value, placeholder, onChange, isDisabled } = useSelectState();
 
   return (
     <input
       value={value}
-      className={cn(selectInputVariants({ disabled }))}
+      className={cn(selectInputVariants({ isDisabled }))}
       placeholder={placeholder}
-      onInput={onChange}
-      disabled={disabled}
+      onChange={onChange}
+      disabled={isDisabled}
     />
   );
 };
 
-export const selectInputVariants = cva(
+const selectInputVariants = cva(
   [
     'flex-1 outline-none text-text label-lg bg-transparent placeholder:text-text-sub placeholder:label-md',
   ],
   {
     variants: {
-      disabled: {
+      isDisabled: {
         true: 'placeholder:text-text-disabled',
       },
     },

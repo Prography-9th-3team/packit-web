@@ -4,7 +4,7 @@ import { SelectContext } from '../modules/SelectStateContext';
 export interface ISelectMain extends PropsWithChildren {
   value: string;
   placeholder?: string;
-  disabled?: boolean;
+  isDisabled?: boolean;
   isInvalid?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -13,12 +13,12 @@ const SelectMain = ({
   value,
   placeholder,
   onChange,
-  disabled = false,
+  isDisabled = false,
   isInvalid = false,
   children,
 }: ISelectMain) => {
   return (
-    <SelectContext.Provider value={{ value, placeholder, onChange, disabled, isInvalid }}>
+    <SelectContext.Provider value={{ value, placeholder, onChange, isDisabled, isInvalid }}>
       <div className='flex flex-col gap-6'>{children}</div>
     </SelectContext.Provider>
   );

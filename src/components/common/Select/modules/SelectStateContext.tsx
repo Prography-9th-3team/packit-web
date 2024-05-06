@@ -5,7 +5,7 @@ interface DefaultValueState {
   placeholder?: string;
   tagList?: Array<{ id: number; label: string }>;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  disabled?: boolean;
+  isDisabled?: boolean;
   isInvalid?: boolean;
 }
 

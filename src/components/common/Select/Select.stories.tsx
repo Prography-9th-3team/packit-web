@@ -42,7 +42,7 @@ export const Default: Story = {
           <Select.InputWrapper>
             <Select.Input />
             {isInvalid && (
-              <Icon name='warningTriangle_f' className='w-16 h-16  text-icon-critical' />
+              <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
             <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
@@ -53,7 +53,7 @@ export const Default: Story = {
           <Select.InputWrapper>
             <Select.Input />
             {isInvalid && (
-              <Icon name='warningTriangle_f' className='w-16 h-16  text-icon-critical' />
+              <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
             <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
@@ -65,7 +65,7 @@ export const Default: Story = {
           <Select.InputWrapper>
             <Select.Input />
             {isInvalid && (
-              <Icon name='warningTriangle_f' className='w-16 h-16  text-icon-critical' />
+              <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
             <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
@@ -75,7 +75,7 @@ export const Default: Story = {
           <Select.InputWrapper>
             <Select.Input />
             {isInvalid && (
-              <Icon name='warningTriangle_f' className='w-16 h-16  text-icon-critical' />
+              <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
             <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
@@ -148,7 +148,7 @@ export const Invalid: Story = {
 };
 
 export const Disabled: Story = {
-  args: { disabled: true },
+  args: { isDisabled: true },
   render: (args) => {
     const { isInvalid, value } = args;
     const [text, setText] = useState<string>('');
