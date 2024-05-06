@@ -16,7 +16,7 @@ const TextfieldInputWrapper = ({ children }: ITextfieldInput) => {
 
 const textfieldInputWrapperVariants = cva(
   [
-    'flex gap-8 px-16 py-12 h-48 w-full items-center self-stretch rounded-lg border border-solid',
+    'flex gap-8 px-16 py-12 h-48 w-full items-center self-stretch rounded-lg border border-solid border-border',
     'hover:border-border-hover focus-within:border-border-focus',
   ],
   {
@@ -25,7 +25,7 @@ const textfieldInputWrapperVariants = cva(
         true: 'bg-surface-critical border-surface-critical hover:border-critical-hover focus-within:border-critical-hover',
       },
       isDisabled: {
-        true: 'bg-filled-disabled text-text-disabled border-filled-disabled hover:border-filled-disabled focus-within:border-filled-disabled',
+        true: 'bg-filled-disabled text-text-disabled border-opacity-0 hover:border-opacity-0 focus-within:border-opacity-0',
       },
     },
   },
