@@ -2,9 +2,7 @@
 name: 'Chromatic Storybook Auto Deployment'
 
 # Event for the workflow
-on:
-  push:
-    paths: ['**.stories.tsx', '**.stories.ts', '**.stories.js', '**.stories.jsx']
+on: pull_request
 
 # List of jobs
 jobs:
@@ -18,21 +16,33 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v2.5.2 # Example of using a different action
+        uses: actions/setup-node@v3 # Example of using a different action
         with:
-          node-version: lts/Hydrogen
+          node-version: 18
+
+      - name: Install pnpm
+        run: npm install -g pnpm@8.15.6
 
       - name: Cache Dependencies
         uses: actions/cache@v2
         with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-pnpm-
 
-      - run: pnpm
+      - name: Install Dependencies
+        run: pnpm install
+
       - name: Run Chromatic
+        id: chromatic
         uses: chromaui/action@latest # Update to the latest version of Chromatic action
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: comment PR
+        uses: thollander/actions-comment-pull-request@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          message: '🚀 Storybook 자동 배포 URL: ${{ steps.chromatic.outputs.storybookUrl }}'
