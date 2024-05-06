@@ -62,7 +62,7 @@ const Avatar = ({ profileUrl, size = AVATAR_SIZE.LG }: IAvatar) => {
       <div
         className={cn('bg-surface-empty rounded-[50%] flex justify-center items-center', boxSize)}
       >
-        <Icon name='user_s' className={cn('stroke-icon-minimal', iconSize)} />
+        <Icon name='user_s' className={cn('text-icon-minimal', iconSize)} />
       </div>
     );
   }

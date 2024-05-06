@@ -21,6 +21,6 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     name: 'xClose_s',
-    className: 'w-[100px] h-[100px] stroke-critical',
+    className: 'w-[100px] h-[100px] text-critical',
   },
 };

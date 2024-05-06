@@ -38,7 +38,7 @@ export const TagWithRightIcon: Story = {
     children: (
       <>
         <Tag.Label>전체</Tag.Label>
-        <Icon name='xClose_s' className='w-16 h-16 stroke-icon-sub' />
+        <Icon name='xClose_s' className='w-16 h-16 text-icon-sub' />
       </>
     ),
   },
@@ -51,7 +51,7 @@ export const TagWithLeftIcon: Story = {
     isButton: true,
     children: (
       <>
-        <Icon name='xClose_s' className='w-16 h-16 stroke-icon-sub' />
+        <Icon name='xClose_s' className='w-16 h-16 text-icon-sub' />
         <Tag.Label>전체</Tag.Label>
       </>
     ),
@@ -66,7 +66,7 @@ export const TagWithLongLabel: Story = {
     children: (
       <>
         <Tag.Label>긴태그긴태그긴태그긴태그긴태그</Tag.Label>
-        <Icon name='xClose_s' className='w-16 h-16 stroke-icon-sub' />
+        <Icon name='xClose_s' className='w-16 h-16 text-icon-sub' />
       </>
     ),
   },
