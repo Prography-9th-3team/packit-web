@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import { cva } from 'class-variance-authority';
 import { PropsWithChildren } from 'react';
+import Icon from '../../Icon';
 import { useSelectState } from '../modules/SelectStateContext';
 
 export interface ISelectInputWrapper extends PropsWithChildren {}
@@ -9,7 +10,12 @@ const SelectInputWrapper = ({ children }: ISelectInputWrapper) => {
   const { isDisabled, isInvalid } = useSelectState();
 
   return (
-    <div className={cn(selectInputWrapperVariants({ isDisabled, isInvalid }))}>{children}</div>
+    <div className={cn(selectInputWrapperVariants({ isDisabled, isInvalid }))}>
+      <div className='flex-1 flex items-center justify-between gap-8 overflow-y-scroll scroll-hide'>
+        {children}
+      </div>
+      <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
+    </div>
   );
 };
 

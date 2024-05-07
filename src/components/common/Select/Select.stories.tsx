@@ -44,7 +44,6 @@ export const Default: Story = {
             {isInvalid && (
               <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
-            <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
           <Select.Text>HelpText</Select.Text>
         </Select>
@@ -55,7 +54,6 @@ export const Default: Story = {
             {isInvalid && (
               <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
-            <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
           <Select.Text>HelpText</Select.Text>
         </Select>
@@ -67,7 +65,6 @@ export const Default: Story = {
             {isInvalid && (
               <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
-            <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
         </Select>
 
@@ -77,7 +74,6 @@ export const Default: Story = {
             {isInvalid && (
               <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
-            <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
         </Select>
       </div>
@@ -106,7 +102,6 @@ export const Invalid: Story = {
             {isInvalid && (
               <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
-            <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
           <Select.Text>HelpText</Select.Text>
         </Select>
@@ -117,7 +112,6 @@ export const Invalid: Story = {
             {isInvalid && (
               <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
-            <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
           <Select.Text>HelpText</Select.Text>
         </Select>
@@ -129,7 +123,6 @@ export const Invalid: Story = {
             {isInvalid && (
               <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
-            <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
         </Select>
 
@@ -139,7 +132,6 @@ export const Invalid: Story = {
             {isInvalid && (
               <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
-            <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
         </Select>
       </div>
@@ -168,7 +160,6 @@ export const Disabled: Story = {
             {isInvalid && (
               <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
-            <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
           <Select.Text>HelpText</Select.Text>
         </Select>
@@ -179,7 +170,6 @@ export const Disabled: Story = {
             {isInvalid && (
               <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
-            <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
           <Select.Text>HelpText</Select.Text>
         </Select>
@@ -191,7 +181,6 @@ export const Disabled: Story = {
             {isInvalid && (
               <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
-            <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
         </Select>
 
@@ -201,7 +190,6 @@ export const Disabled: Story = {
             {isInvalid && (
               <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
             )}
-            <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
           </Select.InputWrapper>
         </Select>
       </div>
@@ -262,7 +250,6 @@ export const Tag_Select: Story = {
                   className='w-16 h-16 -icon-critical text-icon-critical'
                 />
               )}
-              <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
             </Select.InputWrapper>
             <Select.Text>HelpText</Select.Text>
           </Select>
@@ -272,7 +259,7 @@ export const Tag_Select: Story = {
                 <Option.Label>
                   <b className='body-md-bold'>추가</b>"{text}"
                 </Option.Label>
-                <Icon name='plus_s' className='w-20 h-20 stroke-text-minimal' />
+                <Icon name='plus_square' className='w-20 h-20 stroke-text-minimal' />
               </Option>
               {tags.map((tag) => (
                 <Option key={tag.id}>
