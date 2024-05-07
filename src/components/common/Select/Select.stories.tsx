@@ -238,7 +238,7 @@ export const Tag_Select: Story = {
                   {tags?.map((tag) => (
                     <Tag key={tag.id} isButton onClick={() => handleRemoveTag(tag.id)}>
                       <Tag.Label>{tag.label}</Tag.Label>
-                      <Icon name='xClose_s' className='w-16 h-16 stroke-icon-sub' />
+                      <Icon name='xClose_s' className='w-16 h-16 text-icon-sub' />
                     </Tag>
                   ))}
                 </div>
