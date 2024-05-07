@@ -15,7 +15,9 @@ const SelectInputWrapper = ({ children }: ISelectInputWrapper) => {
 
 const selectInputWrapperVariants = cva(
   [
-    'w-full max-h-48 h-full flex items-center justify-between gap-8 px-16 py-12 border rounded-lg bg-surface border-border hover:border-border-hover',
+    'w-full max-h-48 h-full px-16 py-12',
+    'flex items-center justify-between gap-8',
+    'bg-surface border rounded-lg border-border hover:border-border-hover focus-within:border-border-focus caret-border-focus',
   ],
   {
     variants: {
