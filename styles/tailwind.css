@@ -25,4 +25,11 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .scroll-hide {
+    -ms-overflow-style: none;
+  }
+  .scroll-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
