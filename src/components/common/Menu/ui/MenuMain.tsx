@@ -11,7 +11,6 @@ const MenuMain = ({ children, onClick }: IMenuMain) => {
       className={cn([
         'flex w-full px-12 py-6 items-center gap-12 rounded-md text-text text-ellipsis',
         'hover:bg-surface-sub',
-        'focus-within:bg-action-primary-tonal focus-within:text-text-primary',
       ])}
       onClick={onClick}
     >
