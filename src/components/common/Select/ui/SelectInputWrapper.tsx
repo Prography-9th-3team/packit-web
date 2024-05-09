@@ -28,7 +28,7 @@ const selectInputWrapperVariants = cva(
   {
     variants: {
       isInvalid: {
-        true: 'bg-surface-critical  border-transparent hover:border-critical-hover',
+        true: 'bg-surface-critical  border-transparent hover:border-critical-hover focus-within:border-critical-hover',
       },
       isDisabled: {
         true: 'bg-filled-disabled border-transparent hover:border-transparent',
