@@ -9,11 +9,13 @@
 <Icon name='chevronDown_s' className = 'w-16 h-16 stroke-critical' />
 */
 
+export { default as bookmark_add } from './bookmark_add.svg';
 export { default as checkIndeterminate_f } from './check_indeterminate.svg';
 export { default as checkOff_f } from './check_off.svg';
 export { default as checkOn_f } from './check_on.svg';
 export { default as chevronDown_s } from './chevron_down.svg';
 export { default as home04_s } from './home_04.svg';
+export { default as link_03 } from './link_03.svg';
 export { default as placeholder_s } from './placeholder.svg';
 export { default as plus_square } from './plus-square.svg';
 export { default as plus_s } from './plus.svg';
