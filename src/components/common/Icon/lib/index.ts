@@ -9,8 +9,8 @@
 <Icon name='chevronDown_s' className = 'w-16 h-16 stroke-critical' />
 */
 
-export { default as bookmark_add } from './bookmark_add.svg';
 export { default as bell_s } from './bell_s.svg';
+export { default as bookmark_add } from './bookmark_add.svg';
 export { default as checkIndeterminate_f } from './check_indeterminate.svg';
 export { default as checkOff_f } from './check_off.svg';
 export { default as checkOn_f } from './check_on.svg';
