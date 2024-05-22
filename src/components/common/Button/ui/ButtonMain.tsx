@@ -6,6 +6,7 @@ import { ButtonContext } from '../modules/ButtonStateContext';
 export interface IButtonMain extends PropsWithChildren, VariantProps<typeof buttonMainVariants> {
   isLoading?: boolean;
   disabled?: boolean;
+  className?: string;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -16,10 +17,11 @@ const ButtonMain = ({
   onClick,
   isLoading = false,
   disabled = false,
+  className,
 }: IButtonMain) => {
   return (
     <ButtonContext.Provider value={{ size, type, isLoading, disabled }}>
-      <button className={cn(buttonMainVariants({ type, size }))} onClick={onClick}>
+      <button className={cn(buttonMainVariants({ type, size }), className)} onClick={onClick}>
         {children}
       </button>
     </ButtonContext.Provider>
