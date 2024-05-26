@@ -3,6 +3,7 @@
 import apis from '@/apis/api';
 import Icon from '@/components/common/Icon';
 import Logo from '@/components/common/Logo';
+import { useEffect } from 'react';
 
 const Login = () => {
   const handleLogin = () => {
@@ -16,7 +17,7 @@ const Login = () => {
       const popupLeft = (screenWidth - popupWidth) / 2 + window.screenX;
       const popupTop = (screenHeight - popupHeight) / 2 + window.screenY;
 
-      const redirectUri = apis.auth.google_login('http://localhost:3000/');
+      const redirectUri = apis.auth.google_login('http://localhost:3000/oauth2/redirect');
 
       window.open(
         redirectUri,
@@ -27,6 +28,27 @@ const Login = () => {
       console.error('Error during Google login:', error);
     }
   };
+
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      const { token, error } = event.data;
+
+      if (token) {
+        console.log('Received token:', token);
+        // 토큰 처리 로직 : cookie 로 대체해도 괜찮습니다..!
+        localStorage.setItem('access_token', token);
+      }
+      if (error) {
+        console.error('Error received:', error);
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
+  }, []);
 
   return (
     <div className='w-full h-full flex items-center justify-center flex-col'>

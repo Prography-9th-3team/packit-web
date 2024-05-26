@@ -3,6 +3,8 @@ import QueryString from 'qs';
 
 export const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 export const GOOGLE_LOGIN_URL = process.env.NEXT_PUBLIC_GOOGLE_LOGIN_BASE_URL;
+export const GOOGLE_LOGIN_URL_LOCAL = 'http://localhost:8080';
+export const TEMP_URL = 'http://ec2-3-39-102-104.ap-northeast-2.compute.amazonaws.com';
 
 export const urlParams = (obj = {}, nullable = false) => {
   if (nullable) {
@@ -18,8 +20,9 @@ export const urlParams = (obj = {}, nullable = false) => {
 
 const apis = {
   auth: {
-    google_login: (redirectUri: string) =>
-      `${GOOGLE_LOGIN_URL}/oauth2/authorize/google?redirect_uri=${redirectUri}`,
+    google_login: (redirectUri: string) => {
+      return `${TEMP_URL}/oauth2/authorize/google?redirect_uri=${redirectUri}`;
+    },
   },
 };
 
