@@ -5,21 +5,26 @@ import { ButtonContext } from '../modules/ButtonStateContext';
 
 export interface IButtonMain extends PropsWithChildren, VariantProps<typeof buttonMainVariants> {
   isLoading?: boolean;
-  disabled?: boolean;
+  isDisabled?: boolean;
+  isFull?: boolean;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const ButtonMain = ({
-  size,
-  type,
+  size = 'medium',
+  type = 'primary',
   children,
   onClick,
   isLoading = false,
-  disabled = false,
+  isDisabled = false,
+  isFull = false,
 }: IButtonMain) => {
   return (
-    <ButtonContext.Provider value={{ size, type, isLoading, disabled }}>
-      <button className={cn(buttonMainVariants({ type, size }))} onClick={onClick}>
+    <ButtonContext.Provider value={{ size, type, isLoading, isDisabled }}>
+      <button
+        className={cn(buttonMainVariants({ type, size, isDisabled, isFull }))}
+        onClick={onClick}
+      >
         {children}
       </button>
     </ButtonContext.Provider>
@@ -41,12 +46,35 @@ export const buttonMainVariants = cva(['flex justify-center items-center'], {
       secondary: 'hover:bg-action-secondary-hover active:bg-action-secondary-pressed',
       critical: 'bg-critical hover:bg-critical-hover active:bg-critical-pressed',
     },
+    isDisabled: {
+      true: 'text-text-disabled',
+    },
+    isFull: {
+      true: 'w-full',
+    },
   },
-
-  defaultVariants: {
-    size: 'medium',
-    type: 'primary',
-  },
+  compoundVariants: [
+    {
+      type: 'primary',
+      isDisabled: true,
+      className: 'bg-action-primary-disabled ',
+    },
+    {
+      type: 'outline',
+      isDisabled: true,
+      className: ' bg-action-secondary-disabled',
+    },
+    {
+      type: 'secondary',
+      isDisabled: true,
+      className: 'bg-action-secondary-disabled',
+    },
+    {
+      type: 'critical',
+      isDisabled: true,
+      className: 'bg-action-critical-disabled',
+    },
+  ],
 });
 
 export default ButtonMain;

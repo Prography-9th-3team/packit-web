@@ -14,7 +14,7 @@ const ButtonLabel = ({ children }: IButtonLabel) => {
   return <label className={cn(buttonLabelVariants({ size, type }))}>{children}</label>;
 };
 
-export const buttonLabelVariants = cva([], {
+export const buttonLabelVariants = cva(['cursor-pointer'], {
   variants: {
     size: {
       large: 'label-lg',
