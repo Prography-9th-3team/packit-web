@@ -14,7 +14,7 @@ const SelectInputWrapper = ({ children }: ISelectInputWrapper) => {
       <div className='flex-1 flex items-center justify-between gap-8 overflow-y-scroll scroll-hide'>
         {children}
       </div>
-      <Icon name='chevronDown_s' className='w-16 h-16 stroke-icon-sub' />
+      <Icon name='chevronDown_s' className='w-16 h-16 text-icon-sub' />
     </div>
   );
 };
