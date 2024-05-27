@@ -1,6 +1,8 @@
 import { cn } from '@/lib/utils';
 import { VariantProps, cva } from 'class-variance-authority';
 import { PropsWithChildren } from 'react';
+import Spinner from '../../Spinner/Index';
+import { SPINNER_SIZE } from '../../Spinner/constants';
 import { ButtonContext } from '../modules/ButtonStateContext';
 
 export interface IButtonMain extends PropsWithChildren, VariantProps<typeof buttonMainVariants> {
@@ -26,6 +28,7 @@ const ButtonMain = ({
         onClick={onClick}
         disabled={isDisabled}
       >
+        {isLoading && <Spinner size={SPINNER_SIZE.SM} />}
         {children}
       </button>
     </ButtonContext.Provider>

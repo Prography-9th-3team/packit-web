@@ -94,3 +94,13 @@ export const RightIconButton: Story = {
     ),
   },
 };
+
+export const LoadingButton: Story = {
+  args: {
+    type: 'primary',
+    size: 'large',
+    isLoading: true,
+    isDisabled: false,
+    children: <></>,
+  },
+};
