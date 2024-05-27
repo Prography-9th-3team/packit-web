@@ -23,7 +23,7 @@ const selectInputWrapperVariants = cva(
   [
     'w-full max-h-48 h-full px-16 py-12',
     'flex items-center justify-between gap-8',
-    'bg-surface border rounded-lg border-border hover:border-border-hover focus-within:border-border-focus caret-border-focus',
+    'bg-surface border rounded-lg border-border hover:border-border-hover focus-within:border-border-focus focus-within:hover:border-border-focus caret-border-focus',
   ],
   {
     variants: {
