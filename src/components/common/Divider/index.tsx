@@ -7,7 +7,7 @@ export interface IDivider {
 }
 
 const Divider = ({ direction, className }: IDivider) => {
-  return <div className={cn(className, dividerVariants({ direction }))} />;
+  return <div className={cn([dividerVariants({ direction }), className])} />;
 };
 
 export default Divider;
