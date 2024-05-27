@@ -8,10 +8,10 @@ export interface IButtonLabel extends PropsWithChildren {
 }
 
 const ButtonLabel = ({ children }: IButtonLabel) => {
-  // TODO(훈석): isLoading, disabled 상태에 따라 스타일 변경 필요
-  const { size, type } = useButtonState();
+  // TODO(훈석): isLoading 상태에 따라 스타일 변경 필요
+  const { size, type, isDisabled } = useButtonState();
 
-  return <label className={cn(buttonLabelVariants({ size, type }))}>{children}</label>;
+  return <label className={cn(buttonLabelVariants({ size, type, isDisabled }))}>{children}</label>;
 };
 
 export const buttonLabelVariants = cva(['cursor-pointer'], {
@@ -27,6 +27,9 @@ export const buttonLabelVariants = cva(['cursor-pointer'], {
       outline: 'text-text-secondary',
       secondary: 'text-text-secondary',
       critical: 'text-text-on',
+    },
+    isDisabled: {
+      true: 'cursor-default text-text-disabled',
     },
   },
 });

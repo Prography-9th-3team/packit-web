@@ -24,6 +24,7 @@ const ButtonMain = ({
       <button
         className={cn(buttonMainVariants({ type, size, isDisabled, isFull }))}
         onClick={onClick}
+        disabled={isDisabled}
       >
         {children}
       </button>
@@ -31,7 +32,7 @@ const ButtonMain = ({
   );
 };
 
-export const buttonMainVariants = cva(['flex justify-center items-center'], {
+export const buttonMainVariants = cva(['flex justify-center items-center gap-4'], {
   variants: {
     size: {
       large: 'min-w-80 px-16 py-12 rounded-lg gap-8',
@@ -47,7 +48,7 @@ export const buttonMainVariants = cva(['flex justify-center items-center'], {
       critical: 'bg-critical hover:bg-critical-hover active:bg-critical-pressed',
     },
     isDisabled: {
-      true: 'text-text-disabled',
+      true: '',
     },
     isFull: {
       true: 'w-full',
@@ -57,22 +58,26 @@ export const buttonMainVariants = cva(['flex justify-center items-center'], {
     {
       type: 'primary',
       isDisabled: true,
-      className: 'bg-action-primary-disabled ',
+      className:
+        'bg-action-primary-disabled hover:bg-action-primary-disabled active:bg-action-primary-disabled',
     },
     {
       type: 'outline',
       isDisabled: true,
-      className: ' bg-action-secondary-disabled',
+      className:
+        ' bg-action-secondary-disabled hover:bg-action-secondary-disabled active:bg-action-secondary-disabled',
     },
     {
       type: 'secondary',
       isDisabled: true,
-      className: 'bg-action-secondary-disabled',
+      className:
+        'bg-action-secondary-disabled hover:bg-action-secondary-disabled active:bg-action-secondary-disabled',
     },
     {
       type: 'critical',
       isDisabled: true,
-      className: 'bg-action-critical-disabled',
+      className:
+        'bg-action-critical-disabled hover:bg-action-critical-disabled active:bg-action-critical-disabled',
     },
   ],
 });
