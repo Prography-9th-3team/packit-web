@@ -14,6 +14,8 @@ export { default as bookmark_add } from './bookmark_add.svg';
 export { default as checkIndeterminate_f } from './check_indeterminate.svg';
 export { default as checkOff_f } from './check_off.svg';
 export { default as checkOn_f } from './check_on.svg';
+export { default as chevronLeftDouble } from './chevron-left-double.svg';
+export { default as chevronRightDouble } from './chevron-right-double.svg';
 export { default as chevronDown_s } from './chevron_down.svg';
 export { default as home04_s } from './home_04.svg';
 export { default as link_03 } from './link_03.svg';
