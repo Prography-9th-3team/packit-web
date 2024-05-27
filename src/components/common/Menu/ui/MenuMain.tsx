@@ -20,7 +20,7 @@ const MenuMain = ({ children, onClick, isSelected = false }: IMenuMain) => {
 
 export const menuVariants = cva(
   [
-    'flex w-full px-12 py-6 items-center gap-12 rounded-md text-text text-ellipsis',
+    'flex w-full min-h-[36px] px-12 py-6 items-center gap-12 rounded-md text-text text-ellipsis overflow-hidden',
     'hover:bg-surface-sub',
   ],
   {
