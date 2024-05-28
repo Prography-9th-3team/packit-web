@@ -35,7 +35,6 @@ const Login = () => {
   useEffect(() => {
     const handleTokenSaved = (event: MessageEvent) => {
       if (event.origin === window.location.origin && event.data.tokenSaved) {
-        console.log('Token saved message received');
         router.push('/');
       }
     };
