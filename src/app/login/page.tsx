@@ -40,15 +40,12 @@ const Login = () => {
       }
     };
 
-    // Check for the accessToken in cookies
     if (document.cookie.includes('accessToken')) {
       router.push('/');
     }
 
-    // Add event listener for message from popup
     window.addEventListener('message', handleTokenSaved);
 
-    // Cleanup event listener on component unmount
     return () => {
       window.removeEventListener('message', handleTokenSaved);
     };
