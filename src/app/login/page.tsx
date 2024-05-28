@@ -3,8 +3,12 @@
 import apis from '@/apis/api';
 import Icon from '@/components/common/Icon';
 import Logo from '@/components/common/Logo';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const Login = () => {
+  const router = useRouter();
+
   const handleLogin = () => {
     try {
       const popupWidth = 600;
@@ -16,7 +20,7 @@ const Login = () => {
       const popupLeft = (screenWidth - popupWidth) / 2 + window.screenX;
       const popupTop = (screenHeight - popupHeight) / 2 + window.screenY;
 
-      const redirectUri = apis.auth.google_login('http://localhost:3000/');
+      const redirectUri = apis.auth.google_login('http://localhost:3000/oauth2/redirect');
 
       window.open(
         redirectUri,
@@ -27,6 +31,28 @@ const Login = () => {
       console.error('Error during Google login:', error);
     }
   };
+
+  useEffect(() => {
+    const handleTokenSaved = (event: MessageEvent) => {
+      if (event.origin === window.location.origin && event.data.tokenSaved) {
+        console.log('Token saved message received');
+        router.push('/');
+      }
+    };
+
+    // Check for the accessToken in cookies
+    if (document.cookie.includes('accessToken')) {
+      router.push('/');
+    }
+
+    // Add event listener for message from popup
+    window.addEventListener('message', handleTokenSaved);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('message', handleTokenSaved);
+    };
+  }, [router]);
 
   return (
     <div className='w-full h-full flex items-center justify-center flex-col'>
@@ -39,7 +65,7 @@ const Login = () => {
         </span>
         <button
           onClick={handleLogin}
-          className='w-full h-48 px-16 py-12 border border-border rounded-lg heading-md-bold flex items-center  gap-[65px]'
+          className='w-full h-48 px-16 py-12 border border-border rounded-lg heading-md-bold flex items-center gap-[65px]'
         >
           <Icon name='google' />
           <span>Google 계정으로 로그인</span>

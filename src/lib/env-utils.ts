@@ -1,10 +1,11 @@
 import getConfig from 'next/config';
 
 export const getEnv = (envName: string, fallback: string = ''): string => {
-  const config = getConfig();
-  const publicRuntimeConfig = config?.publicRuntimeConfig;
+  const { publicRuntimeConfig } = getConfig();
 
   if (!envName) return fallback;
 
-  return process?.env?.[envName] ?? publicRuntimeConfig?.[envName] ?? fallback;
+  return (
+    (process.env as Record<string, string>)[envName] ?? publicRuntimeConfig?.[envName] ?? fallback
+  );
 };
