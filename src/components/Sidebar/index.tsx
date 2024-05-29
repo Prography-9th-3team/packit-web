@@ -15,6 +15,10 @@ const Index = () => {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(true);
   const [selected, setSelected] = useState<string>('홈');
 
+  const getIcon = (() => {
+    return isOpenSidebar ? 'chevronLeftDouble' : 'chevronRightDouble';
+  })();
+
   const handleToggleSidebar = () => {
     setIsOpenSidebar((prev) => !prev);
   };
@@ -34,11 +38,7 @@ const Index = () => {
       <div className='p-6 flex justify-between relative'>
         <LogoIcon />
         <button className={cn(sideButtonVariants({ isOpenSidebar }))} onClick={handleToggleSidebar}>
-          {isOpenSidebar ? (
-            <Icon name='chevronLeftDouble' className='w-16 h-16 text-icon-secondary' />
-          ) : (
-            <Icon name='chevronRightDouble' className='w-16 h-16 text-icon-secondary' />
-          )}
+          <Icon name={getIcon} className='w-16 h-16 text-icon-secondary' />
         </button>
       </div>
 
