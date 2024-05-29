@@ -61,7 +61,7 @@ const Avatar = ({ profileUrl, size = AVATAR_SIZE.LG }: IAvatar) => {
     return (
       <div
         className={cn(
-          ' rounded-[50%] flex justify-center items-center',
+          'rounded-[50%] flex justify-center items-center',
           'bg-surface-empty hover:bg-[#0000004D] active:bg-[#00000080]',
           boxSize,
         )}
