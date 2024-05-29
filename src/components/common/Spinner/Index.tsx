@@ -4,7 +4,7 @@ export interface ISinner {
   size?: (typeof SPINNER_SIZE)[keyof typeof SPINNER_SIZE];
 }
 
-const Index = ({ size = SPINNER_SIZE.LG }: ISinner) => {
+const Spinner = ({ size = SPINNER_SIZE.LG }: ISinner) => {
   return (
     <svg
       width={size}
@@ -35,4 +35,4 @@ const Index = ({ size = SPINNER_SIZE.LG }: ISinner) => {
   );
 };
 
-export default Index;
+export default Spinner;
