@@ -1,3 +1,5 @@
+import Sidebar from '@/components/Sidebar';
+import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../../styles/tailwind.css';
@@ -16,7 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={inter.className}>{children}</body>
+      <body className={cn([inter.className, 'flex'])}>
+        <Sidebar />
+        {children}
+      </body>
     </html>
   );
 }
