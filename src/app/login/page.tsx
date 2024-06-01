@@ -53,7 +53,7 @@ const Login = () => {
   return (
     <div className='w-full h-full flex items-center justify-center flex-col'>
       <div className='flex flex-col gap-32 justify-center items-center w-360 mb-[26px]'>
-        <Logo type='symbol' />
+        <Logo type='default' width={126} height={30} />
         <span className='text-center heading-3xl-bd'>
           패킷으로 쉽고 간편하게
           <br />

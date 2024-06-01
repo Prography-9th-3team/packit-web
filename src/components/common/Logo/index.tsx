@@ -12,7 +12,7 @@ const Logo = ({ type = 'default', width = 50, height = 50 }: ILogo) => {
       {type === 'symbol' ? (
         <Icon name='packit_logo' width={width} height={height} className='text-text' />
       ) : (
-        <Icon name='packit_full_logo' width={208} height={height} className='text-text' />
+        <Icon name='packit_full_logo' width={width} height={height} className='text-text' />
       )}
     </div>
   );
