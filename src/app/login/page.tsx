@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 
 const Login = () => {
   const router = useRouter();
+  const redirectUri = process.env.NEXT_PUBLIC_LOGIN_REDIRECT_URL;
 
   const handleLogin = () => {
     try {
@@ -20,10 +21,10 @@ const Login = () => {
       const popupLeft = (screenWidth - popupWidth) / 2 + window.screenX;
       const popupTop = (screenHeight - popupHeight) / 2 + window.screenY;
 
-      const redirectUri = apis.auth.google_login('http://localhost:3000/oauth2/redirect');
+      const loginRedirectUri = apis.auth.google_login(redirectUri as string);
 
       window.open(
-        redirectUri,
+        loginRedirectUri,
         'Packit Login',
         `width=${popupWidth},height=${popupHeight},left=${popupLeft},top=${popupTop},scrollbars=yes,resizable=yes`,
       );
