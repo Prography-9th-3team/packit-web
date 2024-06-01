@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer';
 import Sidebar from '@/components/Sidebar';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
@@ -20,7 +21,10 @@ export default function RootLayout({
     <html lang='en'>
       <body className={cn([inter.className, 'flex'])}>
         <Sidebar />
-        {children}
+        <div className='min-h-dvh flex flex-col'>
+          <div className='flex-1 h-full'>{children}</div>
+          <Footer />
+        </div>
       </body>
     </html>
   );
