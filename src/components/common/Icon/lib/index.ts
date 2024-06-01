@@ -15,6 +15,7 @@ export { default as checkIndeterminate_f } from './check_indeterminate.svg';
 export { default as checkOff_f } from './check_off.svg';
 export { default as checkOn_f } from './check_on.svg';
 export { default as chevronDown_s } from './chevron_down.svg';
+export { default as filePlus } from './file_plus.svg';
 export { default as home04_s } from './home_04.svg';
 export { default as link_03 } from './link_03.svg';
 export { default as placeholder_s } from './placeholder.svg';

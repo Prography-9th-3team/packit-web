@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
 import { MouseEvent, PropsWithChildren, useRef } from 'react';
