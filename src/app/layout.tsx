@@ -1,4 +1,6 @@
 import Footer from '@/components/Footer';
+import Sidebar from '@/components/Sidebar';
+import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../../styles/tailwind.css';
@@ -17,7 +19,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body className={cn([inter.className, 'flex'])}>
+        <Sidebar />
         <div className='min-h-dvh flex flex-col'>
           <div className='flex-1 h-full'>{children}</div>
           <Footer />

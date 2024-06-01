@@ -26,4 +26,5 @@ export const spacing = {
   ...rem(112),
   ...rem(128),
   ...rem(160),
+  ...rem(320),
 };

@@ -31,12 +31,12 @@ export const Default: Story = {
         </Option>
         <Option {...args}>
           <Option.Label>Text</Option.Label>
-          <Icon name='chevronDown_s' className='w-16 h-16 stroke-text-minimal' />
+          <Icon name='chevronDown_s' className='w-16 h-16 text-text-minimal' />
         </Option>
         <Option {...args}>
           <Check defaultChecked />
           <Option.Label>Text</Option.Label>
-          <Icon name='chevronDown_s' className='w-16 h-16 stroke-text-minimal' />
+          <Icon name='chevronDown_s' className='w-16 h-16 text-text-minimal' />
         </Option>
       </div>
     );
