@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { Button } from '.';
+import Icon from '../Icon';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -29,7 +30,7 @@ export const Primary: Story = {
     type: 'primary',
     size: 'large',
     isLoading: false,
-    disabled: false,
+    isDisabled: false,
     children: <Button.Label>버튼</Button.Label>,
   },
 };
@@ -39,7 +40,7 @@ export const OutlineButton: Story = {
     type: 'outline',
     size: 'large',
     isLoading: false,
-    disabled: false,
+    isDisabled: false,
     children: <Button.Label>버튼</Button.Label>,
   },
 };
@@ -49,7 +50,7 @@ export const SecondaryButton: Story = {
     type: 'secondary',
     size: 'large',
     isLoading: false,
-    disabled: false,
+    isDisabled: false,
     children: <Button.Label>버튼</Button.Label>,
   },
 };
@@ -59,7 +60,47 @@ export const CriticalButton: Story = {
     type: 'critical',
     size: 'large',
     isLoading: false,
-    disabled: true,
+    isDisabled: true,
     children: <Button.Label>버튼</Button.Label>,
+  },
+};
+
+export const LeftIconButton: Story = {
+  args: {
+    type: 'primary',
+    size: 'large',
+    isLoading: false,
+    isDisabled: false,
+    children: (
+      <>
+        <Icon name='placeholder_s' className='w-16 h-16 text-icon-on' />
+        <Button.Label>버튼</Button.Label>
+      </>
+    ),
+  },
+};
+
+export const RightIconButton: Story = {
+  args: {
+    type: 'outline',
+    size: 'large',
+    isLoading: false,
+    isDisabled: false,
+    children: (
+      <>
+        <Button.Label>버튼</Button.Label>
+        <Icon name='placeholder_s' className='w-16 h-16 text-icon-secondary' />
+      </>
+    ),
+  },
+};
+
+export const LoadingButton: Story = {
+  args: {
+    type: 'primary',
+    size: 'large',
+    isLoading: true,
+    isDisabled: false,
+    children: <></>,
   },
 };
