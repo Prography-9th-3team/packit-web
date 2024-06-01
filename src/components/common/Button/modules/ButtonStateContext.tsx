@@ -7,7 +7,7 @@ import { buttonMainVariants } from '../ui/ButtonMain';
 interface DefaultValueState extends VariantProps<typeof buttonMainVariants> {
   // 공유할 State -> Main뿐만 아니라, Icon, Label에서도 쓰이면 Context로 전달!
   isLoading: boolean;
-  disabled: boolean;
+  isDisabled: boolean;
 }
 
 export const ButtonContext = createContext<DefaultValueState | null>(null);
