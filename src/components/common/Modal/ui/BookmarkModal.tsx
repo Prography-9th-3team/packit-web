@@ -1,5 +1,7 @@
 'use client';
 
+import useDragUpload from '@/hooks/useDragUpload';
+import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
 import { useState } from 'react';
 import { Button } from '../../Button';
@@ -16,9 +18,22 @@ const BookmarkModal = () => {
   const [name, setName] = useState<string>('');
   const [memo, setMemo] = useState<string>('');
 
+  const {
+    files,
+    isDragged,
+    handleUploadFile,
+    handleDragenter,
+    handleDragover,
+    handleDragleave,
+    handleDrop,
+    handleDeleteFile,
+  } = useDragUpload({ maxNum: 1 });
+
   const handleSaveBookmark = () => {
     alert('북마크 추가');
   };
+
+  console.log(files);
 
   return (
     <ModalPortal>
@@ -73,15 +88,35 @@ const BookmarkModal = () => {
             </Textfield>
           </div>
 
-          <div className='w-[304px] my-0 mx-auto py-48 px-[54px] flex flex-col items-center gap-12 border-dashed border-2 border-border rounded-xl'>
-            <Icon name='filePlus' className='w-32 h-32 text-icon-minimal' />
-            <div className='flex flex-col gap-4 items-center'>
-              <div className='text-text body-sm-bold'>북마크 썸네일</div>
-              <p className='text-text-sub body-sm whitespace-nowrap'>
-                최대 5MB의 이미지까지 업로드 가능해요
-              </p>
-              <input type='file' hidden />
-            </div>
+          <div
+            className={cn([
+              'my-0 mx-auto w-[304px] h-[180px] border-dashed border-2 border-border rounded-xl',
+              isDragged && 'border-border-hover',
+            ])}
+            onDragEnter={handleDragenter}
+            onDragOver={handleDragover}
+            onDragLeave={handleDragleave}
+            onDrop={handleDrop}
+          >
+            {files.length === 0 ? (
+              <label className='cursor-pointer py-48 px-[54px] flex flex-col items-center gap-12'>
+                <Icon name='filePlus' className='w-32 h-32 text-icon-minimal' />
+                <div className='flex flex-col gap-4 items-center'>
+                  <div className='text-text body-sm-bold'>북마크 썸네일</div>
+                  <p className='text-text-sub body-sm whitespace-nowrap'>
+                    최대 5MB의 이미지까지 업로드 가능해요
+                  </p>
+                  <input type='file' onChange={handleUploadFile} hidden />
+                </div>
+              </label>
+            ) : (
+              <div
+                className='cursor-pointer w-full h-full flex justify-center items-center'
+                onClick={() => handleDeleteFile(files[0].key)}
+              >
+                {files[0].name}
+              </div>
+            )}
           </div>
         </div>
         <div className='flex justify-end gap-8'>
