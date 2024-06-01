@@ -1,3 +1,5 @@
+'use client';
+
 const Home = () => {
   return (
     <main>
@@ -16,12 +18,6 @@ const Home = () => {
       <h1 className='label-xl-bold'>Main label</h1>
       <h1 className='label-lg'>Main label</h1>
       <h1 className='label-md-bold'>Main label</h1>
-
-      <div className='flex gap-16'>
-        <button className='p-40 shadow-base'>button</button>
-        <button className='p-40 shadow-md'>button</button>
-        <button className='p-40 shadow-lg'>button</button>
-      </div>
     </main>
   );
 };
