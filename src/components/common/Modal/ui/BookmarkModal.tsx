@@ -10,6 +10,9 @@ import { Select } from '../../Select';
 import { Textfield } from '../../Textfield';
 import ModalPortal from '../ModalPortal';
 
+/**
+ * ModalName : bookmarkModal
+ */
 const BookmarkModal = () => {
   const { closeModal } = useModalStore();
 
@@ -33,7 +36,9 @@ const BookmarkModal = () => {
     alert('북마크 추가');
   };
 
-  console.log(files);
+  const handleCloseModal = () => {
+    closeModal('bookmarkModal');
+  };
 
   return (
     <ModalPortal>
@@ -120,7 +125,7 @@ const BookmarkModal = () => {
           </div>
         </div>
         <div className='flex justify-end gap-8'>
-          <Button type='secondary' size='large' onClick={closeModal}>
+          <Button type='secondary' size='large' onClick={handleCloseModal}>
             <Button.Label>닫기</Button.Label>
           </Button>
           <Button type='primary' size='large' onClick={handleSaveBookmark}>

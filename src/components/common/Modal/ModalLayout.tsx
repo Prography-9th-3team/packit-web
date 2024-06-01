@@ -7,13 +7,13 @@ import { MouseEvent, PropsWithChildren, useRef } from 'react';
 export interface IModal extends PropsWithChildren {}
 
 const ModalLayout = ({ children }: IModal) => {
-  const { closeModal } = useModalStore();
+  const { resetModal } = useModalStore();
 
   const modalRef = useRef(null);
 
   const handleCloseModal = (e: MouseEvent<HTMLElement>) => {
     if (modalRef.current === e.target) {
-      closeModal();
+      resetModal();
     }
   };
 
