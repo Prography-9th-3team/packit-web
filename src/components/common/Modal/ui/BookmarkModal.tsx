@@ -96,7 +96,8 @@ const BookmarkModal = () => {
           <div
             className={cn([
               'my-0 mx-auto w-[304px] h-[180px] border-dashed border-2 border-border rounded-xl',
-              isDragged && 'border-border-hover',
+              'hover:bg-action-secondary-hover',
+              isDragged && 'bg-action-secondary-pressed',
             ])}
             onDragEnter={handleDragenter}
             onDragOver={handleDragover}

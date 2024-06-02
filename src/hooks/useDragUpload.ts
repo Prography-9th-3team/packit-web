@@ -55,7 +55,11 @@ const useDragUpload = ({ maxNum = 3, extenstion = [] }: Props) => {
   const handleDragenter = () => {
     setIsDragged(true);
   };
-  const handleDragleave = () => {
+  const handleDragleave = (e: DragEvent<HTMLElement>) => {
+    // 자식 요소로 이동시 이벤트가 발생하지 않도록 검증
+    if (e.currentTarget.contains(e.relatedTarget as Node)) {
+      return;
+    }
     setIsDragged(false);
   };
 
