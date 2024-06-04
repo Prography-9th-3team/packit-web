@@ -1,28 +1,35 @@
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const useQueryString = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const query = new URLSearchParams(searchParams);
 
-  const queryParam = (() => {
-    const map = new Map<string, string>();
+  const [queryParam, setQueryParam] = useState(new Map<string, string>());
 
-    query.forEach((value, key) => {
-      map.set(key, value);
-    });
+  // 쿼리는 객체로 변환
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const paramMap = new Map<string, string>(
+      Array.from(searchParams.entries()).map(([key, value]) => [key, value]),
+    );
 
-    return map;
-  })();
+    setQueryParam(paramMap);
+  }, []);
 
+  // 쿼리 업데이트
   const updateQueryString = (type: string, value: string) => {
-    query.delete(type, query.get(type) || '');
+    const searchParams = new URLSearchParams(window.location.search);
+
+    if (searchParams.has(type)) {
+      searchParams.delete(type);
+    }
 
     if (value) {
-      query.append(type, value);
+      searchParams.append(type, value);
     }
-    router.replace(pathname + '?' + query.toString());
+
+    router.replace(`${pathname}?${searchParams.toString()}`);
   };
 
   return { queryParam, updateQueryString };
