@@ -51,6 +51,7 @@ export const buttonMainVariants = cva(['flex justify-center items-center gap-4']
         'bg-surface border-[1px] border-solid border-border hover:bg-action-secondary-hover active:bg-action-secondary-pressed',
       secondary: 'hover:bg-action-secondary-hover active:bg-action-secondary-pressed',
       critical: 'bg-critical hover:bg-critical-hover active:bg-critical-pressed',
+      text: 'bg-transparent',
     },
     isDisabled: {
       true: '',
