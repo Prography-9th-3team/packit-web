@@ -21,8 +21,8 @@ export default function RootLayout({
     <html lang='en'>
       <body className={cn([inter.className, 'flex'])}>
         <Sidebar />
-        <div className='min-h-dvh flex flex-col'>
-          <div className='flex-1 h-full'>{children}</div>
+        <div className='min-h-dvh w-full flex flex-col overflow-scroll'>
+          <div className='flex-1'>{children}</div>
           <Footer />
         </div>
       </body>
