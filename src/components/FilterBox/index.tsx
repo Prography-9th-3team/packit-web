@@ -27,10 +27,12 @@ const TAB_LIST = [
 ];
 
 const FilterBox = () => {
-  const [checked, setChecked] = useState(false);
-  const [isOpenCategory, setIsOpenCategory] = useState<boolean>(false);
-  const [category, setCategory] = useState<string>('');
-  const [isError, setIsError] = useState<boolean>(false);
+  const [checked, setChecked] = useState(false); // 종아요 항목 표시
+  const [isOpenCategory, setIsOpenCategory] = useState<boolean>(false); // 카테고리 모달 오픈
+  const [category, setCategory] = useState<string>(''); // 카테고리 텍스트
+  const [isError, setIsError] = useState<boolean>(false); // 카테고리 에러
+
+  const [viewType, setViewType] = useState<string>('grid'); // list 타입 grid | list
 
   const handleChangeCategory = (e: ChangeEvent<HTMLInputElement>) => {
     if (isError) {
@@ -42,7 +44,8 @@ const FilterBox = () => {
   /**
    * TODO :
    * - 카테고리 등록 API
-   * - 유효성 검증 message
+   * - 유효성 검증 case 추가 필요
+   * - 카테고리 영역 밖 크릭 or esc 닫기
    */
   const handleAddCategory = () => {
     if (!category) {
@@ -52,6 +55,8 @@ const FilterBox = () => {
       setIsError(true);
     }
     // category API
+
+    alert('카테고리가 추가되었어요.');
   };
 
   return (
@@ -63,10 +68,10 @@ const FilterBox = () => {
             type='text'
             size='medium'
             onClick={() => setIsOpenCategory((prev) => !prev)}
-            className='p-0 pb-16'
+            className='p-0 pb-16 text-icon hover:text-secondary-hover'
           >
-            <Icon name='plus_circle' className='w-16 h-16 text-icon' />
-            <Button.Label className='label-md-bold'>카테고리 추가</Button.Label>
+            <Icon name='plus_circle' className='w-16 h-16' />
+            <Button.Label className='label-md-bold text-inherit'>카테고리 추가</Button.Label>
           </Button>
           {isOpenCategory && (
             <div className='absolute right-0 top-[calc(100%-8px)] p-8 grid grid-cols-[300px_1fr] gap-8 bg-surface rounded-xl shadow-layer'>
@@ -106,6 +111,33 @@ const FilterBox = () => {
             좋아요 항목만 표시
           </Button.Label>
         </Button>
+        <div className='flex items-center gap-12'>
+          <span className='cursor-pointer mr-4 flex items-center gap-4 label-md text-text-minimal'>
+            최신순 <Icon name='chevronDown_s' className='w-20 h-20 ' />
+          </span>
+          <button onClick={() => setViewType('grid')}>
+            <Icon
+              name='grid'
+              className={cn([
+                'w-20 h-20 text-icon-minimal hover:text-icon',
+                viewType === 'grid' && 'text-icon',
+              ])}
+            />
+          </button>
+          <button onClick={() => setViewType('list')}>
+            <Icon
+              name='list'
+              className={cn([
+                'w-20 h-20 text-icon-minimal hover:text-icon',
+                viewType === 'list' && 'text-icon',
+              ])}
+            />
+          </button>
+          <Divider direction='vertical' className='h-1/2 mx-2' />
+          <span className='cursor-pointer  flex items-center gap-4 label-md text-text-minimal'>
+            <Icon name='setting' className='w-20 h-20 ' /> 편집
+          </span>
+        </div>
       </div>
       <Divider />
     </div>
