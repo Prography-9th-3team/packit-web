@@ -1,3 +1,4 @@
+import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
 import { ChangeEvent, useState } from 'react';
 import TabList from '../TabList';
@@ -27,12 +28,14 @@ const TAB_LIST = [
 ];
 
 const FilterBox = () => {
-  const [checked, setChecked] = useState(false); // 종아요 항목 표시
+  const { queryParam, updateQueryString } = useQueryString();
+
+  const isLikeChecked = queryParam.get('like-check') === 'true'; // 종아요 항목 표시
+  const viewType = queryParam.get('view') ?? 'grid'; // list 타입 grid | list
+
   const [isOpenCategory, setIsOpenCategory] = useState<boolean>(false); // 카테고리 모달 오픈
   const [category, setCategory] = useState<string>(''); // 카테고리 텍스트
   const [isError, setIsError] = useState<boolean>(false); // 카테고리 에러
-
-  const [viewType, setViewType] = useState<string>('grid'); // list 타입 grid | list
 
   const handleChangeCategory = (e: ChangeEvent<HTMLInputElement>) => {
     if (isError) {
@@ -101,14 +104,14 @@ const FilterBox = () => {
         <Button
           type='text'
           size='medium'
-          onClick={() => setChecked((prev) => !prev)}
+          onClick={() => updateQueryString('like-check', String(!isLikeChecked))}
           className='p-0'
         >
           <Icon
             name='check_circle'
-            className={cn(['w-16 h-16 text-icon-minimal', checked && 'text-icon-primary'])}
+            className={cn(['w-16 h-16 text-icon-minimal', isLikeChecked && 'text-icon-primary'])}
           />
-          <Button.Label className={cn(['text-text-minimal', checked && 'text-primary'])}>
+          <Button.Label className={cn(['text-text-minimal', isLikeChecked && 'text-primary'])}>
             좋아요 항목만 표시
           </Button.Label>
         </Button>
@@ -116,7 +119,7 @@ const FilterBox = () => {
           <span className='cursor-pointer mr-4 flex items-center gap-4 label-md text-text-minimal'>
             최신순 <Icon name='chevronDown_s' className='w-20 h-20 ' />
           </span>
-          <button onClick={() => setViewType('grid')}>
+          <button onClick={() => updateQueryString('view', 'grid')}>
             <Icon
               name='grid'
               className={cn([
@@ -125,7 +128,7 @@ const FilterBox = () => {
               ])}
             />
           </button>
-          <button onClick={() => setViewType('list')}>
+          <button onClick={() => updateQueryString('view', 'list')}>
             <Icon
               name='list'
               className={cn([
