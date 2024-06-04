@@ -27,6 +27,7 @@ export { default as packit_logo } from './packit_logo.svg';
 export { default as placeholder_s } from './placeholder.svg';
 export { default as plus_square } from './plus-square.svg';
 export { default as plus_s } from './plus.svg';
+export { default as plus_circle } from './plus_circle.svg';
 export { default as searchSm_s } from './search_sm.svg';
 export { default as setting } from './setting.svg';
 export { default as user_s } from './user.svg';
