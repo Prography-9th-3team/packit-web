@@ -1,6 +1,9 @@
 'use client';
 
 import TabList from '@/components/TabList';
+import { Button } from '@/components/common/Button';
+import Divider from '@/components/common/Divider';
+import Icon from '@/components/common/Icon';
 
 const TAB_LIST = [
   {
@@ -28,7 +31,20 @@ const Home = () => {
       </header>
       {/* filter area */}
       <div>
-        <TabList tabs={TAB_LIST} />
+        <div className='px-40 flex justify-between'>
+          <TabList tabs={TAB_LIST} />
+          <Button
+            type='text'
+            size='medium'
+            onClick={() => alert('카테고리 모달')}
+            className='p-0 pb-16 text-secondary'
+          >
+            <Icon name='plus_circle' className='w-16 h-16 text-icon' />
+            <Button.Label className='label-md-bold'>카테고리 추가</Button.Label>
+          </Button>
+        </div>
+        <Divider />
+        <div></div>
       </div>
     </main>
   );

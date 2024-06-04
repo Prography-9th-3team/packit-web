@@ -1,6 +1,5 @@
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
-import Divider from '../common/Divider';
 
 interface ITabList {
   tabs?: Array<{ title: string; value: string; count: number }>;
@@ -12,7 +11,7 @@ const TabList = ({ tabs = [] }: ITabList) => {
 
   return (
     <>
-      <ul className='px-40 h-40 flex gap-28 overflow-x-scroll whitespace-nowrap'>
+      <ul className='h-40 flex gap-28 overflow-x-scroll whitespace-nowrap'>
         <li
           className={cn([
             'cursor-pointer flex gap-4 label-md-bold text-text',
@@ -35,7 +34,6 @@ const TabList = ({ tabs = [] }: ITabList) => {
           </li>
         ))}
       </ul>
-      <Divider />
     </>
   );
 };
