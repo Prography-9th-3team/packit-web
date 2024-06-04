@@ -11,6 +11,7 @@
 
 export { default as bell_s } from './bell_s.svg';
 export { default as bookmark_add } from './bookmark_add.svg';
+export { default as check_circle } from './check_circle.svg';
 export { default as checkIndeterminate_f } from './check_indeterminate.svg';
 export { default as checkOff_f } from './check_off.svg';
 export { default as checkOn_f } from './check_on.svg';
