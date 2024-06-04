@@ -53,6 +53,7 @@ const FilterBox = () => {
     }
     if (category === '전체') {
       setIsError(true);
+      return;
     }
     // category API
 
