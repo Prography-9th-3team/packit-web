@@ -11,6 +11,7 @@
 
 export { default as bell_s } from './bell_s.svg';
 export { default as bookmark_add } from './bookmark_add.svg';
+export { default as check_circle } from './check_circle.svg';
 export { default as checkIndeterminate_f } from './check_indeterminate.svg';
 export { default as checkOff_f } from './check_off.svg';
 export { default as checkOn_f } from './check_on.svg';
@@ -19,8 +20,10 @@ export { default as chevronRightDouble } from './chevron-right-double.svg';
 export { default as chevronDown_s } from './chevron_down.svg';
 export { default as filePlus } from './file_plus.svg';
 export { default as google } from './google.svg';
+export { default as grid } from './grid.svg';
 export { default as home04_s } from './home_04.svg';
 export { default as link_03 } from './link_03.svg';
+export { default as list } from './list.svg';
 export { default as logout } from './logout.svg';
 export { default as mail } from './mail.svg';
 export { default as packit_full_logo } from './packit_full_logo.svg';
@@ -28,6 +31,7 @@ export { default as packit_logo } from './packit_logo.svg';
 export { default as placeholder_s } from './placeholder.svg';
 export { default as plus_square } from './plus-square.svg';
 export { default as plus_s } from './plus.svg';
+export { default as plus_circle } from './plus_circle.svg';
 export { default as searchSm_s } from './search_sm.svg';
 export { default as setting } from './setting.svg';
 export { default as user_s } from './user.svg';
