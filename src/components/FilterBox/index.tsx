@@ -138,8 +138,8 @@ const FilterBox = () => {
             />
           </button>
           <Divider direction='vertical' className='h-1/2 mx-2' />
-          <span className='cursor-pointer  flex items-center gap-4 label-md text-text-minimal'>
-            <Icon name='setting' className='w-20 h-20 ' /> 편집
+          <span className='cursor-pointer flex items-center gap-4 label-md text-text-minimal'>
+            <Icon name='setting' className='w-20 h-20' /> 편집
           </span>
         </div>
       </div>
