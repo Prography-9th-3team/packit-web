@@ -21,8 +21,8 @@ const ModalLayout = ({ children }: IModal) => {
     <div ref={modalRef} className='fixed top-0 left-0 bottom-0 right-0' onClick={handleCloseModal}>
       <div
         className={cn([
-          'max-h-[900px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
-          'p-24 rounded-2xl bg-surface shadow-modal overflow-scroll',
+          'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
+          'max-h-[900px] p-24 rounded-2xl bg-surface shadow-modal overflow-scroll',
         ])}
       >
         {children}

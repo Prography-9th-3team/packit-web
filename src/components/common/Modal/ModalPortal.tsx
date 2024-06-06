@@ -10,13 +10,13 @@ const ModalPortal = ({ children }: IModalPortal) => {
 
   if (!isModalOpen) return null;
 
-  const el = document.getElementById('modal');
+  const modalElement = document.getElementById('modal');
 
-  if (!el) {
+  if (!modalElement) {
     throw new Error('해당 요소가 존재하지 않습니다.');
   }
 
-  return ReactDom.createPortal(<ModalLayout>{children}</ModalLayout>, el);
+  return ReactDom.createPortal(<ModalLayout>{children}</ModalLayout>, modalElement);
 };
 
 export default ModalPortal;
