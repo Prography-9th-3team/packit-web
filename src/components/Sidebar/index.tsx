@@ -15,7 +15,7 @@ import { Menu } from '../common/Menu';
 import BookmarkModal from '../common/Modal/ui/BookmarkModal';
 
 const Index = () => {
-  const pathname = usePathname();
+  const pathName = usePathname();
   const { openModal, isModalOpen } = useModalStore();
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(true);
   const [selected, setSelected] = useState<string>('홈');
@@ -40,7 +40,7 @@ const Index = () => {
 
   return (
     <>
-      {pathname !== '/login' && (
+      {pathName !== '/login' && (
         <>
           <aside className={cn(sidebarVariants({ isOpenSidebar }))}>
             <div className='p-6 flex justify-between relative'>
