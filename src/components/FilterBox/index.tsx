@@ -1,3 +1,5 @@
+'use client';
+
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
 import { ChangeEvent, useState } from 'react';
