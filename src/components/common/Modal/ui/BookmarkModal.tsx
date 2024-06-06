@@ -44,7 +44,7 @@ const BookmarkModal = () => {
     <ModalPortal>
       <div className='w-[432px]'>
         <div className='mb-24'>
-          <h1 className='text-text heading-2xl-bd '>북마크 추가</h1>
+          <h1 className='text-text heading-2xl-bd'>북마크 추가</h1>
         </div>
         <div className='py-24 flex flex-col gap-32'>
           <div className='flex flex-col gap-16'>
