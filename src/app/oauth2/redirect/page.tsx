@@ -19,11 +19,8 @@ const Redirect = () => {
         if (token) {
           document.cookie = `accessToken=${token}; path=/;`;
 
-          alert(process.env.NEXT_PUBLIC_EXTENSION_ID);
           // TODO: 이쪽 부분에서 extension <> web 로그인 통신 진행
           if (chrome && chrome.runtime && chrome.runtime.sendMessage) {
-            alert('extension token request');
-
             chrome.runtime.sendMessage(process.env.NEXT_PUBLIC_EXTENSION_ID, {
               isLogin: true,
               accessToken: token,
