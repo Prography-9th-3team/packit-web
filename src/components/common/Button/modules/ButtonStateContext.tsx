@@ -1,3 +1,5 @@
+'use client';
+
 import { VariantProps } from 'class-variance-authority';
 import { createContext, useContext } from 'react';
 import { buttonMainVariants } from '../ui/ButtonMain';
