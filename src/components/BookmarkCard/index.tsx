@@ -22,7 +22,7 @@ const BookmarkCard = ({
   onClick,
 }: IBookmarkCard) => {
   return (
-    <div className='cursor-pointer max-h-[342px] flex flex-col gap-20' onClick={onClick}>
+    <div className='cursor-pointer max-h-[342px] mb-40 flex flex-col gap-20' onClick={onClick}>
       <div className='h-fit w-fit overflow-hidden rounded-xl shadow-layer'>
         {representImageUrl ? (
           <img
@@ -44,7 +44,7 @@ const BookmarkCard = ({
       <div className='flex flex-col gap-6'>
         <span className='body-sm-bold text-primary'>{category}</span>
         <h2 className='body-lg-bold text-text'>{title}</h2>
-        <p className='body-md text-text-sub'>{memo}</p>
+        <p className='body-md text-text-sub truncate'>{memo}</p>
       </div>
       <img className='rounded-full' src={faviconUrl} alt='' width={28} height={28} />
     </div>
