@@ -2,8 +2,9 @@
 
 import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
+import axios from 'axios';
 import { cva } from 'class-variance-authority';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import LogoIcon from '../../../public/logo.svg';
 import Avatar from '../common/Avatar';
@@ -15,7 +16,9 @@ import { Menu } from '../common/Menu';
 import BookmarkModal from '../common/Modal/ui/BookmarkModal';
 
 const SideBar = () => {
+  const router = useRouter();
   const pathName = usePathname();
+
   const { openModal, isModalOpen } = useModalStore();
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(true);
   const [selected, setSelected] = useState<string>('홈');
@@ -36,6 +39,21 @@ const SideBar = () => {
     setSelected(menu);
 
     // API 요청
+  };
+
+  const handleLogout = async () => {
+    const res = await axios.delete('/api/auth/cookie');
+
+    if (res.data) {
+      router.push('/login');
+      // TODO: 익스텐션 로그아웃 진행
+      if (chrome && chrome.runtime && chrome.runtime.sendMessage) {
+        chrome.runtime.sendMessage(process.env.NEXT_PUBLIC_EXTENSION_ID, {
+          isLogin: false,
+          accessToken: '',
+        });
+      }
+    }
   };
 
   return (
@@ -100,7 +118,7 @@ const SideBar = () => {
                   {isOpenSidebar && <Menu.Label>환경설정</Menu.Label>}
                 </Menu>
               </div>
-              <Menu>
+              <Menu onClick={handleLogout}>
                 <Icon name='logout' className='w-16 h-16 text-icon' />
                 {isOpenSidebar && <Menu.Label>로그아웃</Menu.Label>}
               </Menu>
