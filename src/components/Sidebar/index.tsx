@@ -14,7 +14,7 @@ import Icon from '../common/Icon';
 import { Menu } from '../common/Menu';
 import BookmarkModal from '../common/Modal/ui/BookmarkModal';
 
-const Index = () => {
+const SideBar = () => {
   const pathName = usePathname();
   const { openModal, isModalOpen } = useModalStore();
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(true);
@@ -138,4 +138,4 @@ export const sideButtonVariants = cva(
   },
 );
 
-export default Index;
+export default SideBar;
