@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export interface IBookmarkCard {
   bookMarkId: number;
   categoryNames: Array<number>;
@@ -21,8 +23,23 @@ const BookmarkCard = ({
 }: IBookmarkCard) => {
   return (
     <div className='cursor-pointer max-h-[342px] flex flex-col gap-20' onClick={onClick}>
-      <div className='h-fit w-fit overflow-hidden rounded-xl'>
-        <img className='aspect-[296/180] object-cover' src={representImageUrl} alt='' />
+      <div className='h-fit w-fit overflow-hidden rounded-xl shadow-layer'>
+        {representImageUrl ? (
+          <img
+            className='aspect-[296/180] object-cover'
+            src={representImageUrl}
+            alt=''
+            width={370}
+          />
+        ) : (
+          <Image
+            className='aspect-[296/180] object-cover'
+            src='/assets/image/empty_image.png'
+            alt='Empty'
+            width={370}
+            height={260}
+          />
+        )}
       </div>
       <div className='flex flex-col gap-6'>
         <span className='body-sm-bold text-primary'>{category}</span>
