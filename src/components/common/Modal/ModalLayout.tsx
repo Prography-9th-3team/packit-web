@@ -22,7 +22,7 @@ const ModalLayout = ({ children }: IModal) => {
       <div
         className={cn([
           'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
-          'max-h-[900px] p-24 rounded-2xl bg-surface shadow-modal overflow-scroll',
+          'max-h-[600px] p-24 rounded-2xl bg-surface shadow-modal overflow-scroll',
         ])}
       >
         {children}

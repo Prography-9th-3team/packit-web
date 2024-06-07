@@ -190,6 +190,9 @@ devDependencies:
   prettier-plugin-tailwindcss:
     specifier: ^0.5.14
     version: 0.5.14(prettier-plugin-organize-imports@3.2.4)(prettier@3.2.5)
+  react-intersection-observer:
+    specifier: ^9.10.3
+    version: 9.10.3(react-dom@18.2.0)(react@18.2.0)
   storybook:
     specifier: ^8.0.9
     version: 8.0.9(react-dom@18.2.0)(react@18.2.0)
@@ -11445,6 +11448,19 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-is: 18.1.0
+    dev: true
+
+  /react-intersection-observer@9.10.3(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-9NYfKwPZRovB6QJee7fDg0zz/SyYrqXtn5xTZU0vwLtLVBtfu9aZt1pVmr825REE49VPDZ7Lm5SNHjJBOTZHpA==}
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: true
 
   /react-is@16.13.1:
