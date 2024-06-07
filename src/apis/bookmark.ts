@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import useAuthStore from '@/stores/authStore';
 import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
 import { fetchData } from '.';
 import { default as apis } from './api';
@@ -26,7 +27,8 @@ interface IBookmarkListResponseDataType {
  * 북마크 목록
  */
 export const useBookmarkInfinityAPI = (params: IBookmarkParamDataType) => {
-  const url = '/api/v1/book-mark/list';
+  const url = apis.bookmark.bookmark_list;
+  const authStore = useAuthStore();
 
   return useInfiniteQuery<any, unknown, any, any>({
     queryKey: [apis.bookmark.bookmark_list, params],
@@ -55,5 +57,6 @@ export const useBookmarkInfinityAPI = (params: IBookmarkParamDataType) => {
     },
     staleTime: 1000 * 60 * 10,
     gcTime: 1000 * 60 * 10,
+    enabled: authStore.isLogin(),
   });
 };

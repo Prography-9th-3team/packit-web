@@ -2,6 +2,7 @@
 
 import { useUserProfile } from '@/apis/auth';
 import { cn } from '@/lib/utils';
+import useAuthStore from '@/stores/authStore';
 import useModalStore from '@/stores/modalStore';
 import axios from 'axios';
 import { cva } from 'class-variance-authority';
@@ -19,6 +20,8 @@ import BookmarkModal from '../common/Modal/ui/BookmarkModal';
 const SideBar = () => {
   const router = useRouter();
   const pathName = usePathname();
+
+  const authStore = useAuthStore();
 
   const { data: profileData } = useUserProfile();
 
@@ -49,7 +52,10 @@ const SideBar = () => {
 
     if (res.data) {
       router.push('/login');
-      // TODO: 익스텐션 로그아웃 진행
+      // authStore 초기화
+      authStore.resetAuth();
+
+      // 익스텐션 로그아웃 진행
       if (chrome && chrome.runtime && chrome.runtime.sendMessage) {
         chrome.runtime.sendMessage(process.env.NEXT_PUBLIC_EXTENSION_ID, {
           isLogin: false,

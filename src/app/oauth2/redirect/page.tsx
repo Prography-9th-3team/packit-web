@@ -1,9 +1,11 @@
 'use client';
+import useAuthStore from '@/stores/authStore';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 const Redirect = () => {
   const router = useRouter();
+  const authStore = useAuthStore();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -18,6 +20,7 @@ const Redirect = () => {
 
         if (token) {
           document.cookie = `accessToken=${token}; path=/;`;
+          authStore.setAccessToken(token);
 
           // TODO: 이쪽 부분에서 extension <> web 로그인 통신 진행
           if (chrome && chrome.runtime && chrome.runtime.sendMessage) {

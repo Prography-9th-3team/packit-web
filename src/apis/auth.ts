@@ -1,3 +1,4 @@
+import useAuthStore from '@/stores/authStore';
 import { useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { fetchData } from '.';
@@ -14,9 +15,8 @@ interface IUserProfileResponseDataType {
  * 우저 정보
  */
 export const useUserProfile = () => {
-  const isLogin = document.cookie.includes('accessToken');
-
   const url = apis.auth.user_profile;
+  const authStore = useAuthStore();
 
   return useQuery<AxiosResponse, AxiosError, IUserProfileResponseDataType>({
     queryKey: [url],
@@ -24,6 +24,6 @@ export const useUserProfile = () => {
     select: (res) => res?.data.result,
     staleTime: 1000 * 60 * 60,
     gcTime: 1000 * 60 * 60,
-    enabled: isLogin,
+    enabled: authStore.isLogin(),
   });
 };

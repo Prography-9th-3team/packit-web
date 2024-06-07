@@ -29,15 +29,15 @@ const BookmarkCard = ({
             className='aspect-[296/180] object-cover'
             src={representImageUrl}
             alt=''
-            width={370}
+            width={650}
           />
         ) : (
           <Image
             className='aspect-[296/180] object-cover'
             src='/assets/image/empty_image.png'
             alt='Empty'
-            width={370}
-            height={260}
+            width={650}
+            height={400}
           />
         )}
       </div>
