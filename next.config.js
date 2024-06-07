@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['lh3.googleusercontent.com'],
+    domains: ['lh3.googleusercontent.com'], // 구글 프로필
   },
   reactStrictMode: true,
   swcMinify: true,
@@ -12,6 +12,12 @@ const nextConfig = {
     });
     return config;
   },
+  rewrites: () => [
+    {
+      source: '/api/:path*',
+      destination: 'http://3.39.102.104/api/:path*',
+    },
+  ],
 };
 
 module.exports = nextConfig;
