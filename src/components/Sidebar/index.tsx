@@ -1,5 +1,6 @@
 'use client';
 
+import { useUserProfile } from '@/apis/auth';
 import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
 import axios from 'axios';
@@ -18,6 +19,8 @@ import BookmarkModal from '../common/Modal/ui/BookmarkModal';
 const SideBar = () => {
   const router = useRouter();
   const pathName = usePathname();
+
+  const { data: profileData } = useUserProfile();
 
   const { openModal, isModalOpen } = useModalStore();
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(true);
@@ -74,8 +77,11 @@ const SideBar = () => {
             {/* 프로필 영역 */}
             <div className='mt-4 flex flex-col gap-24'>
               <div className='flex flex-col items-center gap-8'>
-                <Avatar size={isOpenSidebar ? AVATAR_SIZE.XL : AVATAR_SIZE.SM} />
-                {isOpenSidebar && <div className='heading-lg-bd'>stay young</div>}
+                <Avatar
+                  profileUrl={profileData?.imageUrl}
+                  size={isOpenSidebar ? AVATAR_SIZE.XL : AVATAR_SIZE.SM}
+                />
+                {isOpenSidebar && <div className='heading-lg-bd'>{profileData?.name}</div>}
               </div>
               <Button
                 className='min-h-40 min-w-40'

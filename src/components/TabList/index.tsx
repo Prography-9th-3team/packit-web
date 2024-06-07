@@ -19,7 +19,7 @@ const TabList = ({ tabs = [] }: ITabList) => {
           ])}
           onClick={() => updateQueryString('tab', '전체')}
         >
-          전체 <span className='text-primary'>0</span>
+          전체 <span className='text-primary'>20</span>
         </li>
         {tabs.map((tab) => (
           <li
