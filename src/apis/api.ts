@@ -21,6 +21,9 @@ const apis = {
     google_login: (redirectUri: string) =>
       `${GOOGLE_LOGIN_URL}/oauth2/authorize/google?redirect_uri=${redirectUri}`,
   },
+  bookmark: {
+    bookmark_list: '/api/v1/book-mark/list',
+  },
 };
 
 export default apis;

@@ -1,15 +1,49 @@
 'use client';
 
-import BookmarkCard from '../BookmarkCard';
+import { useBookmarkInfinityAPI } from '@/apis/bookmark';
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+import BookmarkCard, { IBookmarkCard } from '../BookmarkCard';
 
 const ContentBox = () => {
+  // const { queryParam } = useQueryString();
+
+  const [ref, inView] = useInView();
+
+  const {
+    data: bookmarkData,
+    fetchNextPage,
+    hasNextPage,
+  } = useBookmarkInfinityAPI({
+    size: 10,
+    direction: 'DESC',
+    property: 'id',
+    categoryId: null,
+    // isFavorite: false,
+  });
+
+  console.log(bookmarkData);
+
+  useEffect(() => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView]);
+
   return (
     <section className='mx-auto max-w-[1964px] p-40'>
       <div className='grid gap-20 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2'>
-        {new Array(10).fill('_').map((_, idx) => (
-          <BookmarkCard key={idx} />
-        ))}
+        {bookmarkData &&
+          bookmarkData.content.map((item: IBookmarkCard) => (
+            <BookmarkCard
+              key={item.bookMarkId}
+              {...item}
+              onClick={() => (location.href = item.url)}
+            />
+          ))}
       </div>
+
+      <div ref={ref}></div>
 
       {/* Empty Content */}
       {/* <div className='mx-auto translate-y-3/4 w-fit flex flex-col items-center'>

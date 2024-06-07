@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../../styles/tailwind.css';
+import Provider from './Provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,12 +21,14 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={cn([inter.className, 'flex'])}>
-        <Sidebar />
-        <div className='min-h-dvh w-full flex flex-col overflow-scroll'>
-          <div className='flex-1'>{children}</div>
-          <Footer />
-        </div>
-        <div id='modal'></div>
+        <Provider>
+          <Sidebar />
+          <div className='min-h-dvh w-full flex flex-col overflow-scroll'>
+            <div className='flex-1'>{children}</div>
+            <Footer />
+          </div>
+          <div id='modal'></div>
+        </Provider>
       </body>
     </html>
   );
