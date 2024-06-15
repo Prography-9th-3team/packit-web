@@ -24,6 +24,7 @@ const apis = {
   },
   bookmark: {
     bookmark_list: '/api/v1/book-mark/list',
+    bookmark_save: '/api/v1/book-mark',
   },
 };
 

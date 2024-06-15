@@ -1,9 +1,13 @@
 'use client';
 
+import { ISaveBookmarkDataType, fetchGetMetaData, useSaveBookmark } from '@/apis/bookmark';
 import useDragUpload from '@/hooks/useDragUpload';
 import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
-import { useState } from 'react';
+import { useFormik } from 'formik';
+import { debounce } from 'lodash';
+import { ChangeEvent, useCallback, useState } from 'react';
+import * as yup from 'yup';
 import { Button } from '../../Button';
 import Icon from '../../Icon';
 import { Select } from '../../Select';
@@ -16,10 +20,7 @@ import ModalPortal from '../ModalPortal';
 const BookmarkModal = () => {
   const { closeModal } = useModalStore();
 
-  const [category, setCategory] = useState<string>('');
-  const [url, setUrl] = useState<string>('');
-  const [name, setName] = useState<string>('');
-  const [memo, setMemo] = useState<string>('');
+  const { mutateAsync: mutateSaveBookmark } = useSaveBookmark();
 
   const {
     files,
@@ -30,10 +31,62 @@ const BookmarkModal = () => {
     handleDragleave,
     handleDrop,
     handleDeleteFile,
-  } = useDragUpload({ maxNum: 1 });
+  } = useDragUpload({ maxNum: 1, extension: ['png', 'jpg', 'jpeg'] });
+
+  const formik = useFormik<ISaveBookmarkDataType>({
+    initialValues: {
+      categoryIds: [0],
+      title: '',
+      url: '',
+      memo: '',
+      representImageUrl: '',
+      favicon: '',
+      siteName: '',
+    },
+    validationSchema: yup.object({
+      url: yup.string().required('URL을 입력해 주세요.'),
+    }),
+    onSubmit: (values) => {
+      mutateSaveBookmark(values).then(() => {
+        alert('북마크가 추가되었어요.');
+        closeModal('bookmarkModal');
+      });
+    },
+  });
+
+  const [category, setCategory] = useState<string>('');
+
+  const handleChangeUrl = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    formik.setFieldValue('url', value);
+    delayedHTML(value);
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const delayedHTML = useCallback(
+    debounce((url) => getMetaTag(url), 1000),
+    [],
+  );
+
+  const getMetaTag = async (url: string) => {
+    const result = await fetchGetMetaData(url);
+
+    if (result) {
+      const meta = result.meta;
+
+      formik.setFieldValue('title', meta.title);
+      formik.setFieldValue('memo', meta.description);
+      formik.setFieldValue('favicon', meta.favicon);
+      formik.setFieldValue('representImageUrl', meta.image);
+      formik.setFieldValue('siteName', meta.siteName);
+    } else {
+      formik.setFieldError('url', '등록할 수 없는 URL이에요.');
+    }
+  };
 
   const handleSaveBookmark = () => {
-    alert('북마크 추가');
+    formik.handleSubmit();
   };
 
   const handleCloseModal = () => {
@@ -60,20 +113,24 @@ const BookmarkModal = () => {
             </Select>
 
             <Textfield
+              name='url'
               placeholder='ex) packit.me'
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
+              value={formik.values.url}
+              onChange={handleChangeUrl}
+              isInvalid={!!formik.errors.url}
             >
               <Textfield.Label>URL</Textfield.Label>
               <Textfield.InputWrapper>
                 <Textfield.Input />
               </Textfield.InputWrapper>
+              {formik.errors.url && <Textfield.HelpText>{formik.errors.url}</Textfield.HelpText>}
             </Textfield>
 
             <Textfield
+              name='title'
               placeholder='ex) packit'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={formik.values.title}
+              onChange={formik.handleChange}
             >
               <Textfield.Label>이름</Textfield.Label>
               <Textfield.InputWrapper>
@@ -82,9 +139,10 @@ const BookmarkModal = () => {
             </Textfield>
 
             <Textfield
+              name='memo'
               placeholder='ex) packit'
-              value={memo}
-              onChange={(e) => setMemo(e.target.value)}
+              value={formik.values.memo}
+              onChange={formik.handleChange}
             >
               <Textfield.Label>메모</Textfield.Label>
               <Textfield.InputWrapper>
