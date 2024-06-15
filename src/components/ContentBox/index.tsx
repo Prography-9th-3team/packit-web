@@ -36,7 +36,7 @@ const ContentBox = () => {
     <section className='mx-auto max-w-[1964px] p-40'>
       {bookmarkData?.content.length > 0 ? (
         <>
-          <div className='grid gap-20 2xl:xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2'>
+          <div className='grid gap-20 2xl:xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1'>
             {bookmarkData.content.map((item: IBookmarkCard) => (
               <BookmarkCard
                 key={item.bookMarkId}

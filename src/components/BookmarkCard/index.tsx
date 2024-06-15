@@ -25,7 +25,7 @@ const BookmarkCard = ({
 }: IBookmarkCard) => {
   return (
     <div
-      className='cursor-pointer relative max-h-[342px] mb-40 flex flex-col gap-20 group'
+      className='cursor-pointer max-h-[342px] mb-40 flex flex-col gap-20 group'
       onClick={onClick}
     >
       <div
@@ -58,20 +58,20 @@ const BookmarkCard = ({
         <h2 className='body-lg-bold text-text'>{title}</h2>
         <p className='body-md text-text-sub truncate'>{memo}</p>
       </div>
-      <div className='px-10 flex items-center gap-8'>
+      <div className='relative px-10 flex items-center gap-8'>
         <img className='rounded-full' src={faviconUrl} alt='' width={28} height={28} />
         <span className='body-md text-text truncate'>{siteName}</span>
-      </div>
-      <div className='absolute bottom-4 right-10 hidden items-center gap-12 bg-surface *:text-icon-minimal group-hover:flex'>
-        <button onClick={(e) => e.stopPropagation()}>
-          <Icon name='heart' className='w-20 h-20' />
-        </button>
-        <button onClick={(e) => e.stopPropagation()}>
-          <Icon name='link_03' className='w-20 h-20' />
-        </button>
-        <button onClick={(e) => e.stopPropagation()}>
-          <Icon name='dotsVertical' className='w-20 h-20' />
-        </button>
+        <div className='absolute right-0 hidden items-center gap-12 bg-surface *:text-icon-minimal group-hover:flex'>
+          <button onClick={(e) => e.stopPropagation()}>
+            <Icon name='heart' className='w-20 h-20' />
+          </button>
+          <button onClick={(e) => e.stopPropagation()}>
+            <Icon name='link_03' className='w-20 h-20' />
+          </button>
+          <button onClick={(e) => e.stopPropagation()}>
+            <Icon name='dotsVertical' className='w-20 h-20' />
+          </button>
+        </div>
       </div>
     </div>
   );
