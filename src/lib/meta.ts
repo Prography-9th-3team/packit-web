@@ -60,6 +60,10 @@ export const getFavicon = (html: string, url: string) => {
       return favicon_url;
     }
   }
+
+  if (sliceURL(url) === 'https://www.google.co.kr') {
+    return 'https://www.google.co.kr/favicon.ico';
+  }
 };
 
 const sliceURL = (url: string) => {
