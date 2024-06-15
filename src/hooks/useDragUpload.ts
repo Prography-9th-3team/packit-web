@@ -6,6 +6,7 @@ interface Props {
 }
 
 interface IFile {
+  src: string | ArrayBuffer | null | undefined;
   key: string;
   name: string;
   size: number;
@@ -74,10 +75,14 @@ const useDragUpload = ({ maxNum = 3, extension = [] }: Props) => {
         let checkExtension = false;
         const fileName = newFiles[i].name;
         const size = newFiles[i].size;
-        const fileExtension = fileName.substring(fileName.indexOf('.') + 1, fileName.length);
+
+        const nameArr = fileName.split('.');
+        const fileExtension = nameArr[nameArr.length - 1];
 
         if (extension.length > 0) {
           for (let i = 0; i < extension.length; i++) {
+            console.log(fileExtension.toLowerCase(), extension[i].toLowerCase());
+
             if (fileExtension.toLowerCase() === extension[i].toLowerCase()) {
               checkExtension = true;
             }
@@ -86,11 +91,14 @@ const useDragUpload = ({ maxNum = 3, extension = [] }: Props) => {
           checkExtension = true;
         }
 
-        if (checkExtension)
-          if (checkExtension) {
+        if (checkExtension) {
+          const reader = new FileReader();
+
+          reader.onload = (event) => {
             setFiles((prev) => [
               ...prev,
               {
+                src: event.target?.result,
                 key: key + `/${i}`,
                 name: fileName,
                 size,
@@ -98,9 +106,11 @@ const useDragUpload = ({ maxNum = 3, extension = [] }: Props) => {
                 originFile: newFiles[i],
               },
             ]);
-          } else {
-            alert('지원하지 않는 확장자입니다.');
-          }
+          };
+          reader.readAsDataURL(newFiles[i]);
+        } else {
+          alert('지원하지 않는 확장자입니다.');
+        }
       }
     }
   };

@@ -117,25 +117,3 @@ export const fetchGetMetaData = async (url: string) => {
     console.error('북마크를 할 수 없는 페이지입니다');
   }
 };
-
-interface IImageUploadDataType {
-  name: string;
-  file: string;
-  uuid: string;
-  size: number;
-  extension: string;
-}
-
-/**
- * 북마크 이미지 업로드
- */
-export const fetchUploadImage = async (formData: FormData) => {
-  try {
-    const res = await fetchData.post<IImageUploadDataType>('/api/meta', formData);
-
-    return res.data;
-  } catch {
-    console.error('파일 업로드에 실패했습니다.');
-  }
-  return;
-};

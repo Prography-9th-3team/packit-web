@@ -1,6 +1,11 @@
 'use client';
 
-import { ISaveBookmarkDataType, fetchGetMetaData, useSaveBookmark } from '@/apis/bookmark';
+import {
+  ISaveBookmarkDataType,
+  fetchGetMetaData,
+  fetchUploadImage,
+  useSaveBookmark,
+} from '@/apis/bookmark';
 import useDragUpload from '@/hooks/useDragUpload';
 import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
@@ -47,10 +52,7 @@ const BookmarkModal = () => {
       url: yup.string().required('URL을 입력해 주세요.'),
     }),
     onSubmit: (values) => {
-      mutateSaveBookmark(values).then(() => {
-        alert('북마크가 추가되었어요.');
-        closeModal('bookmarkModal');
-      });
+      saveBookmark(values);
     },
   });
 
@@ -89,8 +91,27 @@ const BookmarkModal = () => {
     formik.handleSubmit();
   };
 
-  const handleCloseModal = () => {
-    closeModal('bookmarkModal');
+  // 북마크 등록
+  const saveBookmark = async (values: ISaveBookmarkDataType) => {
+    console.log(values);
+
+    const formData = new FormData();
+
+    if (files.length > 0) {
+      formData.append('file', files[0].originFile);
+      const res = await fetchUploadImage(formData);
+
+      if (res?.message === 'OK') {
+        values.userInsertRepresentImage = res.result;
+      } else {
+        return;
+      }
+    }
+
+    mutateSaveBookmark(values).then(() => {
+      alert('북마크가 추가되었어요.');
+      closeModal('bookmarkModal');
+    });
   };
 
   return (
@@ -153,9 +174,10 @@ const BookmarkModal = () => {
 
           <div
             className={cn([
-              'my-0 mx-auto w-[304px] h-[180px] border-dashed border-2 border-border rounded-xl',
+              'my-0 mx-auto w-[304px] h-[180px] border-dashed border-border rounded-xl overflow-hidden',
               'hover:bg-action-secondary-hover',
               isDragged && 'bg-action-secondary-pressed',
+              files.length === 0 && 'border-2',
             ])}
             onDragEnter={handleDragenter}
             onDragOver={handleDragover}
@@ -170,7 +192,7 @@ const BookmarkModal = () => {
                   <p className='text-text-sub body-sm whitespace-nowrap'>
                     최대 5MB의 이미지까지 업로드 가능해요
                   </p>
-                  <input type='file' onChange={handleUploadFile} hidden />
+                  <input type='file' onChange={handleUploadFile} hidden accept='image/*' />
                 </div>
               </label>
             ) : (
@@ -178,13 +200,13 @@ const BookmarkModal = () => {
                 className='cursor-pointer w-full h-full flex justify-center items-center'
                 onClick={() => handleDeleteFile(files[0].key)}
               >
-                {files[0].name}
+                <img className='aspect-[300/180] object-cover' src={String(files[0].src)} alt='' />
               </div>
             )}
           </div>
         </div>
         <div className='flex justify-end gap-8'>
-          <Button type='secondary' size='large' onClick={handleCloseModal}>
+          <Button type='secondary' size='large' onClick={() => formik.handleSubmit()}>
             <Button.Label>닫기</Button.Label>
           </Button>
           <Button type='primary' size='large' onClick={handleSaveBookmark}>
