@@ -2,7 +2,7 @@ import { ChangeEvent, DragEvent, useState } from 'react';
 
 interface Props {
   maxNum?: number;
-  extenstion?: Array<string>;
+  extension?: Array<string>;
 }
 
 interface IFile {
@@ -13,7 +13,7 @@ interface IFile {
   originFile: File;
 }
 
-const useDragUpload = ({ maxNum = 3, extenstion = [] }: Props) => {
+const useDragUpload = ({ maxNum = 3, extension = [] }: Props) => {
   const MAX_SIZE = 5 * 1024 * 1024;
 
   const [files, setFiles] = useState<Array<IFile>>([]);
@@ -76,9 +76,9 @@ const useDragUpload = ({ maxNum = 3, extenstion = [] }: Props) => {
         const size = newFiles[i].size;
         const fileExtension = fileName.substring(fileName.indexOf('.') + 1, fileName.length);
 
-        if (extenstion.length > 0) {
-          for (let i = 0; i < extenstion.length; i++) {
-            if (fileExtension.toLowerCase() === extenstion[i].toLowerCase()) {
+        if (extension.length > 0) {
+          for (let i = 0; i < extension.length; i++) {
+            if (fileExtension.toLowerCase() === extension[i].toLowerCase()) {
               checkExtension = true;
             }
           }
