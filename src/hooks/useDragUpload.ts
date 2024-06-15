@@ -81,8 +81,6 @@ const useDragUpload = ({ maxNum = 3, extension = [] }: Props) => {
 
         if (extension.length > 0) {
           for (let i = 0; i < extension.length; i++) {
-            console.log(fileExtension.toLowerCase(), extension[i].toLowerCase());
-
             if (fileExtension.toLowerCase() === extension[i].toLowerCase()) {
               checkExtension = true;
             }

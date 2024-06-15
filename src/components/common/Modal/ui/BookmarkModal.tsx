@@ -89,8 +89,6 @@ const BookmarkModal = () => {
 
   // 북마크 등록
   const saveBookmark = async (values: ISaveBookmarkDataType) => {
-    console.log(values);
-
     const formData = new FormData();
 
     if (files.length > 0) {

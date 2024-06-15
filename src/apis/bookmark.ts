@@ -10,7 +10,7 @@ interface IBookmarkParamDataType {
   size: number;
   direction: 'ASC' | 'DESC';
   property: string;
-  categoryId?: number | null;
+  categoryId?: string | number | null;
   isFavorite?: boolean;
 }
 

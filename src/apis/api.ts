@@ -26,6 +26,10 @@ const apis = {
     bookmark_list: '/api/v1/book-mark/list',
     bookmark_save: '/api/v1/book-mark',
   },
+  category: {
+    category_list: '/api/v1/category/list',
+    category_save: '/api/v1/category',
+  },
 };
 
 export default apis;
