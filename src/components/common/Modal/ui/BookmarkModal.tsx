@@ -87,10 +87,6 @@ const BookmarkModal = () => {
     }
   };
 
-  const handleSaveBookmark = () => {
-    formik.handleSubmit();
-  };
-
   // 북마크 등록
   const saveBookmark = async (values: ISaveBookmarkDataType) => {
     console.log(values);
@@ -206,10 +202,10 @@ const BookmarkModal = () => {
           </div>
         </div>
         <div className='flex justify-end gap-8'>
-          <Button type='secondary' size='large' onClick={() => formik.handleSubmit()}>
+          <Button type='secondary' size='large' onClick={() => closeModal('bookmarkModal')}>
             <Button.Label>닫기</Button.Label>
           </Button>
-          <Button type='primary' size='large' onClick={handleSaveBookmark}>
+          <Button type='primary' size='large' onClick={() => formik.handleSubmit()}>
             <Button.Label>추가</Button.Label>
           </Button>
         </div>
