@@ -94,3 +94,33 @@ body {
   background: (var(--background-start-rgb));
   height: 100vh;
 }
+
+/* SCROLL */
+.no-scroll {
+  overflow: hidden;
+}
+
+.hide-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.styled-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.styled-scroll::-webkit-scrollbar-thumb {
+  background-color: #a799fa;
+  border-radius: 4px;
+  background-clip: padding-box;
+  border: 3px solid transparent;
+}
+
+.styled-scroll::-webkit-scrollbar-track {
+  width: 8px;
+  background-color: transparent;
+}
