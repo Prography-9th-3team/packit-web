@@ -114,7 +114,7 @@ body {
 }
 
 .styled-scroll::-webkit-scrollbar-thumb {
-  background-color: #a799fa;
+  background-color: #7BC600;
   border-radius: 4px;
   background-clip: padding-box;
   border: 3px solid transparent;
@@ -123,4 +123,10 @@ body {
 .styled-scroll::-webkit-scrollbar-track {
   width: 8px;
   background-color: transparent;
+}
+
+* {
+  @apply m-0 box-border p-0;
+  font-family: 'Pretendard', sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
 }

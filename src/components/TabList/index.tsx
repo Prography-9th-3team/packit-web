@@ -11,7 +11,7 @@ const TabList = ({ tabs = [] }: ITabList) => {
 
   return (
     <>
-      <ul className='h-40 flex gap-28 overflow-x-scroll whitespace-nowrap'>
+      <ul className='h-40 flex gap-28 overflow-x-scroll whitespace-nowrap styled-scroll'>
         <li
           className={cn([
             'cursor-pointer flex gap-4 label-md-bold text-text',
