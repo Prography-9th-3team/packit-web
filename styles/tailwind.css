@@ -114,7 +114,7 @@ body {
 }
 
 .styled-scroll::-webkit-scrollbar-thumb {
-  background-color: #7BC600;
+  background-color: rgba(0, 0, 0, 0.15);
   border-radius: 4px;
   background-clip: padding-box;
   border: 3px solid transparent;
