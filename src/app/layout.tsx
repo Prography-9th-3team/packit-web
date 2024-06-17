@@ -1,5 +1,6 @@
 import Footer from '@/components/Footer';
 import Sidebar from '@/components/Sidebar';
+import ToastArea from '@/components/ToastArea';
 import type { Metadata } from 'next';
 import '../../styles/tailwind.css';
 import Provider from './Provider';
@@ -28,6 +29,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <div id='modal'></div>
+          <ToastArea />
         </Provider>
       </body>
     </html>
