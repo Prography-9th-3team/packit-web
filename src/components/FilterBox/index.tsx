@@ -35,7 +35,7 @@ const FilterBox = () => {
   /**
    * TODO :
    * - 유효성 검증 case 추가 필요
-   * - 카테고리 영역 밖 크릭 or esc 닫기
+   * - 카테고리 영역 밖 클릭 or esc 닫기
    */
   const handleAddCategory = () => {
     if (!category) {
