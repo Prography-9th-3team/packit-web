@@ -1,6 +1,7 @@
 'use client';
 
 import useToastStore from '@/stores/toastStore';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect } from 'react';
 import Icon from '../common/Icon';
 import { Toast } from '../common/Toast';
@@ -8,13 +9,13 @@ import { Toast } from '../common/Toast';
 const ToastArea = () => {
   const { toastList } = useToastStore();
 
-  console.log(toastList);
-
   return (
     <div className='fixed left-1/2 -translate-x-1/2 bottom-64 flex flex-col gap-8'>
-      {toastList.map((item) => (
-        <ToastWrapper key={item.id} id={item.id} label={item.message} type={item.type} />
-      ))}
+      <AnimatePresence>
+        {toastList.map((item) => (
+          <ToastWrapper key={item.id} id={item.id} label={item.message} type={item.type} />
+        ))}
+      </AnimatePresence>
     </div>
   );
 };
@@ -41,15 +42,21 @@ const ToastWrapper = ({ id, label, type }: IToastMessage) => {
   }, []);
 
   return (
-    <Toast type={type}>
-      {type === 'success' ? (
-        <Icon name='checkOn_f' className='w-16 h-16 text-icon-on' />
-      ) : type === 'error' ? (
-        <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-on' />
-      ) : (
-        ''
-      )}
-      <Toast.Label>{label}</Toast.Label>
-    </Toast>
+    <motion.div
+      initial={{ opacity: 0, y: 48 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 48 }}
+    >
+      <Toast type={type}>
+        {type === 'success' ? (
+          <Icon name='checkOn_f' className='w-16 h-16 text-icon-on' />
+        ) : type === 'error' ? (
+          <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-on' />
+        ) : (
+          ''
+        )}
+        <Toast.Label>{label}</Toast.Label>
+      </Toast>
+    </motion.div>
   );
 };
