@@ -59,7 +59,16 @@ const BookmarkCard = ({
         <p className='body-md text-text-sub truncate'>{memo}</p>
       </div>
       <div className='relative px-10 flex items-center gap-8'>
-        <img className='rounded-full' src={faviconUrl} alt='' width={28} height={28} />
+        <picture>
+          <img
+            className='rounded-full'
+            src={faviconUrl}
+            alt=''
+            width={28}
+            height={28}
+            onError={(e) => ((e.target as HTMLImageElement).src = '/logo.svg')}
+          />
+        </picture>
         <span className='body-md text-text truncate'>{siteName}</span>
         <div className='absolute right-0 hidden items-center gap-12 bg-surface *:text-icon-minimal group-hover:flex'>
           <button onClick={(e) => e.stopPropagation()}>
