@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import useAuthStore from '@/stores/authStore';
 import { InfiniteData, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { fetchData } from '.';
 import { default as apis } from './api';
 
@@ -118,20 +118,29 @@ export const fetchGetMetaData = async (url: string) => {
   }
 };
 
-interface IImageUploadDataType {
-  name: string;
-  file: string;
-  uuid: string;
-  size: number;
-  extension: string;
-}
+// interface IImageUploadDataType {
+//   name: string;
+//   file: string;
+//   uuid: string;
+//   size: number;
+//   extension: string;
+// }
 
 /**
  * 북마크 이미지 업로드
+ * TODO : FormData API 추가 필요
  */
 export const fetchUploadImage = async (formData: FormData) => {
+  const url = apis.fileUpload.file;
+
   try {
-    const res = await fetchData.post<IImageUploadDataType>('/api/meta', formData);
+    // const res = await fetchData.post<IImageUploadDataType>(url, formData);
+
+    const res = await axios.post(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
 
     return res.data;
   } catch {

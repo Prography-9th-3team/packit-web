@@ -30,6 +30,9 @@ const apis = {
     category_list: '/api/v1/category/list',
     category_save: '/api/v1/category',
   },
+  fileUpload: {
+    file: '/file',
+  },
 };
 
 export default apis;
