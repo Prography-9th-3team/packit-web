@@ -57,17 +57,18 @@ const FilterBox = () => {
    */
   const handleAddCategory = () => {
     if (!category) {
-      addToast('카테고리를 입력해주세요.', 'error');
+      addToast('카테고리를 입력해주세요', 'error');
 
       return;
     }
     if (category === '전체') {
       setIsError(true);
+      addToast('카테고리가 이미 존재해요', 'error');
       return;
     }
     // category API
 
-    addToast('카테고리가 추가되었어요.', 'success');
+    addToast('카테고리가 추가되었어요', 'success');
   };
 
   return (

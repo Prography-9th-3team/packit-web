@@ -1,42 +1,23 @@
-'use client';
-
 import useToastStore from '@/stores/toastStore';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useEffect } from 'react';
-import Icon from '../common/Icon';
-import { Toast } from '../common/Toast';
+import { Toast } from '.';
+import Icon from '../Icon';
 
-const ToastArea = () => {
-  const { toastList } = useToastStore();
-
-  return (
-    <div className='fixed left-1/2 -translate-x-1/2 bottom-64 flex flex-col gap-8'>
-      <AnimatePresence>
-        {toastList.map((item) => (
-          <ToastWrapper key={item.id} id={item.id} label={item.message} type={item.type} />
-        ))}
-      </AnimatePresence>
-    </div>
-  );
-};
-
-export default ToastArea;
-
-interface IToastMessage {
+interface IToastWrapper {
   id: number;
   label: string;
   type: 'default' | 'success' | 'error';
+  time?: number;
 }
 
-const ToastWrapper = ({ id, label, type }: IToastMessage) => {
+const ToastWrapper = ({ id, label, type, time = 3000 }: IToastWrapper) => {
   const { removeToast } = useToastStore();
-
-  const TOAST_TIME = 3000; // 3초
 
   useEffect(() => {
     const timeoutID = setTimeout(() => {
       removeToast(id);
-    }, TOAST_TIME);
+    }, time);
 
     return () => clearTimeout(timeoutID);
   }, []);
@@ -60,3 +41,5 @@ const ToastWrapper = ({ id, label, type }: IToastMessage) => {
     </motion.div>
   );
 };
+
+export default ToastWrapper;
