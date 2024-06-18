@@ -2,6 +2,7 @@
 
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
+import useToastStore from '@/stores/toastStore';
 import { ChangeEvent, useState } from 'react';
 import TabList from '../TabList';
 import { Button } from '../common/Button';
@@ -32,6 +33,8 @@ const TAB_LIST = [
 const FilterBox = () => {
   const { queryParam, updateQueryString } = useQueryString();
 
+  const { addToast } = useToastStore();
+
   const isLikeChecked = queryParam.get('like-check') === 'true'; // 종아요 항목 표시
   const viewType = queryParam.get('view') ?? 'grid'; // list 타입 grid | list
 
@@ -54,15 +57,18 @@ const FilterBox = () => {
    */
   const handleAddCategory = () => {
     if (!category) {
-      alert('카테고리를 입력해주세요.');
+      addToast('카테고리를 입력해주세요', 'error');
+
+      return;
     }
     if (category === '전체') {
       setIsError(true);
+      addToast('카테고리가 이미 존재해요', 'error');
       return;
     }
     // category API
 
-    alert('카테고리가 추가되었어요.');
+    addToast('카테고리가 추가되었어요', 'success');
   };
 
   return (
