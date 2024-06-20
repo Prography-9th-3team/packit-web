@@ -21,6 +21,8 @@ const SideBar = () => {
   const router = useRouter();
   const pathName = usePathname();
 
+  const pathList = ['/login', '/onboarding'];
+
   const authStore = useAuthStore();
 
   const { data: profileData } = useUserProfile();
@@ -67,7 +69,7 @@ const SideBar = () => {
 
   return (
     <>
-      {pathName !== '/login' && (
+      {!pathList.includes(pathName) && (
         <>
           <aside className={cn(sidebarVariants({ isOpenSidebar }))}>
             <div className='p-6 flex justify-between relative'>
