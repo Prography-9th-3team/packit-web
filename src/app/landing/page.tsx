@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 const Landing = () => {
   return (
     <main>
-      <header className='w-full px-32 py-16 sticky top-0 bg-white'>
+      <header className='w-full h-[56px] px-32 py-16 sticky top-0 bg-white z-50 flex justify-between'>
         <Logo width={98} height={24} />
       </header>
 
@@ -97,7 +97,7 @@ const Landing = () => {
         </ScrollAnimation>
 
         <ScrollAnimation repeat={true}>
-          <div className='flex justify-between mb-[169px] items-center gap-[194px]'>
+          <div className='flex justify-between mb-[149px] items-center gap-[194px]'>
             <div className='flex flex-col h-full justify-center'>
               <div className='text-primary heading-2xl-bd mb-20'>패킷한 인사이트를</div>
               <div className='text-[#15181E] text-[56px] font-bold mb-48'>
@@ -121,7 +121,22 @@ const Landing = () => {
             />
           </div>
         </ScrollAnimation>
-        <div></div>
+
+        <div className='mb-[20px] w-[calc(100%-40px)] h-[413px] rounded-[32px] bg-[#E2E5EC] flex flex-col items-center justify-center'>
+          <div className='text-primary heading-2xl-bd mb-[20px]'>패킷과 함께</div>
+          <div className='text-[56px] font-bold text-[#15181E] mb-[40px]'>
+            인사이트를 한 번에 관리해 보세요
+          </div>
+          <button
+            className={cn(
+              'flex bg-[#15181E] py-12 px-24 items-center justify-center rounded-full gap-8',
+              'label-lg-bold text-white text-center hover:bg-[#242935]',
+            )}
+          >
+            <Icon name='google' className='w-16 h-16' />
+            <div>지금 바로 사용해보기</div>
+          </button>
+        </div>
       </section>
     </main>
   );
