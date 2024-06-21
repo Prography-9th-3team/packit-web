@@ -67,7 +67,7 @@ const SideBar = () => {
 
   return (
     <>
-      {pathName !== '/login' && (
+      {pathName !== '/login' && pathName !== '/landing' && (
         <>
           <aside className={cn(sidebarVariants({ isOpenSidebar }))}>
             <div className='p-6 flex justify-between relative'>

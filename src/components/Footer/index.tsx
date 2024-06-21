@@ -11,8 +11,6 @@ import Logo from '../common/Logo';
 const Footer = () => {
   const pathName = usePathname();
 
-  console.log(pathName);
-
   return (
     <>
       {pathName !== '/login' && (
