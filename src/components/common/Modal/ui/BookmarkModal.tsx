@@ -194,7 +194,11 @@ const BookmarkModal = () => {
                 className='cursor-pointer w-full h-full flex justify-center items-center'
                 onClick={() => handleDeleteFile(files[0].key)}
               >
-                <img className='aspect-[300/180] object-cover' src={String(files[0].src)} alt='' />
+                <img
+                  className='aspect-[300/180] object-cover'
+                  src={String(files[0].src)}
+                  alt='썸네일'
+                />
               </div>
             )}
           </div>

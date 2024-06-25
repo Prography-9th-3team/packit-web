@@ -17,6 +17,8 @@ import Icon from '../common/Icon';
 import { Menu } from '../common/Menu';
 import BookmarkModal from '../common/Modal/ui/BookmarkModal';
 
+const IMPROVEMENT_URL = 'https://forms.gle/dPi5voXeF3Fh7jve9'; // 개선 제안 링크
+
 const SideBar = () => {
   const router = useRouter();
   const pathName = usePathname();
@@ -129,7 +131,7 @@ const SideBar = () => {
                 {isOpenSidebar && (
                   <div className='px-12 py-[5px] body-sm-bold text-secondary'>리소스</div>
                 )}
-                <Menu onClick={() => handleNewWindowLink('https://forms.gle/dPi5voXeF3Fh7jve9')}>
+                <Menu onClick={() => handleNewWindowLink(IMPROVEMENT_URL)}>
                   <Icon name='mail' className='w-16 h-16 text-icon' />
                   {isOpenSidebar && <Menu.Label>개선 제안하기</Menu.Label>}
                 </Menu>

@@ -38,7 +38,7 @@ const BookmarkCard = ({
           <img
             className='aspect-[296/180] object-cover'
             src={representImageUrl}
-            alt=''
+            alt='썸네일'
             width={650}
           />
         ) : (
@@ -63,7 +63,7 @@ const BookmarkCard = ({
           <img
             className='rounded-full'
             src={faviconUrl}
-            alt=''
+            alt='파비콘'
             width={28}
             height={28}
             onError={(e) => ((e.target as HTMLImageElement).src = '/logo.svg')}
