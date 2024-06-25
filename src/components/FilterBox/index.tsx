@@ -1,5 +1,6 @@
 'use client';
 
+import { useCategoryList, useSaveCategory } from '@/apis/category';
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
 import { ChangeEvent, useState } from 'react';
@@ -11,26 +12,11 @@ import { Textfield } from '../common/Textfield';
 import TextfieldInput from '../common/Textfield/ui/TextfieldInput';
 import TextfieldInputWrapper from '../common/Textfield/ui/TextfieldInputWrapper';
 
-const TAB_LIST = [
-  {
-    title: '레퍼런스',
-    value: '레퍼런스',
-    count: 8,
-  },
-  {
-    title: '아이데이션',
-    value: '아이데이션',
-    count: 22,
-  },
-  {
-    title: '기타',
-    value: '기타',
-    count: 5,
-  },
-];
-
 const FilterBox = () => {
   const { queryParam, updateQueryString } = useQueryString();
+
+  const { data: categoryData } = useCategoryList();
+  const { mutateAsync: mutateSaveCategory } = useSaveCategory();
 
   const isLikeChecked = queryParam.get('like-check') === 'true'; // 종아요 항목 표시
   const viewType = queryParam.get('view') ?? 'grid'; // list 타입 grid | list
@@ -48,9 +34,8 @@ const FilterBox = () => {
 
   /**
    * TODO :
-   * - 카테고리 등록 API
    * - 유효성 검증 case 추가 필요
-   * - 카테고리 영역 밖 크릭 or esc 닫기
+   * - 카테고리 영역 밖 클릭 or esc 닫기
    */
   const handleAddCategory = () => {
     if (!category) {
@@ -60,15 +45,20 @@ const FilterBox = () => {
       setIsError(true);
       return;
     }
-    // category API
 
-    alert('카테고리가 추가되었어요.');
+    mutateSaveCategory(category).then((res) => {
+      if (res) {
+        alert('카테고리가 추가되었어요.');
+        setIsOpenCategory(false);
+        setCategory('');
+      }
+    });
   };
 
   return (
     <div>
       <div className='px-40 flex justify-between'>
-        <TabList tabs={TAB_LIST} />
+        <TabList tabs={categoryData} />
         <div className='relative'>
           <Button
             type='text'

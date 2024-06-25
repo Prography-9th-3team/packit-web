@@ -1,9 +1,18 @@
 'use client';
 
+import {
+  ISaveBookmarkDataType,
+  fetchGetMetaData,
+  fetchUploadImage,
+  useSaveBookmark,
+} from '@/apis/bookmark';
 import useDragUpload from '@/hooks/useDragUpload';
 import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
-import { useState } from 'react';
+import { useFormik } from 'formik';
+import { debounce } from 'lodash';
+import { ChangeEvent, useCallback, useState } from 'react';
+import * as yup from 'yup';
 import { Button } from '../../Button';
 import Icon from '../../Icon';
 import { Select } from '../../Select';
@@ -16,10 +25,7 @@ import ModalPortal from '../ModalPortal';
 const BookmarkModal = () => {
   const { closeModal } = useModalStore();
 
-  const [category, setCategory] = useState<string>('');
-  const [url, setUrl] = useState<string>('');
-  const [name, setName] = useState<string>('');
-  const [memo, setMemo] = useState<string>('');
+  const { mutateAsync: mutateSaveBookmark } = useSaveBookmark();
 
   const {
     files,
@@ -30,14 +36,76 @@ const BookmarkModal = () => {
     handleDragleave,
     handleDrop,
     handleDeleteFile,
-  } = useDragUpload({ maxNum: 1 });
+  } = useDragUpload({ maxNum: 1, extension: ['png', 'jpg', 'jpeg'] });
 
-  const handleSaveBookmark = () => {
-    alert('북마크 추가');
+  const formik = useFormik<ISaveBookmarkDataType>({
+    initialValues: {
+      categoryIds: [0],
+      title: '',
+      url: '',
+      memo: '',
+      representImageUrl: '',
+      favicon: '',
+      siteName: '',
+    },
+    validationSchema: yup.object({
+      url: yup.string().required('URL을 입력해 주세요.'),
+    }),
+    onSubmit: (values) => {
+      saveBookmark(values);
+    },
+  });
+
+  const [category, setCategory] = useState<string>('');
+
+  const handleChangeUrl = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    formik.setFieldValue('url', value);
+    delayedHTML(value);
   };
 
-  const handleCloseModal = () => {
-    closeModal('bookmarkModal');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const delayedHTML = useCallback(
+    debounce((url) => getMetaTag(url), 1000),
+    [],
+  );
+
+  const getMetaTag = async (url: string) => {
+    const result = await fetchGetMetaData(url);
+
+    if (result) {
+      const meta = result.meta;
+
+      formik.setFieldValue('title', meta.title);
+      formik.setFieldValue('memo', meta.description);
+      formik.setFieldValue('favicon', meta.favicon);
+      formik.setFieldValue('representImageUrl', meta.image);
+      formik.setFieldValue('siteName', meta.siteName);
+    } else {
+      formik.setFieldError('url', '등록할 수 없는 URL이에요.');
+    }
+  };
+
+  // 북마크 등록
+  const saveBookmark = async (values: ISaveBookmarkDataType) => {
+    const formData = new FormData();
+
+    if (files.length > 0) {
+      formData.append('file', files[0].originFile);
+      const res = await fetchUploadImage(formData);
+
+      if (res?.message === 'OK') {
+        values.userInsertRepresentImage = res.result;
+      } else {
+        return;
+      }
+    }
+
+    mutateSaveBookmark(values).then(() => {
+      alert('북마크가 추가되었어요.');
+      closeModal('bookmarkModal');
+    });
   };
 
   return (
@@ -60,20 +128,24 @@ const BookmarkModal = () => {
             </Select>
 
             <Textfield
+              name='url'
               placeholder='ex) packit.me'
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
+              value={formik.values.url}
+              onChange={handleChangeUrl}
+              isInvalid={!!formik.errors.url}
             >
               <Textfield.Label>URL</Textfield.Label>
               <Textfield.InputWrapper>
                 <Textfield.Input />
               </Textfield.InputWrapper>
+              {formik.errors.url && <Textfield.HelpText>{formik.errors.url}</Textfield.HelpText>}
             </Textfield>
 
             <Textfield
+              name='title'
               placeholder='ex) packit'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={formik.values.title}
+              onChange={formik.handleChange}
             >
               <Textfield.Label>이름</Textfield.Label>
               <Textfield.InputWrapper>
@@ -82,9 +154,10 @@ const BookmarkModal = () => {
             </Textfield>
 
             <Textfield
+              name='memo'
               placeholder='ex) packit'
-              value={memo}
-              onChange={(e) => setMemo(e.target.value)}
+              value={formik.values.memo}
+              onChange={formik.handleChange}
             >
               <Textfield.Label>메모</Textfield.Label>
               <Textfield.InputWrapper>
@@ -95,9 +168,10 @@ const BookmarkModal = () => {
 
           <div
             className={cn([
-              'my-0 mx-auto w-[304px] h-[180px] border-dashed border-2 border-border rounded-xl',
+              'my-0 mx-auto w-[304px] h-[180px] border-dashed border-border rounded-xl overflow-hidden',
               'hover:bg-action-secondary-hover',
               isDragged && 'bg-action-secondary-pressed',
+              files.length === 0 && 'border-2',
             ])}
             onDragEnter={handleDragenter}
             onDragOver={handleDragover}
@@ -112,7 +186,7 @@ const BookmarkModal = () => {
                   <p className='text-text-sub body-sm whitespace-nowrap'>
                     최대 5MB의 이미지까지 업로드 가능해요
                   </p>
-                  <input type='file' onChange={handleUploadFile} hidden />
+                  <input type='file' onChange={handleUploadFile} hidden accept='image/*' />
                 </div>
               </label>
             ) : (
@@ -120,16 +194,20 @@ const BookmarkModal = () => {
                 className='cursor-pointer w-full h-full flex justify-center items-center'
                 onClick={() => handleDeleteFile(files[0].key)}
               >
-                {files[0].name}
+                <img
+                  className='aspect-[300/180] object-cover'
+                  src={String(files[0].src)}
+                  alt='썸네일'
+                />
               </div>
             )}
           </div>
         </div>
         <div className='flex justify-end gap-8'>
-          <Button type='secondary' size='large' onClick={handleCloseModal}>
+          <Button type='secondary' size='large' onClick={() => closeModal('bookmarkModal')}>
             <Button.Label>닫기</Button.Label>
           </Button>
-          <Button type='primary' size='large' onClick={handleSaveBookmark}>
+          <Button type='primary' size='large' onClick={() => formik.handleSubmit()}>
             <Button.Label>추가</Button.Label>
           </Button>
         </div>

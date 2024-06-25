@@ -6,6 +6,7 @@ interface DefaultValueState {
   placeholder: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  name?: string;
 }
 
 export const TextfieldContext = createContext<DefaultValueState | null>(null);
