@@ -13,7 +13,7 @@ const Onboarding = () => {
           나만의 인사이트를 관리하세요
         </h1>
       </div>
-      <div className='flex justify-center gap-40 mt-80 px-20'>
+      <div className='flex flex-col justify-center items-center gap-40 mt-80 px-20 lg:flex-row lg:items-start'>
         <div className='text-center'>
           <Image
             className='max-w-[430px] max-h-[300px] w-full'
