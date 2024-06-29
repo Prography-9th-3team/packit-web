@@ -31,11 +31,12 @@ export const fetchData = {
     return res;
   },
 
-  post: async <T>(url: string, data: unknown) => {
+  post: async <T>(url: string, data: unknown, param?: unknown) => {
     const res = await axiosInstance<IFetchResponse<T>>({
       method: 'post',
       url: url,
       data,
+      params: param,
     });
 
     return res;

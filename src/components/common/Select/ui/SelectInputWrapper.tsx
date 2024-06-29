@@ -11,7 +11,7 @@ const SelectInputWrapper = ({ children }: ISelectInputWrapper) => {
 
   return (
     <div className={cn(selectInputWrapperVariants({ isDisabled, isInvalid }))}>
-      <div className='flex-1 flex items-center justify-between gap-8 overflow-y-scroll scroll-hide'>
+      <div className='flex-1 flex items-center justify-between gap-8 overflow-y-scroll scroll-hide styled-scroll'>
         {children}
       </div>
       <Icon name='chevronDown_s' className='w-16 h-16 text-icon-sub' />

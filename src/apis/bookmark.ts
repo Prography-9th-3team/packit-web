@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import useAuthStore from '@/stores/authStore';
-import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
+import { InfiniteData, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { fetchData } from '.';
 import { default as apis } from './api';
 
@@ -9,7 +10,7 @@ interface IBookmarkParamDataType {
   size: number;
   direction: 'ASC' | 'DESC';
   property: string;
-  categoryId?: number | null;
+  categoryId?: string | number | null;
   isFavorite?: boolean;
 }
 
@@ -59,4 +60,91 @@ export const useBookmarkInfinityAPI = (params: IBookmarkParamDataType) => {
     gcTime: 1000 * 60 * 10,
     enabled: authStore.isLogin(),
   });
+};
+
+export interface ISaveBookmarkDataType {
+  categoryIds: Array<number>;
+  url: string;
+  title: string;
+  memo: string;
+  favicon?: string;
+  siteName?: string;
+  representImageUrl: string;
+  userInsertRepresentImage?: {
+    name: string;
+    file: string;
+    uuid: string;
+    size: number;
+    extension: string;
+  };
+}
+
+/**
+ * 북마크 등록
+ */
+export const useSaveBookmark = () => {
+  const queryClient = useQueryClient();
+  const url = apis.bookmark.bookmark_save;
+
+  return useMutation<AxiosResponse, AxiosError, ISaveBookmarkDataType>({
+    mutationFn: (data) => fetchData.post(url, data),
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: [apis.bookmark.bookmark_list],
+      }),
+  });
+};
+
+interface IMetaResponseDataType {
+  title: string;
+  siteName: string;
+  favicon: string;
+  description: string;
+  image: string;
+}
+
+/**
+ * Meta tag 가져오기
+ */
+export const fetchGetMetaData = async (url: string) => {
+  try {
+    const res = await fetchData.get<{ meta: IMetaResponseDataType }>('/api/meta', {
+      params: { url },
+    });
+
+    return res.data.result;
+  } catch {
+    console.error('북마크를 할 수 없는 페이지입니다');
+  }
+};
+
+// interface IImageUploadDataType {
+//   name: string;
+//   file: string;
+//   uuid: string;
+//   size: number;
+//   extension: string;
+// }
+
+/**
+ * 북마크 이미지 업로드
+ * TODO : FormData API 추가 필요
+ */
+export const fetchUploadImage = async (formData: FormData) => {
+  const url = apis.fileUpload.file;
+
+  try {
+    // const res = await fetchData.post<IImageUploadDataType>(url, formData);
+
+    const res = await axios.post(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return res.data;
+  } catch {
+    console.error('파일 업로드에 실패했습니다.');
+  }
+  return;
 };

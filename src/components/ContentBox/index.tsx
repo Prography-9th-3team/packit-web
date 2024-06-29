@@ -1,6 +1,8 @@
 'use client';
 
 import { useBookmarkInfinityAPI } from '@/apis/bookmark';
+import useQueryString from '@/hooks/useQueyString';
+import useModalStore from '@/stores/modalStore';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import BookmarkCard, { IBookmarkCard } from '../BookmarkCard';
@@ -10,6 +12,14 @@ import Icon from '../common/Icon';
 const ContentBox = () => {
   const [ref, inView] = useInView();
 
+  const { queryParam } = useQueryString();
+  const { openModal } = useModalStore();
+
+  const categoryId =
+    queryParam.get('tab') === null || queryParam.get('tab') === '전체'
+      ? null
+      : queryParam.get('tab');
+
   const {
     data: bookmarkData,
     fetchNextPage,
@@ -18,7 +28,7 @@ const ContentBox = () => {
     size: 10,
     direction: 'DESC',
     property: 'id',
-    categoryId: null,
+    categoryId,
     // isFavorite: false,
   });
 
@@ -36,7 +46,7 @@ const ContentBox = () => {
     <section className='mx-auto max-w-[1964px] p-40'>
       {bookmarkData?.content.length > 0 ? (
         <>
-          <div className='grid gap-20 2xl:xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2'>
+          <div className='grid gap-20 2xl:xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1'>
             {bookmarkData.content.map((item: IBookmarkCard) => (
               <BookmarkCard
                 key={item.bookMarkId}
@@ -54,7 +64,7 @@ const ContentBox = () => {
           <p className='body-md text-text-sub mb-24'>
             북마크 파일을 끌어당기거나 북마크 추가 버튼을 눌러 등록해 보세요
           </p>
-          <Button type='outline' size='small' onClick={() => alert('북마크 추가 모달')}>
+          <Button type='outline' size='small' onClick={() => openModal('bookmarkModal')}>
             <Button.Label>북마크 추가</Button.Label>
           </Button>
         </div>

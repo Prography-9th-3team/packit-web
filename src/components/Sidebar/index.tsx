@@ -17,6 +17,8 @@ import Icon from '../common/Icon';
 import { Menu } from '../common/Menu';
 import BookmarkModal from '../common/Modal/ui/BookmarkModal';
 
+const IMPROVEMENT_URL = 'https://forms.gle/dPi5voXeF3Fh7jve9'; // 개선 제안 링크
+
 const SideBar = () => {
   const router = useRouter();
   const pathName = usePathname();
@@ -35,18 +37,26 @@ const SideBar = () => {
     return isOpenSidebar ? 'chevronLeftDouble' : 'chevronRightDouble';
   })();
 
+  // 사이드바 Toggle
   const handleToggleSidebar = () => {
     setIsOpenSidebar((prev) => !prev);
   };
 
+  // 검색바 오픈
   const handleOpenSearch = () => {
     alert('검색바 오픈');
   };
 
+  // 메뉴 탭 변경
   const handleChangeMenu = (menu: string) => {
     setSelected(menu);
 
     // API 요청
+  };
+
+  // 외부 링크 오픈
+  const handleNewWindowLink = (url: string) => {
+    window.open(url, ' _blank');
   };
 
   const handleLogout = async () => {
@@ -123,7 +133,7 @@ const SideBar = () => {
                 {isOpenSidebar && (
                   <div className='px-12 py-[5px] body-sm-bold text-secondary'>리소스</div>
                 )}
-                <Menu>
+                <Menu onClick={() => handleNewWindowLink(IMPROVEMENT_URL)}>
                   <Icon name='mail' className='w-16 h-16 text-icon' />
                   {isOpenSidebar && <Menu.Label>개선 제안하기</Menu.Label>}
                 </Menu>
