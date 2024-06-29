@@ -1,7 +1,8 @@
+import PackitTooltip from '@/components/PackitTooltip';
 import Icon from '@/components/common/Icon';
 import Image from 'next/image';
 
-const Onboarding = async () => {
+const Onboarding = () => {
   return (
     <main className='bg-surface pt-[101px] pb-[157px]'>
       <div className='flex flex-col gap-[30px] items-center'>
@@ -63,6 +64,8 @@ const Onboarding = async () => {
           </p>
         </div>
       </div>
+
+      <PackitTooltip />
     </main>
   );
 };
