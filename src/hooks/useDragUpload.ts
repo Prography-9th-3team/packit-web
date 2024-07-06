@@ -2,10 +2,11 @@ import { ChangeEvent, DragEvent, useState } from 'react';
 
 interface Props {
   maxNum?: number;
-  extenstion?: Array<string>;
+  extension?: Array<string>;
 }
 
 interface IFile {
+  src: string | ArrayBuffer | null | undefined;
   key: string;
   name: string;
   size: number;
@@ -13,7 +14,7 @@ interface IFile {
   originFile: File;
 }
 
-const useDragUpload = ({ maxNum = 3, extenstion = [] }: Props) => {
+const useDragUpload = ({ maxNum = 3, extension = [] }: Props) => {
   const MAX_SIZE = 5 * 1024 * 1024;
 
   const [files, setFiles] = useState<Array<IFile>>([]);
@@ -74,11 +75,13 @@ const useDragUpload = ({ maxNum = 3, extenstion = [] }: Props) => {
         let checkExtension = false;
         const fileName = newFiles[i].name;
         const size = newFiles[i].size;
-        const fileExtension = fileName.substring(fileName.indexOf('.') + 1, fileName.length);
 
-        if (extenstion.length > 0) {
-          for (let i = 0; i < extenstion.length; i++) {
-            if (fileExtension.toLowerCase() === extenstion[i].toLowerCase()) {
+        const nameArr = fileName.split('.');
+        const fileExtension = nameArr[nameArr.length - 1];
+
+        if (extension.length > 0) {
+          for (let i = 0; i < extension.length; i++) {
+            if (fileExtension.toLowerCase() === extension[i].toLowerCase()) {
               checkExtension = true;
             }
           }
@@ -86,11 +89,14 @@ const useDragUpload = ({ maxNum = 3, extenstion = [] }: Props) => {
           checkExtension = true;
         }
 
-        if (checkExtension)
-          if (checkExtension) {
+        if (checkExtension) {
+          const reader = new FileReader();
+
+          reader.onload = (event) => {
             setFiles((prev) => [
               ...prev,
               {
+                src: event.target?.result,
                 key: key + `/${i}`,
                 name: fileName,
                 size,
@@ -98,9 +104,11 @@ const useDragUpload = ({ maxNum = 3, extenstion = [] }: Props) => {
                 originFile: newFiles[i],
               },
             ]);
-          } else {
-            alert('지원하지 않는 확장자입니다.');
-          }
+          };
+          reader.readAsDataURL(newFiles[i]);
+        } else {
+          alert('지원하지 않는 확장자입니다.');
+        }
       }
     }
   };

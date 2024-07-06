@@ -7,6 +7,7 @@ export interface ITextfieldMain extends PropsWithChildren {
   placeholder: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
+  name?: string;
 }
 
 const TextfieldMain = ({
@@ -16,9 +17,12 @@ const TextfieldMain = ({
   placeholder,
   onChange,
   value,
+  name,
 }: ITextfieldMain) => {
   return (
-    <TextfieldContext.Provider value={{ isDisabled, isInvalid, placeholder, onChange, value }}>
+    <TextfieldContext.Provider
+      value={{ isDisabled, isInvalid, placeholder, onChange, value, name }}
+    >
       <div className='flex flex-col gap-6 items-start'>{children}</div>
     </TextfieldContext.Provider>
   );

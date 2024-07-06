@@ -1,6 +1,5 @@
 'use client';
 
-import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
 import { MouseEvent, PropsWithChildren, useRef } from 'react';
 
@@ -18,13 +17,12 @@ const ModalLayout = ({ children }: IModal) => {
   };
 
   return (
-    <div ref={modalRef} className='fixed top-0 left-0 bottom-0 right-0' onClick={handleCloseModal}>
-      <div
-        className={cn([
-          'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
-          'max-h-[600px] p-24 rounded-2xl bg-surface shadow-modal overflow-scroll',
-        ])}
-      >
+    <div
+      ref={modalRef}
+      className='fixed top-0 left-0 bottom-0 right-0 p-40 flex flex-col justify-center items-center'
+      onClick={handleCloseModal}
+    >
+      <div className='max-h-[900px] p-24 rounded-2xl bg-surface shadow-modal overflow-scroll'>
         {children}
       </div>
     </div>

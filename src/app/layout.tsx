@@ -24,12 +24,12 @@ export default function RootLayout({
       <body className='flex'>
         <Provider>
           <Sidebar />
-          <div className='min-h-dvh w-full flex flex-col overflow-scroll'>
+          <div className='min-h-dvh w-full flex flex-col overflow-scroll styled-scroll'>
             <div className='flex-1'>{children}</div>
             <Footer />
           </div>
-          <div id='modal'></div>
           <ToastArea />
+          <div id='modal' className='styled-scroll'></div>
         </Provider>
       </body>
     </html>
