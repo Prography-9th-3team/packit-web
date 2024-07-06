@@ -25,6 +25,7 @@ const apis = {
   bookmark: {
     bookmark_list: '/api/v1/book-mark/list',
     bookmark_save: '/api/v1/book-mark',
+    bookmark_like: '/api/v1/book-mark/like',
   },
   category: {
     category_list: '/api/v1/category/list',

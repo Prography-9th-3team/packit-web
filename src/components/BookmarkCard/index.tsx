@@ -1,8 +1,9 @@
 'use client';
 
-import { useGetThumbnailImage } from '@/apis/bookmark';
+import { useBookmarkLike } from '@/apis/bookmark';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
+import { MouseEvent, useState } from 'react';
 import Icon from '../common/Icon';
 export interface IBookmarkCard {
   bookMarkId: number;
@@ -14,6 +15,7 @@ export interface IBookmarkCard {
   siteName: string;
   url: string;
   imageUUID?: string;
+  isFavorite: boolean;
   onClick: () => void;
 }
 
@@ -21,18 +23,31 @@ export interface IBookmarkCard {
  * TODO : s3로 변경시 thumbnail 가져오는 api 삭제
  */
 const BookmarkCard = ({
+  bookMarkId,
   representImageUrl,
   title,
   categoryNames,
   memo,
   faviconUrl,
   siteName,
-  imageUUID,
+  // imageUUID,
+  isFavorite,
   onClick,
 }: IBookmarkCard) => {
-  const { data } = useGetThumbnailImage(imageUUID);
+  // const { data } = useGetThumbnailImage(imageUUID);
 
-  console.log(data);
+  const { mutateAsync: mutateBookmarkLike } = useBookmarkLike();
+
+  const [isLike, setIsLike] = useState(isFavorite);
+
+  // 북마크 좋아요
+  const handleToggleLike = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
+    mutateBookmarkLike({ bookMarkId, isFavorite: !isLike }).then(() => {
+      setIsLike((prev) => !prev);
+    });
+  };
 
   return (
     <div
@@ -81,9 +96,18 @@ const BookmarkCard = ({
           />
         </picture>
         <span className='body-md text-text truncate'>{siteName}</span>
-        <div className='absolute right-0 hidden items-center gap-12 bg-surface *:text-icon-minimal group-hover:flex'>
-          <button onClick={(e) => e.stopPropagation()}>
-            <Icon name='heart' className='w-20 h-20' />
+        <div
+          className={cn([
+            'absolute right-0 hidden items-center gap-12 bg-surface *:text-icon-minimal group-hover:flex',
+            isLike && 'flex',
+          ])}
+        >
+          <button onClick={handleToggleLike}>
+            {isLike ? (
+              <Icon name='heart_fill' className='w-20 h-20 text-primary' />
+            ) : (
+              <Icon name='heart' className='w-20 h-20' />
+            )}
           </button>
           <button onClick={(e) => e.stopPropagation()}>
             <Icon name='link_03' className='w-20 h-20' />

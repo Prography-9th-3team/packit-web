@@ -16,7 +16,6 @@ import TextfieldInputWrapper from '../common/Textfield/ui/TextfieldInputWrapper'
 const FilterBox = () => {
   const { queryParam, updateQueryString } = useQueryString();
 
-
   const { addToast } = useToastStore();
   const { data: categoryData } = useCategoryList();
   const { mutateAsync: mutateSaveCategory } = useSaveCategory();
@@ -73,7 +72,9 @@ const FilterBox = () => {
             className='p-0 pb-16 text-icon hover:text-secondary-hover'
           >
             <Icon name='plus_circle' className='w-16 h-16' />
-            <Button.Label className='label-md-bold text-inherit'>카테고리 추가</Button.Label>
+            <Button.Label className='label-md-bold text-inherit text-nowrap'>
+              카테고리 추가
+            </Button.Label>
           </Button>
           {isOpenCategory && (
             <div className='absolute right-0 top-[calc(100%-8px)] p-8 grid grid-cols-[300px_1fr] gap-8 bg-surface rounded-xl shadow-layer'>

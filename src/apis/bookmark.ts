@@ -143,14 +143,6 @@ export const fetchGetMetaData = async (url: string) => {
   }
 };
 
-// interface IImageUploadDataType {
-//   name: string;
-//   file: string;
-//   uuid: string;
-//   size: number;
-//   extension: string;
-// }
-
 /**
  * 북마크 이미지 업로드
  * TODO : FormData API 추가 필요
@@ -185,5 +177,21 @@ export const useGetThumbnailImage = (uuid?: string) => {
     staleTime: 1000 * 60 * 60,
     gcTime: 1000 * 60 * 60,
     enabled: !!uuid,
+  });
+};
+
+interface BookmarkLikeDataType {
+  bookMarkId: number;
+  isFavorite: boolean;
+}
+
+/**
+ * 북마크 좋아요
+ */
+export const useBookmarkLike = () => {
+  const url = apis.bookmark.bookmark_like;
+
+  return useMutation<AxiosResponse, AxiosError, BookmarkLikeDataType>({
+    mutationFn: (data) => fetchData.put(url, data),
   });
 };

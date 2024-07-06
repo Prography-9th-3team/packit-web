@@ -23,6 +23,7 @@ export { default as filePlus } from './file_plus.svg';
 export { default as google } from './google.svg';
 export { default as grid } from './grid.svg';
 export { default as heart } from './heart.svg';
+export { default as heart_fill } from './heart_fill.svg';
 export { default as home04_s } from './home_04.svg';
 export { default as link_03 } from './link_03.svg';
 export { default as list } from './list.svg';
