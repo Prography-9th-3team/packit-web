@@ -1,7 +1,9 @@
+'use client';
+
+import { useGetThumbnailImage } from '@/apis/bookmark';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Icon from '../common/Icon';
-
 export interface IBookmarkCard {
   bookMarkId: number;
   categoryNames: Array<number>;
@@ -11,9 +13,13 @@ export interface IBookmarkCard {
   faviconUrl: string;
   siteName: string;
   url: string;
+  imageUUID?: string;
   onClick: () => void;
 }
 
+/**
+ * TODO : s3로 변경시 thumbnail 가져오는 api 삭제
+ */
 const BookmarkCard = ({
   representImageUrl,
   title,
@@ -21,8 +27,13 @@ const BookmarkCard = ({
   memo,
   faviconUrl,
   siteName,
+  imageUUID,
   onClick,
 }: IBookmarkCard) => {
+  const { data } = useGetThumbnailImage(imageUUID);
+
+  console.log(data);
+
   return (
     <div
       className='cursor-pointer max-h-[342px] mb-40 flex flex-col gap-20 group'

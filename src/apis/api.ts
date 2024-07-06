@@ -32,6 +32,7 @@ const apis = {
   },
   fileUpload: {
     file: '/file',
+    thumbnail: (uuid: string) => `/file/thumb/original/${uuid}`,
   },
 };
 

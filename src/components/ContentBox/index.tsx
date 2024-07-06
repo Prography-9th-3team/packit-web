@@ -5,7 +5,7 @@ import useQueryString from '@/hooks/useQueyString';
 import useModalStore from '@/stores/modalStore';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import BookmarkCard, { IBookmarkCard } from '../BookmarkCard';
+import BookmarkCard from '../BookmarkCard';
 import { Button } from '../common/Button';
 import Icon from '../common/Icon';
 
@@ -29,7 +29,7 @@ const ContentBox = () => {
     direction: 'DESC',
     property: 'id',
     categoryId,
-    // isFavorite: false,
+    // isFavorite: s,
   });
 
   const handleOpenBlank = (url: string) => {
@@ -44,13 +44,14 @@ const ContentBox = () => {
 
   return (
     <section className='mx-auto max-w-[1964px] p-40'>
-      {bookmarkData?.content.length > 0 ? (
+      {bookmarkData?.content.length ?? 0 > 0 ? (
         <>
           <div className='grid gap-20 2xl:xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1'>
-            {bookmarkData.content.map((item: IBookmarkCard) => (
+            {bookmarkData?.content.map((item) => (
               <BookmarkCard
                 key={item.bookMarkId}
                 {...item}
+                imageUUID={item.userInsertRepresentImage?.uuid}
                 onClick={() => handleOpenBlank(item.url)}
               />
             ))}

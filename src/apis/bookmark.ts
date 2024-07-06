@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import useAuthStore from '@/stores/authStore';
-import { InfiniteData, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  InfiniteData,
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { fetchData } from '.';
 import { default as apis } from './api';
@@ -21,7 +27,26 @@ interface IBookmarkListResponseDataType {
     total: number;
     lastPage: number;
   };
-  content: [];
+  content: Array<{
+    bookMarkId: number;
+    categoryNames: Array<any>;
+    faviconUrl: string;
+    isFavorite: boolean;
+    isRead: boolean;
+    memo: string;
+    readCount: number;
+    representImageUrl: string;
+    siteName: string;
+    title: string;
+    url: string;
+    userInsertRepresentImage: {
+      extension: string;
+      file: string;
+      name: string;
+      size: number;
+      uuid: string;
+    };
+  }>;
 }
 
 /**
@@ -31,10 +56,10 @@ export const useBookmarkInfinityAPI = (params: IBookmarkParamDataType) => {
   const url = apis.bookmark.bookmark_list;
   const authStore = useAuthStore();
 
-  return useInfiniteQuery<any, unknown, any, any>({
+  return useInfiniteQuery<any, unknown, IBookmarkListResponseDataType, any>({
     queryKey: [apis.bookmark.bookmark_list, params],
     queryFn: async ({ pageParam }) => {
-      const res = await fetchData.get<IBookmarkListResponseDataType, any, any>(url, {
+      const res = await fetchData.get(url, {
         params: { ...params, pageNumber: pageParam },
       });
 
@@ -134,8 +159,6 @@ export const fetchUploadImage = async (formData: FormData) => {
   const url = apis.fileUpload.file;
 
   try {
-    // const res = await fetchData.post<IImageUploadDataType>(url, formData);
-
     const res = await axios.post(url, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -147,4 +170,20 @@ export const fetchUploadImage = async (formData: FormData) => {
     console.error('파일 업로드에 실패했습니다.');
   }
   return;
+};
+
+/**
+ * 북마크 이미지 쌈네일
+ */
+export const useGetThumbnailImage = (uuid?: string) => {
+  const url = apis.fileUpload.thumbnail(uuid ?? '');
+
+  return useQuery<AxiosResponse, AxiosError, any>({
+    queryKey: [url],
+    queryFn: () => fetchData.get(url),
+    select: (res) => res.data.result,
+    staleTime: 1000 * 60 * 60,
+    gcTime: 1000 * 60 * 60,
+    enabled: !!uuid,
+  });
 };

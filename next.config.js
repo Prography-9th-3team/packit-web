@@ -18,7 +18,7 @@ const nextConfig = {
       destination: 'http://3.39.102.104/api/:path*',
     },
     {
-      source: '/file',
+      source: '/file/:path*',
       destination: 'http://3.39.102.104/file',
     },
   ],
