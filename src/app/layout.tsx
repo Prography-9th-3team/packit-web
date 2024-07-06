@@ -1,5 +1,6 @@
 import Footer from '@/components/Footer';
 import Sidebar from '@/components/Sidebar';
+import ToastArea from '@/components/common/Toast/ToastArea';
 import type { Metadata } from 'next';
 import '../../styles/tailwind.css';
 import Provider from './Provider';
@@ -27,6 +28,7 @@ export default function RootLayout({
             <div className='flex-1'>{children}</div>
             <Footer />
           </div>
+          <ToastArea />
           <div id='modal' className='styled-scroll'></div>
         </Provider>
       </body>

@@ -3,6 +3,7 @@
 import { useCategoryList, useSaveCategory } from '@/apis/category';
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
+import useToastStore from '@/stores/toastStore';
 import { ChangeEvent, useState } from 'react';
 import TabList from '../TabList';
 import { Button } from '../common/Button';
@@ -15,6 +16,8 @@ import TextfieldInputWrapper from '../common/Textfield/ui/TextfieldInputWrapper'
 const FilterBox = () => {
   const { queryParam, updateQueryString } = useQueryString();
 
+
+  const { addToast } = useToastStore();
   const { data: categoryData } = useCategoryList();
   const { mutateAsync: mutateSaveCategory } = useSaveCategory();
 
@@ -39,16 +42,19 @@ const FilterBox = () => {
    */
   const handleAddCategory = () => {
     if (!category) {
-      alert('카테고리를 입력해주세요.');
+      addToast('카테고리를 입력해주세요', 'error');
+
+      return;
     }
     if (category === '전체') {
       setIsError(true);
+      addToast('카테고리가 이미 존재해요', 'error');
       return;
     }
 
     mutateSaveCategory(category).then((res) => {
       if (res) {
-        alert('카테고리가 추가되었어요.');
+        addToast('카테고리가 추가되었어요', 'success');
         setIsOpenCategory(false);
         setCategory('');
       }
