@@ -52,7 +52,10 @@ const FilterBox = () => {
     }
 
     mutateSaveCategory(category).then((res) => {
-      if (res) {
+      if (res.data.code === 'C002') {
+        setIsError(true);
+        addToast(res.data.message, 'error');
+      } else {
         addToast('카테고리가 추가되었어요', 'success');
         setIsOpenCategory(false);
         setCategory('');
