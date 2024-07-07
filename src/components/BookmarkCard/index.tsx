@@ -1,6 +1,6 @@
 'use client';
 
-import { useBookmarkLike } from '@/apis/bookmark';
+import { useBookmarkLike, useGetThumbnailImage } from '@/apis/bookmark';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { MouseEvent, useState } from 'react';
@@ -30,11 +30,12 @@ const BookmarkCard = ({
   memo,
   faviconUrl,
   siteName,
-  // imageUUID,
+  imageUUID,
   isFavorite,
   onClick,
 }: IBookmarkCard) => {
-  // const { data } = useGetThumbnailImage(imageUUID);
+  // 썸네일 API 요청
+  useGetThumbnailImage(imageUUID);
 
   const { mutateAsync: mutateBookmarkLike } = useBookmarkLike();
 

@@ -1,7 +1,10 @@
 import { getCookie } from '@/lib/utils';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
+// const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 const axiosInstance = axios.create({
+  // baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },

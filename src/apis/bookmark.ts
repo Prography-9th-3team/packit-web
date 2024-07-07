@@ -195,3 +195,12 @@ export const useBookmarkLike = () => {
     mutationFn: (data) => fetchData.put(url, data),
   });
 };
+
+/**
+ * 북마크 조회
+ */
+export const fetchBookmarkReadCount = (bookMarkId: number) => {
+  const url = apis.bookmark.bookmark_read;
+
+  return fetchData.put(url, { bookMarkId });
+};

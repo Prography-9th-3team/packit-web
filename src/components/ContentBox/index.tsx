@@ -1,11 +1,13 @@
 'use client';
 
-import { useBookmarkInfinityAPI } from '@/apis/bookmark';
+import { fetchBookmarkReadCount, useBookmarkInfinityAPI } from '@/apis/bookmark';
 import useQueryString from '@/hooks/useQueyString';
+import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import BookmarkCard from '../BookmarkCard';
+import BookmarkItem from '../BookmarkItem';
 import { Button } from '../common/Button';
 import Icon from '../common/Icon';
 
@@ -15,10 +17,13 @@ const ContentBox = () => {
   const { queryParam } = useQueryString();
   const { openModal } = useModalStore();
 
+  // 카테고리
   const categoryId =
     queryParam.get('tab') === null || queryParam.get('tab') === '전체'
       ? null
       : queryParam.get('tab');
+  // 목록 view
+  const listView = queryParam.get('view') ?? 'grid';
 
   const {
     data: bookmarkData,
@@ -29,10 +34,12 @@ const ContentBox = () => {
     direction: 'DESC',
     property: 'id',
     categoryId,
-    // isFavorite: s,
+    isFavorite: Boolean(queryParam.get('favorite')),
   });
 
-  const handleOpenBlank = (url: string) => {
+  const handleOpenBlank = ({ url, bookMarkId }: { url: string; bookMarkId: number }) => {
+    fetchBookmarkReadCount(bookMarkId);
+
     window.open(url, '_blank');
   };
 
@@ -42,20 +49,42 @@ const ContentBox = () => {
     }
   }, [inView]);
 
+  console.log(listView);
+
   return (
-    <section className='mx-auto max-w-[1964px] p-40'>
+    <section className={cn(['mx-auto max-w-[1964px]', listView === 'grid' && 'p-40'])}>
       {bookmarkData?.content.length ?? 0 > 0 ? (
         <>
-          <div className='grid gap-20 2xl:xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1'>
-            {bookmarkData?.content.map((item) => (
-              <BookmarkCard
-                key={item.bookMarkId}
-                {...item}
-                imageUUID={item.userInsertRepresentImage?.uuid}
-                onClick={() => handleOpenBlank(item.url)}
-              />
-            ))}
-          </div>
+          {listView === 'grid' ? (
+            <div className='grid gap-20 2xl:xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1'>
+              {bookmarkData?.content.map((item) => (
+                <BookmarkCard
+                  key={item.bookMarkId}
+                  {...item}
+                  imageUUID={item.userInsertRepresentImage?.uuid}
+                  onClick={() => handleOpenBlank({ url: item.url, bookMarkId: item.bookMarkId })}
+                />
+              ))}
+            </div>
+          ) : (
+            <>
+              <div className='py-12 px-40 grid grid-cols-[1fr,160px,140px,152px] body-md'>
+                <div>이름</div>
+                <div className='px-8 text-end'>사이트</div>
+                <div className='px-8 text-end'>카테고리</div>
+              </div>
+              <div className='flex flex-col'>
+                {bookmarkData?.content.map((item) => (
+                  <BookmarkItem
+                    key={item.bookMarkId}
+                    {...item}
+                    imageUUID={item.userInsertRepresentImage?.uuid}
+                    onClick={() => handleOpenBlank({ url: item.url, bookMarkId: item.bookMarkId })}
+                  />
+                ))}
+              </div>
+            </>
+          )}
           <div ref={ref}></div>
         </>
       ) : (
