@@ -9,6 +9,7 @@ import { useInView } from 'react-intersection-observer';
 import BookmarkCard from '../BookmarkCard';
 import BookmarkItem from '../BookmarkItem';
 import { Button } from '../common/Button';
+import Divider from '../common/Divider';
 import Icon from '../common/Icon';
 
 const ContentBox = () => {
@@ -34,7 +35,7 @@ const ContentBox = () => {
     direction: 'DESC',
     property: 'id',
     categoryId,
-    isFavorite: Boolean(queryParam.get('favorite')),
+    isFavorite: queryParam.get('favorite') === 'true',
   });
 
   const handleOpenBlank = ({ url, bookMarkId }: { url: string; bookMarkId: number }) => {
@@ -48,8 +49,6 @@ const ContentBox = () => {
       fetchNextPage();
     }
   }, [inView]);
-
-  console.log(listView);
 
   return (
     <section className={cn(['mx-auto max-w-[1964px]', listView === 'grid' && 'p-40'])}>
@@ -73,6 +72,7 @@ const ContentBox = () => {
                 <div className='px-8 text-end'>사이트</div>
                 <div className='px-8 text-end'>카테고리</div>
               </div>
+              <Divider />
               <div className='flex flex-col'>
                 {bookmarkData?.content.map((item) => (
                   <BookmarkItem

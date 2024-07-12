@@ -1,6 +1,7 @@
 'use client';
 
 import { useBookmarkLike } from '@/apis/bookmark';
+import useToastStore from '@/stores/toastStore';
 import { MouseEvent, useState } from 'react';
 import Icon from '../common/Icon';
 export interface IBookmarkCard {
@@ -26,11 +27,11 @@ const BookmarkItem = ({
   memo,
   faviconUrl,
   siteName,
-  // imageUUID,
+  url,
   isFavorite,
   onClick,
 }: IBookmarkCard) => {
-  // const { data } = useGetThumbnailImage(imageUUID);
+  const { addToast } = useToastStore();
 
   const { mutateAsync: mutateBookmarkLike } = useBookmarkLike();
 
@@ -42,6 +43,14 @@ const BookmarkItem = ({
 
     mutateBookmarkLike({ bookMarkId, isFavorite: !isLike }).then(() => {
       setIsLike((prev) => !prev);
+    });
+  };
+
+  const handleCopyUrl = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
+    navigator.clipboard.writeText(url).then(() => {
+      addToast('링크가 복사되었습니다.', 'success');
     });
   };
 
@@ -76,10 +85,7 @@ const BookmarkItem = ({
             <Icon name='heart' className='w-16 h-16' />
           )}
         </button>
-        <button
-          className='w-40 h-40 flex items-center justify-center'
-          onClick={(e) => e.stopPropagation()}
-        >
+        <button className='w-40 h-40 flex items-center justify-center' onClick={handleCopyUrl}>
           <Icon name='link_03' className='w-16 h-16' />
         </button>
         <button

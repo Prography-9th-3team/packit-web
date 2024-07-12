@@ -1,4 +1,4 @@
-import { getCookie } from '@/lib/utils';
+import { deleteCookie, getCookie } from '@/lib/utils';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 // const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -17,6 +17,20 @@ axiosInstance.interceptors.request.use((config) => {
 
   return config;
 });
+
+axiosInstance.interceptors.response.use(
+  (config) => {
+    return config;
+  },
+  (error) => {
+    const res = error.response.data;
+
+    // token 만료
+    if (res.status === 401) {
+      deleteCookie('accessToken');
+    }
+  },
+);
 
 export interface IFetchResponse<T> {
   code: string;
@@ -45,7 +59,7 @@ export const fetchData = {
     return res;
   },
 
-  put: async <T>(url: string, data: unknown) => {
+  put: async <T>(url: string, data?: unknown) => {
     const res = await axiosInstance<T>({
       method: 'put',
       url: url,

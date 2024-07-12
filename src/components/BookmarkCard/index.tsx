@@ -2,6 +2,7 @@
 
 import { useBookmarkLike, useGetThumbnailImage } from '@/apis/bookmark';
 import { cn } from '@/lib/utils';
+import useToastStore from '@/stores/toastStore';
 import Image from 'next/image';
 import { MouseEvent, useState } from 'react';
 import Icon from '../common/Icon';
@@ -30,10 +31,13 @@ const BookmarkCard = ({
   memo,
   faviconUrl,
   siteName,
+  url,
   imageUUID,
   isFavorite,
   onClick,
 }: IBookmarkCard) => {
+  const { addToast } = useToastStore();
+
   // 썸네일 API 요청
   useGetThumbnailImage(imageUUID);
 
@@ -47,6 +51,14 @@ const BookmarkCard = ({
 
     mutateBookmarkLike({ bookMarkId, isFavorite: !isLike }).then(() => {
       setIsLike((prev) => !prev);
+    });
+  };
+
+  const handleCopyUrl = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
+    navigator.clipboard.writeText(url).then(() => {
+      addToast('링크가 복사되었습니다.', 'success');
     });
   };
 
@@ -110,7 +122,7 @@ const BookmarkCard = ({
               <Icon name='heart' className='w-20 h-20' />
             )}
           </button>
-          <button onClick={(e) => e.stopPropagation()}>
+          <button onClick={handleCopyUrl}>
             <Icon name='link_03' className='w-20 h-20' />
           </button>
           <button onClick={(e) => e.stopPropagation()}>

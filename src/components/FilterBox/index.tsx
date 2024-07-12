@@ -72,7 +72,7 @@ const FilterBox = () => {
             type='text'
             size='medium'
             onClick={() => setIsOpenCategory((prev) => !prev)}
-            className='p-0 pb-16 text-icon hover:text-secondary-hover'
+            className='p-0 pl-8 pb-16 text-icon hover:text-secondary-hover'
           >
             <Icon name='plus_circle' className='w-16 h-16' />
             <Button.Label className='label-md-bold text-inherit text-nowrap'>

@@ -9,7 +9,7 @@ import {
 } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { fetchData } from '.';
-import { default as apis } from './api';
+import { default as apis, urlParams } from './api';
 
 interface IBookmarkParamDataType {
   pageNumber?: number;
@@ -192,7 +192,7 @@ export const useBookmarkLike = () => {
   const url = apis.bookmark.bookmark_like;
 
   return useMutation<AxiosResponse, AxiosError, BookmarkLikeDataType>({
-    mutationFn: (data) => fetchData.put(url, data),
+    mutationFn: (data) => fetchData.put(url + urlParams(data)),
   });
 };
 
