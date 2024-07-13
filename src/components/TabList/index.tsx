@@ -18,7 +18,7 @@ const TabList = ({ tabs = [] }: ITabList) => {
         <li
           key={tab.categoryId}
           className={cn([
-            'cursor-pointer flex gap-4 label-md-bold text-text',
+            'cursor-pointer flex gap-4 label-md-bold text-text transition-all duration-150',
             queryTab === String(tab.categoryId ?? '전체') && 'border-b-2 border-divide-on',
           ])}
           onClick={() => updateQueryString('tab', String(tab.categoryId ?? '전체'))}
