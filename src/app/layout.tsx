@@ -4,6 +4,7 @@ import ToastArea from '@/components/common/Toast/ToastArea';
 import type { Metadata } from 'next';
 import '../../styles/tailwind.css';
 import Provider from './Provider';
+import RouteGuard from './RouteGuard';
 
 export const metadata: Metadata = {
   title: '패킷',
@@ -22,6 +23,7 @@ export default function RootLayout({
         <link rel='icon' href='/logo.svg' />
       </head>
       <body className='flex'>
+        <RouteGuard />
         <Provider>
           <Sidebar />
           <div className='min-h-dvh w-full flex flex-col overflow-scroll styled-scroll'>

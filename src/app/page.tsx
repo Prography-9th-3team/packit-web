@@ -1,19 +1,8 @@
-'use client';
-
 import ContentBox from '@/components/ContentBox';
 import FilterBox from '@/components/FilterBox';
-import { useRouter } from 'next/navigation';
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 
 const Home = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!document.cookie.includes('accessToken')) {
-      router.push('/login');
-    }
-  }, []);
-
   return (
     <main className='bg-surface'>
       <header className='p-40'>
