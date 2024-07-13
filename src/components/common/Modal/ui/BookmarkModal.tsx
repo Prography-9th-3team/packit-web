@@ -7,6 +7,7 @@ import {
   useSaveBookmark,
 } from '@/apis/bookmark';
 import useDragUpload from '@/hooks/useDragUpload';
+import useEscKeyModalEvent from '@/hooks/useEscKeyModalEvent';
 import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
 import useToastStore from '@/stores/toastStore';
@@ -26,6 +27,8 @@ import ModalPortal from '../ModalPortal';
 const BookmarkModal = () => {
   const { closeModal } = useModalStore();
   const { addToast } = useToastStore();
+
+  useEscKeyModalEvent('bookmarkModal');
 
   const { mutateAsync: mutateSaveBookmark } = useSaveBookmark();
 
@@ -113,7 +116,7 @@ const BookmarkModal = () => {
 
   return (
     <ModalPortal>
-      <div className='w-[432px]'>
+      <div className='w-[432px] overflow-hidden'>
         <div className='mb-24'>
           <h1 className='text-text heading-2xl-bd'>북마크 추가</h1>
         </div>

@@ -11,6 +11,7 @@ export interface IButtonMain extends PropsWithChildren, VariantProps<typeof butt
   isFull?: boolean;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
+  buttonRef?: React.RefObject<HTMLButtonElement>;
 }
 
 const ButtonMain = ({
@@ -22,6 +23,7 @@ const ButtonMain = ({
   isDisabled = false,
   isFull = false,
   className,
+  buttonRef,
 }: IButtonMain) => {
   return (
     <ButtonContext.Provider value={{ size, type, isLoading, isDisabled }}>
@@ -29,6 +31,7 @@ const ButtonMain = ({
         className={cn([buttonMainVariants({ type, size, isDisabled, isFull }), className])}
         onClick={onClick}
         disabled={isDisabled}
+        ref={buttonRef}
       >
         {isLoading && <Spinner size={SPINNER_SIZE.SM} />}
         {children}

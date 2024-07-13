@@ -22,7 +22,7 @@ const ModalLayout = ({ children }: IModal) => {
       className='fixed top-0 left-0 bottom-0 right-0 p-40 flex flex-col justify-center items-center'
       onClick={handleCloseModal}
     >
-      <div className='max-h-[900px] p-24 rounded-2xl bg-surface shadow-modal overflow-scroll'>
+      <div className='max-h-[900px] p-24 rounded-2xl bg-surface shadow-modal overflow-scroll hide-scroll'>
         {children}
       </div>
     </div>
