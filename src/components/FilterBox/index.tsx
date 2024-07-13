@@ -9,9 +9,7 @@ import TabList from '../TabList';
 import { Button } from '../common/Button';
 import Divider from '../common/Divider';
 import Icon from '../common/Icon';
-import { Textfield } from '../common/Textfield';
-import TextfieldInput from '../common/Textfield/ui/TextfieldInput';
-import TextfieldInputWrapper from '../common/Textfield/ui/TextfieldInputWrapper';
+import AddCategory from './AddCategory';
 
 const FilterBox = () => {
   const { queryParam, updateQueryString } = useQueryString();
@@ -75,24 +73,13 @@ const FilterBox = () => {
             <Button.Label className='label-md-bold text-inherit'>카테고리 추가</Button.Label>
           </Button>
           {isOpenCategory && (
-            <div className='absolute right-0 top-[calc(100%-8px)] p-8 grid grid-cols-[300px_1fr] gap-8 bg-surface rounded-xl shadow-layer'>
-              <Textfield
-                value={category}
-                onChange={handleChangeCategory}
-                placeholder='새 카테고리 추가'
-                isInvalid={isError}
-              >
-                <TextfieldInputWrapper>
-                  <TextfieldInput />
-                  {isError && (
-                    <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
-                  )}
-                </TextfieldInputWrapper>
-              </Textfield>
-              <Button type='primary' size='large' onClick={handleAddCategory}>
-                <Button.Label>추가</Button.Label>
-              </Button>
-            </div>
+            <AddCategory
+              category={category}
+              isError={isError}
+              handleChangeCategory={handleChangeCategory}
+              handleAddCategory={handleAddCategory}
+              handleCloseModal={() => setIsOpenCategory(false)}
+            />
           )}
         </div>
       </div>
