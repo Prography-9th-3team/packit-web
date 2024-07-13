@@ -4,18 +4,15 @@ import { useCategoryList, useSaveCategory } from '@/apis/category';
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
 import useToastStore from '@/stores/toastStore';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import TabList from '../TabList';
 import { Button } from '../common/Button';
 import Divider from '../common/Divider';
 import Icon from '../common/Icon';
-import { Textfield } from '../common/Textfield';
-import TextfieldInput from '../common/Textfield/ui/TextfieldInput';
-import TextfieldInputWrapper from '../common/Textfield/ui/TextfieldInputWrapper';
+import AddCategory from './AddCategory';
 
 const FilterBox = () => {
   const { queryParam, updateQueryString } = useQueryString();
-
 
   const { addToast } = useToastStore();
   const { data: categoryData } = useCategoryList();
@@ -27,6 +24,8 @@ const FilterBox = () => {
   const [isOpenCategory, setIsOpenCategory] = useState<boolean>(false); // 카테고리 모달 오픈
   const [category, setCategory] = useState<string>(''); // 카테고리 텍스트
   const [isError, setIsError] = useState<boolean>(false); // 카테고리 에러
+
+  const buttonRef = useRef<HTMLDivElement>(null);
 
   const handleChangeCategory = (e: ChangeEvent<HTMLInputElement>) => {
     if (isError) {
@@ -66,34 +65,26 @@ const FilterBox = () => {
       <div className='px-40 flex justify-between'>
         <TabList tabs={categoryData} />
         <div className='relative'>
-          <Button
-            type='text'
-            size='medium'
-            onClick={() => setIsOpenCategory((prev) => !prev)}
-            className='p-0 pb-16 text-icon hover:text-secondary-hover'
-          >
-            <Icon name='plus_circle' className='w-16 h-16' />
-            <Button.Label className='label-md-bold text-inherit'>카테고리 추가</Button.Label>
-          </Button>
+          <div ref={buttonRef}>
+            <Button
+              type='text'
+              size='medium'
+              onClick={() => setIsOpenCategory((prev) => !prev)}
+              className='p-0 pb-16 text-icon hover:text-secondary-hover'
+            >
+              <Icon name='plus_circle' className='w-16 h-16' />
+              <Button.Label className='label-md-bold text-inherit'>카테고리 추가</Button.Label>
+            </Button>
+          </div>
           {isOpenCategory && (
-            <div className='absolute right-0 top-[calc(100%-8px)] p-8 grid grid-cols-[300px_1fr] gap-8 bg-surface rounded-xl shadow-layer'>
-              <Textfield
-                value={category}
-                onChange={handleChangeCategory}
-                placeholder='새 카테고리 추가'
-                isInvalid={isError}
-              >
-                <TextfieldInputWrapper>
-                  <TextfieldInput />
-                  {isError && (
-                    <Icon name='warningTriangle_f' className='w-16 h-16 text-icon-critical' />
-                  )}
-                </TextfieldInputWrapper>
-              </Textfield>
-              <Button type='primary' size='large' onClick={handleAddCategory}>
-                <Button.Label>추가</Button.Label>
-              </Button>
-            </div>
+            <AddCategory
+              category={category}
+              isError={isError}
+              handleChangeCategory={handleChangeCategory}
+              handleAddCategory={handleAddCategory}
+              handleCloseModal={() => setIsOpenCategory(false)}
+              buttonRef={buttonRef}
+            />
           )}
         </div>
       </div>
