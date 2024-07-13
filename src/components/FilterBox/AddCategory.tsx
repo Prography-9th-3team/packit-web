@@ -1,4 +1,8 @@
+import { useRef } from 'react';
+
 import useEscKeyModalEvent from '@/hooks/useEscKeyModalEvent';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
+
 import { Button } from '../common/Button';
 import Icon from '../common/Icon';
 import { Textfield } from '../common/Textfield';
@@ -11,6 +15,7 @@ interface IAddCategory {
   handleChangeCategory: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleAddCategory: () => void;
   handleCloseModal: () => void;
+  buttonRef: React.RefObject<HTMLDivElement>;
 }
 
 const AddCategory = ({
@@ -19,11 +24,18 @@ const AddCategory = ({
   handleChangeCategory,
   handleAddCategory,
   handleCloseModal,
+  buttonRef,
 }: IAddCategory) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+
   useEscKeyModalEvent('addCategory', () => handleCloseModal());
+  useOnClickOutside([modalRef, buttonRef], () => handleCloseModal());
 
   return (
-    <div className='absolute right-0 top-[calc(100%-8px)] p-8 grid grid-cols-[300px_1fr] gap-8 bg-surface rounded-xl shadow-layer'>
+    <div
+      className='absolute right-0 top-[calc(100%-8px)] p-8 grid grid-cols-[300px_1fr] gap-8 bg-surface rounded-xl shadow-layer'
+      ref={modalRef}
+    >
       <Textfield
         value={category}
         onChange={handleChangeCategory}

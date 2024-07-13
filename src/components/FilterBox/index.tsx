@@ -4,7 +4,7 @@ import { useCategoryList, useSaveCategory } from '@/apis/category';
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
 import useToastStore from '@/stores/toastStore';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import TabList from '../TabList';
 import { Button } from '../common/Button';
 import Divider from '../common/Divider';
@@ -24,6 +24,8 @@ const FilterBox = () => {
   const [isOpenCategory, setIsOpenCategory] = useState<boolean>(false); // 카테고리 모달 오픈
   const [category, setCategory] = useState<string>(''); // 카테고리 텍스트
   const [isError, setIsError] = useState<boolean>(false); // 카테고리 에러
+
+  const buttonRef = useRef<HTMLDivElement>(null);
 
   const handleChangeCategory = (e: ChangeEvent<HTMLInputElement>) => {
     if (isError) {
@@ -63,15 +65,17 @@ const FilterBox = () => {
       <div className='px-40 flex justify-between'>
         <TabList tabs={categoryData} />
         <div className='relative'>
-          <Button
-            type='text'
-            size='medium'
-            onClick={() => setIsOpenCategory((prev) => !prev)}
-            className='p-0 pb-16 text-icon hover:text-secondary-hover'
-          >
-            <Icon name='plus_circle' className='w-16 h-16' />
-            <Button.Label className='label-md-bold text-inherit'>카테고리 추가</Button.Label>
-          </Button>
+          <div ref={buttonRef}>
+            <Button
+              type='text'
+              size='medium'
+              onClick={() => setIsOpenCategory((prev) => !prev)}
+              className='p-0 pb-16 text-icon hover:text-secondary-hover'
+            >
+              <Icon name='plus_circle' className='w-16 h-16' />
+              <Button.Label className='label-md-bold text-inherit'>카테고리 추가</Button.Label>
+            </Button>
+          </div>
           {isOpenCategory && (
             <AddCategory
               category={category}
@@ -79,6 +83,7 @@ const FilterBox = () => {
               handleChangeCategory={handleChangeCategory}
               handleAddCategory={handleAddCategory}
               handleCloseModal={() => setIsOpenCategory(false)}
+              buttonRef={buttonRef}
             />
           )}
         </div>
