@@ -2,13 +2,12 @@ import useModalStore from '@/stores/modalStore';
 import { useEffect } from 'react';
 import useEventListener from './useEventListener';
 
-const useEscKeyModalEvent = (modalId: string, eventCallback: () => void) => {
-  // DESC: 열려 있는 모달 중 우선순위 설정하는 atom
+const useEscKeyModalEvent = (modalId: string, eventCallback?: () => void) => {
   const { modalOpen, openModal, closeModal } = useModalStore();
 
   const handleEscKeyEvent = (event: KeyboardEvent) => {
     if (event.key === 'Escape' && modalOpen[modalOpen.length - 1] === modalId) {
-      eventCallback();
+      eventCallback && eventCallback();
       closeModal(modalId);
     }
   };

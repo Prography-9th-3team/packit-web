@@ -7,6 +7,7 @@ import {
   useSaveBookmark,
 } from '@/apis/bookmark';
 import useDragUpload from '@/hooks/useDragUpload';
+import useEscKeyModalEvent from '@/hooks/useEscKeyModalEvent';
 import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
 import { useFormik } from 'formik';
@@ -24,6 +25,8 @@ import ModalPortal from '../ModalPortal';
  */
 const BookmarkModal = () => {
   const { closeModal } = useModalStore();
+
+  useEscKeyModalEvent('bookmarkModal');
 
   const { mutateAsync: mutateSaveBookmark } = useSaveBookmark();
 
