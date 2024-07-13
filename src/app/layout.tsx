@@ -23,7 +23,6 @@ export default function RootLayout({
         <link rel='icon' href='/logo.svg' />
       </head>
       <body className='flex'>
-        <RouteGuard />
         <Provider>
           <Sidebar />
           <div className='min-h-dvh w-full flex flex-col overflow-scroll styled-scroll'>
@@ -33,6 +32,7 @@ export default function RootLayout({
           <ToastArea />
           <div id='modal' className='styled-scroll'></div>
         </Provider>
+        <RouteGuard />
       </body>
     </html>
   );

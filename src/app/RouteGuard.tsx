@@ -26,9 +26,7 @@ const RouteGuard = () => {
         router.push('/');
       }
     }
-  }, [router]);
 
-  useEffect(() => {
     // 익스텐션 로그인 메시지 전달
     const token = getCookie('accessToken');
 
