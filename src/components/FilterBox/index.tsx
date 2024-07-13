@@ -18,7 +18,7 @@ const FilterBox = () => {
   const { data: categoryData } = useCategoryList();
   const { mutateAsync: mutateSaveCategory } = useSaveCategory();
 
-  const isLikeChecked = queryParam.get('like-check') === 'true'; // 종아요 항목 표시
+  const isLikeChecked = queryParam.get('favorite') === 'true'; // 종아요 항목 표시
   const viewType = queryParam.get('view') ?? 'grid'; // list 타입 grid | list
 
   const [isOpenCategory, setIsOpenCategory] = useState<boolean>(false); // 카테고리 모달 오픈
@@ -52,7 +52,10 @@ const FilterBox = () => {
     }
 
     mutateSaveCategory(category).then((res) => {
-      if (res) {
+      if (res.data.code === 'C002') {
+        setIsError(true);
+        addToast(res.data.message, 'error');
+      } else {
         addToast('카테고리가 추가되었어요', 'success');
         setIsOpenCategory(false);
         setCategory('');
@@ -93,7 +96,7 @@ const FilterBox = () => {
         <Button
           type='text'
           size='medium'
-          onClick={() => updateQueryString('like-check', String(!isLikeChecked))}
+          onClick={() => updateQueryString('favorite', String(!isLikeChecked))}
           className='p-0'
         >
           <Icon

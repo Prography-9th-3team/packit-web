@@ -18,3 +18,7 @@ export const getCookie = (name: string) => {
 
   return null; // 쿠키가 없을 경우 null 반환
 };
+
+export const deleteCookie = (name: string) => {
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+};

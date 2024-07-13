@@ -10,6 +10,7 @@ import useDragUpload from '@/hooks/useDragUpload';
 import useEscKeyModalEvent from '@/hooks/useEscKeyModalEvent';
 import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
+import useToastStore from '@/stores/toastStore';
 import { useFormik } from 'formik';
 import { debounce } from 'lodash';
 import { ChangeEvent, useCallback, useState } from 'react';
@@ -25,6 +26,7 @@ import ModalPortal from '../ModalPortal';
  */
 const BookmarkModal = () => {
   const { closeModal } = useModalStore();
+  const { addToast } = useToastStore();
 
   useEscKeyModalEvent('bookmarkModal');
 
@@ -106,7 +108,8 @@ const BookmarkModal = () => {
     }
 
     mutateSaveBookmark(values).then(() => {
-      alert('북마크가 추가되었어요.');
+      addToast('북마크가 추가되었어요.', 'success');
+
       closeModal('bookmarkModal');
     });
   };

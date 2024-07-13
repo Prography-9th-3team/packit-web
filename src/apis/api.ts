@@ -25,6 +25,8 @@ const apis = {
   bookmark: {
     bookmark_list: '/api/v1/book-mark/list',
     bookmark_save: '/api/v1/book-mark',
+    bookmark_like: '/api/v1/book-mark/like',
+    bookmark_read: '/api/v1/book-mark/read/count',
   },
   category: {
     category_list: '/api/v1/category/list',
@@ -32,6 +34,7 @@ const apis = {
   },
   fileUpload: {
     file: '/file',
+    thumbnail: (uuid: string) => `/file/thumb/original/${uuid}`,
   },
 };
 
