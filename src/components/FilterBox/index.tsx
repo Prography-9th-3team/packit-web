@@ -16,7 +16,6 @@ import TextfieldInputWrapper from '../common/Textfield/ui/TextfieldInputWrapper'
 const FilterBox = () => {
   const { queryParam, updateQueryString } = useQueryString();
 
-
   const { addToast } = useToastStore();
   const { data: categoryData } = useCategoryList();
   const { mutateAsync: mutateSaveCategory } = useSaveCategory();
