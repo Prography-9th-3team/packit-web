@@ -41,9 +41,9 @@ const Login = () => {
       }
     };
 
-    if (document.cookie.includes('accessToken')) {
-      router.push('/');
-    }
+    // if (document.cookie.includes('accessToken')) {
+    //   router.push('/');
+    // }
 
     window.addEventListener('message', handleTokenSaved);
 

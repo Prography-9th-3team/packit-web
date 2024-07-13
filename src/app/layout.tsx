@@ -4,6 +4,7 @@ import ToastArea from '@/components/common/Toast/ToastArea';
 import type { Metadata } from 'next';
 import '../../styles/tailwind.css';
 import Provider from './Provider';
+import RouteGuard from './RouteGuard';
 
 export const metadata: Metadata = {
   title: '패킷',
@@ -31,6 +32,7 @@ export default function RootLayout({
           <ToastArea />
           <div id='modal' className='styled-scroll'></div>
         </Provider>
+        <RouteGuard />
       </body>
     </html>
   );
