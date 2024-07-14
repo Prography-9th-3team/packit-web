@@ -20,9 +20,6 @@ const Home = () => {
         <h1 className='text-text heading-3xl-bd'>내 북마크</h1>
       </header>
       <Suspense>
-        {/* filter area
-        TODO : Suspense fallback Component
-      */}
         <FilterBox />
         {/* 컨텐츠 영역 */}
         <ContentBox />
