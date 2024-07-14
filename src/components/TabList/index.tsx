@@ -1,6 +1,6 @@
 'use client';
 
-import { ICategoryResponseDataType } from '@/apis/category';
+import { ICategoryResponseDataType, useDeleteCategory } from '@/apis/category';
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
@@ -15,6 +15,8 @@ const TabList = ({ tabs = [] }: ITabList) => {
   const [isHover, setIsHover] = useState<number | null>(null);
   const [isControlModalOpen, setIsControlModalOpen] = useState<boolean>(false);
 
+  const { mutateAsync: deleteCategory } = useDeleteCategory();
+
   const handleModal = () => setIsControlModalOpen((prev) => !prev);
 
   const handleClickCategory = (categoryId: number) => {
@@ -26,6 +28,12 @@ const TabList = ({ tabs = [] }: ITabList) => {
 
   const { queryParam, updateQueryString } = useQueryString();
   const queryTab = queryParam.get('tab') ?? '전체';
+
+  const handleDeleteCategory = async (categoryId: number) => {
+    await deleteCategory([categoryId]).then((res) => {
+      if (res.status === 200) console.log(res.status);
+    });
+  };
 
   return (
     <div className='h-40 relative w-[calc(100%-100px)]'>
@@ -52,7 +60,7 @@ const TabList = ({ tabs = [] }: ITabList) => {
               (isControlModalOpen && queryTab === String(tab.categoryId ?? '전체'))) && (
               <Icon
                 name='dotsVertical'
-                className='w-16 h-16 text-text-minimal absolute left-[calc(100%-2px)]'
+                className='w-16 h-16 text-text-minimal absolute left-[calc(100%-2px)] top-[2.7px]'
                 onClick={handleModal}
               />
             )}
@@ -61,7 +69,7 @@ const TabList = ({ tabs = [] }: ITabList) => {
                 <Option>
                   <Option.Label>이름 수정</Option.Label>
                 </Option>
-                <Option>
+                <Option onClick={() => handleDeleteCategory(tab.categoryId)}>
                   <Option.Label>
                     <span className='text-text-critical'>삭제</span>
                   </Option.Label>
