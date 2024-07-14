@@ -51,7 +51,8 @@ const TabList = ({ tabs = [] }: ITabList) => {
     <div className='h-40 relative w-[calc(100%-100px)]'>
       <ul
         className={cn(
-          'absolute w-full h-[500px] flex gap-28 whitespace-nowrap hide-scroll select-none overflow-x-scroll',
+          'absolute w-full h-[40px] flex gap-28 whitespace-nowrap hide-scroll select-none overflow-x-scroll',
+          isControlModalOpen && 'h-[700px]',
         )}
       >
         {tabs.map((tab, index) => (
