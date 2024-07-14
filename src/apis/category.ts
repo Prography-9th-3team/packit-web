@@ -52,3 +52,20 @@ export const useDeleteCategory = () => {
       }),
   });
 };
+
+export const useEditCategory = () => {
+  const queryClient = useQueryClient();
+  const url = apis.category.category_edit;
+
+  return useMutation<AxiosResponse, AxiosError, { categoryId: number; categoryName: string }>({
+    mutationFn: ({ categoryId, categoryName }) =>
+      fetchData.put(url, {
+        categoryId: categoryId,
+        categoryName: decodeURI(categoryName),
+      }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: [apis.category.category_list],
+      }),
+  });
+};

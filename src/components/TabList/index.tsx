@@ -9,6 +9,7 @@ import useToastStore from '@/stores/toastStore';
 
 import Icon from '../common/Icon';
 import { Option } from '../common/Option';
+import CategoryEditModal from './CategoryEditModal';
 
 interface ITabList {
   tabs?: Array<ICategoryResponseDataType>;
@@ -19,6 +20,7 @@ const TabList = ({ tabs = [] }: ITabList) => {
 
   const [isHover, setIsHover] = useState<number | null>(null);
   const [isControlModalOpen, setIsControlModalOpen] = useState<boolean>(false);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
   const { mutateAsync: deleteCategory } = useDeleteCategory();
 
@@ -38,6 +40,11 @@ const TabList = ({ tabs = [] }: ITabList) => {
     await deleteCategory([categoryId]).then((res) => {
       if (res.status === 200) addToast('카테고리가 삭제되었어요', 'default');
     });
+  };
+
+  const handleCloseModal = () => {
+    setIsControlModalOpen(false);
+    setIsEditMode(false);
   };
 
   return (
@@ -69,9 +76,9 @@ const TabList = ({ tabs = [] }: ITabList) => {
                 onClick={handleModal}
               />
             )}
-            {isControlModalOpen && queryTab === String(tab.categoryId ?? '전체') && (
+            {!isEditMode && isControlModalOpen && queryTab === String(tab.categoryId ?? '전체') && (
               <div className='absolute top-[calc(100%-8px)] shadow-layer left-[calc(100%-10px)] w-[165px] h-[100px] flex flex-col gap-4 rounded-lg bg-white overflow-hidden z-10'>
-                <Option>
+                <Option onClick={() => setIsEditMode(true)}>
                   <Option.Label>이름 수정</Option.Label>
                 </Option>
                 <Option onClick={() => handleDeleteCategory(tab.categoryId)}>
@@ -80,6 +87,13 @@ const TabList = ({ tabs = [] }: ITabList) => {
                   </Option.Label>
                 </Option>
               </div>
+            )}
+            {isEditMode && isControlModalOpen && queryTab === String(tab.categoryId ?? '전체') && (
+              <CategoryEditModal
+                categoryName={tab.categoryName}
+                categoryId={tab.categoryId}
+                handleCloseModal={handleCloseModal}
+              />
             )}
           </li>
         ))}
