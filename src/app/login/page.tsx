@@ -35,7 +35,7 @@ const Login = () => {
         <div className='h-full flex items-center justify-center flex-col'>
           <div className='flex flex-col gap-32 justify-center items-center w-360 mb-[26px]'>
             <Logo type='default' width={126} height={30} />
-            <span className='text-center heading-3xl-bd'>
+            <span className='text-text text-center heading-3xl-bd'>
               패킷으로 쉽고 간편하게
               <br />
               나만의 인사이트를 관리하세요
@@ -62,7 +62,7 @@ const Login = () => {
         <div className='pt-32 px-10 flex flex-col gap-32'>
           <div className='flex flex-col gap-20 justify-center items-center mb-[26px]'>
             <Logo type='default' width={126} height={30} />
-            <span className='text-center heading-3xl-bd'>
+            <span className='text-text text-center heading-3xl-bd'>
               패킷으로 쉽고 간편하게
               <br />
               나만의 인사이트를
