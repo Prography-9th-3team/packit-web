@@ -1,9 +1,12 @@
 'use client';
 
+import { useState } from 'react';
+
 import { ICategoryResponseDataType, useDeleteCategory } from '@/apis/category';
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
+import useToastStore from '@/stores/toastStore';
+
 import Icon from '../common/Icon';
 import { Option } from '../common/Option';
 
@@ -12,6 +15,8 @@ interface ITabList {
 }
 
 const TabList = ({ tabs = [] }: ITabList) => {
+  const { addToast } = useToastStore();
+
   const [isHover, setIsHover] = useState<number | null>(null);
   const [isControlModalOpen, setIsControlModalOpen] = useState<boolean>(false);
 
@@ -31,7 +36,7 @@ const TabList = ({ tabs = [] }: ITabList) => {
 
   const handleDeleteCategory = async (categoryId: number) => {
     await deleteCategory([categoryId]).then((res) => {
-      if (res.status === 200) console.log(res.status);
+      if (res.status === 200) addToast('카테고리가 삭제되었어요', 'default');
     });
   };
 
