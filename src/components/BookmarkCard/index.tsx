@@ -3,7 +3,6 @@
 import { useBookmarkLike, useGetThumbnailImage } from '@/apis/bookmark';
 import { cn } from '@/lib/utils';
 import useToastStore from '@/stores/toastStore';
-import Image from 'next/image';
 import { MouseEvent, useState } from 'react';
 import Icon from '../common/Icon';
 export interface IBookmarkCard {
@@ -56,12 +55,18 @@ const BookmarkCard = ({
     });
   };
 
+  // 북마크 링크 복사
   const handleCopyUrl = async (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
     navigator.clipboard.writeText(url).then(() => {
       addToast('링크가 복사되었습니다.', 'success');
     });
+  };
+
+  // empty 이미지 랜덤
+  const getRandomNumber = () => {
+    return Math.random() < 0.5 ? 1 : 2;
   };
 
   return (
@@ -83,12 +88,11 @@ const BookmarkCard = ({
             width={650}
           />
         ) : (
-          <Image
+          <img
             className='aspect-[296/180] object-cover'
-            src='/assets/image/empty_image.png'
-            alt='Empty'
+            src={`/assets/image/empty_image_${getRandomNumber()}.png`}
+            alt='썸네일'
             width={650}
-            height={400}
           />
         )}
       </div>
@@ -99,7 +103,7 @@ const BookmarkCard = ({
         <h2 className='body-lg-bold text-text truncate'>{bookmarkTitle}</h2>
         <p className='body-md text-text-sub truncate'>{memo}</p>
       </div>
-      <div className='px-10 flex items-center justify-between'>
+      <div className='px-10 flex items-center justify-between gap-8'>
         <div className='flex items-center gap-8 truncate'>
           <picture>
             <img
