@@ -99,21 +99,23 @@ const BookmarkCard = ({
         <h2 className='body-lg-bold text-text truncate'>{bookmarkTitle}</h2>
         <p className='body-md text-text-sub truncate'>{memo}</p>
       </div>
-      <div className='relative px-10 flex items-center gap-8'>
-        <picture>
-          <img
-            className='rounded-full'
-            src={faviconUrl}
-            alt='파비콘'
-            width={28}
-            height={28}
-            onError={(e) => ((e.target as HTMLImageElement).src = '/logo.svg')}
-          />
-        </picture>
-        <span className='body-md text-text truncate'>{bookmarkSiteName}</span>
+      <div className='px-10 flex items-center justify-between'>
+        <div className='flex items-center gap-8 truncate'>
+          <picture>
+            <img
+              className='rounded-full min-w-28 h-28'
+              src={faviconUrl}
+              alt='파비콘'
+              width={28}
+              height={28}
+              onError={(e) => ((e.target as HTMLImageElement).src = '/logo.svg')}
+            />
+          </picture>
+          <span className='body-md text-text truncate'>{bookmarkSiteName}</span>
+        </div>
         <div
           className={cn([
-            'absolute right-0 hidden items-center gap-12 bg-surface *:text-icon-minimal group-hover:flex',
+            'hidden items-center gap-12 *:text-icon-minimal group-hover:flex',
             isLike && 'flex',
           ])}
         >
