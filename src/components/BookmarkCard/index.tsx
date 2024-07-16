@@ -42,8 +42,10 @@ const BookmarkCard = ({
   useGetThumbnailImage(imageUUID);
 
   const { mutateAsync: mutateBookmarkLike } = useBookmarkLike();
-
   const [isLike, setIsLike] = useState(isFavorite);
+
+  const bookmarkTitle = title !== '' ? title : url;
+  const bookmarkSiteName = siteName !== '' ? siteName : url.split('/')[2];
 
   // 북마크 좋아요
   const handleToggleLike = (e: MouseEvent<HTMLButtonElement>) => {
@@ -94,7 +96,7 @@ const BookmarkCard = ({
         {categoryNames.length > 0 && (
           <span className='body-sm-bold text-primary'>{categoryNames[0]}</span>
         )}
-        <h2 className='body-lg-bold text-text truncate'>{title !== '' ? title : url}</h2>
+        <h2 className='body-lg-bold text-text truncate'>{bookmarkTitle}</h2>
         <p className='body-md text-text-sub truncate'>{memo}</p>
       </div>
       <div className='relative px-10 flex items-center gap-8'>
@@ -108,7 +110,7 @@ const BookmarkCard = ({
             onError={(e) => ((e.target as HTMLImageElement).src = '/logo.svg')}
           />
         </picture>
-        <span className='body-md text-text truncate'>{siteName}</span>
+        <span className='body-md text-text truncate'>{bookmarkSiteName}</span>
         <div
           className={cn([
             'absolute right-0 hidden items-center gap-12 bg-surface *:text-icon-minimal group-hover:flex',

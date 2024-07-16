@@ -34,8 +34,10 @@ const BookmarkItem = ({
   const { addToast } = useToastStore();
 
   const { mutateAsync: mutateBookmarkLike } = useBookmarkLike();
-
   const [isLike, setIsLike] = useState(isFavorite);
+
+  const bookmarkTitle = title !== '' ? title : url;
+  const bookmarkSiteName = siteName !== '' ? siteName : url.split('/')[2];
 
   // 북마크 좋아요
   const handleToggleLike = (e: MouseEvent<HTMLButtonElement>) => {
@@ -60,11 +62,11 @@ const BookmarkItem = ({
       onClick={onClick}
     >
       <div className='flex flex-col justify-center gap-4 px-8 overflow-hidden'>
-        <h2 className='body-md text-text truncate'>{title !== '' ? title : url}</h2>
+        <h2 className='body-md text-text truncate'>{bookmarkTitle}</h2>
         <p className='body-sm text-text-sub truncate'>{memo}</p>
       </div>
       <div className='flex items-center justify-end gap-8 px-8'>
-        <span className='body-md text-text truncate'>{siteName}</span>
+        <span className='body-md text-text truncate'>{bookmarkSiteName}</span>
         <img
           className='rounded-full'
           src={faviconUrl}
