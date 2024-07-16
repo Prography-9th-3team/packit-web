@@ -60,7 +60,7 @@ const BookmarkItem = ({
       onClick={onClick}
     >
       <div className='flex flex-col justify-center gap-4 px-8 overflow-hidden'>
-        <h2 className='body-md text-text truncate'>{title}</h2>
+        <h2 className='body-md text-text truncate'>{title !== '' ? title : url}</h2>
         <p className='body-sm text-text-sub truncate'>{memo}</p>
       </div>
       <div className='flex items-center justify-end gap-8 px-8'>

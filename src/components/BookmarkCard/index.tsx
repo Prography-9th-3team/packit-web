@@ -94,7 +94,7 @@ const BookmarkCard = ({
         {categoryNames.length > 0 && (
           <span className='body-sm-bold text-primary'>{categoryNames[0]}</span>
         )}
-        <h2 className='body-lg-bold text-text'>{title}</h2>
+        <h2 className='body-lg-bold text-text truncate'>{title !== '' ? title : url}</h2>
         <p className='body-md text-text-sub truncate'>{memo}</p>
       </div>
       <div className='relative px-10 flex items-center gap-8'>
