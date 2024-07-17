@@ -33,15 +33,14 @@ const BookmarkModal = () => {
   const { mutateAsync: mutateSaveBookmark } = useSaveBookmark();
 
   const {
-    files,
+    file,
     isDragged,
     handleUploadFile,
     handleDragenter,
     handleDragover,
     handleDragleave,
     handleDrop,
-    handleDeleteFile,
-  } = useDragUpload({ maxNum: 1, extension: ['png', 'jpg', 'jpeg'] });
+  } = useDragUpload({ extension: ['png', 'jpg', 'jpeg'] });
 
   const formik = useFormik<ISaveBookmarkDataType>({
     initialValues: {
@@ -96,8 +95,8 @@ const BookmarkModal = () => {
   const saveBookmark = async (values: ISaveBookmarkDataType) => {
     const formData = new FormData();
 
-    if (files.length > 0) {
-      formData.append('file', files[0].originFile);
+    if (file) {
+      formData.append('file', file.originFile);
       const res = await fetchUploadImage(formData);
 
       if (res?.message === 'OK') {
@@ -175,38 +174,47 @@ const BookmarkModal = () => {
           <div
             className={cn([
               'my-0 mx-auto w-[304px] h-[180px] border-dashed border-border rounded-xl overflow-hidden',
-              'hover:bg-action-secondary-hover',
               isDragged && 'bg-action-secondary-pressed',
-              files.length === 0 && 'border-2',
+              !file && 'border-2 hover:bg-action-secondary-hover',
             ])}
             onDragEnter={handleDragenter}
             onDragOver={handleDragover}
             onDragLeave={handleDragleave}
             onDrop={handleDrop}
           >
-            {files.length === 0 ? (
-              <label className='cursor-pointer py-48 px-[54px] flex flex-col items-center gap-12'>
-                <Icon name='filePlus' className='w-32 h-32 text-icon-minimal' />
-                <div className='flex flex-col gap-4 items-center'>
-                  <div className='text-text body-sm-bold'>북마크 썸네일</div>
-                  <p className='text-text-sub body-sm whitespace-nowrap'>
-                    최대 5MB의 이미지까지 업로드 가능해요
-                  </p>
-                  <input type='file' onChange={handleUploadFile} hidden accept='image/*' />
+            <label className='cursor-pointer'>
+              {!file ? (
+                <div className='py-48 px-[54px] flex flex-col items-center gap-12'>
+                  <Icon name='filePlus' className='w-32 h-32 text-icon-minimal' />
+                  <div className='flex flex-col gap-4 items-center'>
+                    <div className='text-text body-sm-bold'>북마크 썸네일</div>
+                    <p className='text-text-sub body-sm whitespace-nowrap'>
+                      최대 5MB의 이미지까지 업로드 가능해요
+                    </p>
+                  </div>
                 </div>
-              </label>
-            ) : (
-              <div
-                className='cursor-pointer w-full h-full flex justify-center items-center'
-                onClick={() => handleDeleteFile(files[0].key)}
-              >
-                <img
-                  className='aspect-[300/180] object-cover'
-                  src={String(files[0].src)}
-                  alt='썸네일'
-                />
-              </div>
-            )}
+              ) : (
+                <div className='relative w-full h-full flex justify-center items-center group'>
+                  <img
+                    className='aspect-[300/180] object-cover group-hover:opacity-60'
+                    src={String(file.src)}
+                    alt='썸네일'
+                  />
+
+                  <div
+                    className={cn([
+                      'flex justify-center items-center min-w-64 px-12 py-8 rounded-lg bg-surface border-[1px] border-solid border-border',
+                      'absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2',
+                      'hover:bg-action-secondary-hover active:bg-action-secondary-pressed',
+                      'hidden group-hover:block',
+                    ])}
+                  >
+                    <span className='label-md text-text-secondary'>재업로드</span>
+                  </div>
+                </div>
+              )}
+              <input type='file' onChange={handleUploadFile} hidden accept='image/*' />
+            </label>
           </div>
         </div>
         <div className='flex justify-end gap-8'>

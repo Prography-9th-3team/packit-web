@@ -1,7 +1,6 @@
 import { ChangeEvent, DragEvent, useState } from 'react';
 
 interface Props {
-  maxNum?: number;
   extension?: Array<string>;
 }
 
@@ -14,10 +13,10 @@ interface IFile {
   originFile: File;
 }
 
-const useDragUpload = ({ maxNum = 3, extension = [] }: Props) => {
+const useDragUpload = ({ extension = [] }: Props) => {
   const MAX_SIZE = 5 * 1024 * 1024;
 
-  const [files, setFiles] = useState<Array<IFile>>([]);
+  const [file, setFile] = useState<IFile>();
 
   const [isDragged, setIsDragged] = useState<boolean>(false);
 
@@ -29,11 +28,6 @@ const useDragUpload = ({ maxNum = 3, extension = [] }: Props) => {
 
     if (!dropFiles) return;
 
-    if (dropFiles.length + files.length > maxNum) {
-      alert(`파일은 최대 ${maxNum}까지 업로드 가능합니다.`);
-      return;
-    }
-
     filesUpload(dropFiles);
   };
   const handleUploadFile = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,11 +36,6 @@ const useDragUpload = ({ maxNum = 3, extension = [] }: Props) => {
     const inputFiles = eventTarget.files;
 
     if (!inputFiles) return;
-
-    if (inputFiles.length + files.length > maxNum) {
-      alert(`파일은 최대 ${maxNum}까지 업로드 가능합니다.`);
-      return;
-    }
 
     filesUpload(inputFiles);
   };
@@ -93,17 +82,14 @@ const useDragUpload = ({ maxNum = 3, extension = [] }: Props) => {
           const reader = new FileReader();
 
           reader.onload = (event) => {
-            setFiles((prev) => [
-              ...prev,
-              {
-                src: event.target?.result,
-                key: key + `/${i}`,
-                name: fileName,
-                size,
-                type: fileExtension,
-                originFile: newFiles[i],
-              },
-            ]);
+            setFile({
+              src: event.target?.result,
+              key: key + `/${i}`,
+              name: fileName,
+              size,
+              type: fileExtension,
+              originFile: newFiles[i],
+            });
           };
           reader.readAsDataURL(newFiles[i]);
         } else {
@@ -113,12 +99,12 @@ const useDragUpload = ({ maxNum = 3, extension = [] }: Props) => {
     }
   };
 
-  const handleDeleteFile = (key: string) => {
-    setFiles(files.filter((file) => file.key !== key));
+  const handleDeleteFile = () => {
+    setFile(undefined);
   };
 
   return {
-    files,
+    file,
     isDragged,
     handleUploadFile,
     handleDrop,
