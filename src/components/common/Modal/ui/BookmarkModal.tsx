@@ -30,6 +30,8 @@ const BookmarkModal = () => {
 
   useEscKeyModalEvent('bookmarkModal');
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const { mutateAsync: mutateSaveBookmark } = useSaveBookmark();
 
   const {
@@ -71,11 +73,13 @@ const BookmarkModal = () => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const delayedHTML = useCallback(
-    debounce((url) => getMetaTag(url), 1000),
+    debounce((url) => getMetaTag(url), 600),
     [],
   );
 
   const getMetaTag = async (url: string) => {
+    setIsLoading(true);
+
     const result = await fetchGetMetaData(url);
 
     if (result) {
@@ -89,6 +93,12 @@ const BookmarkModal = () => {
     } else {
       formik.setFieldError('url', '등록할 수 없는 URL이에요.');
     }
+
+    const MIN_LAZY_TIME = 1000;
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, MIN_LAZY_TIME);
   };
 
   // 북마크 등록
@@ -151,6 +161,7 @@ const BookmarkModal = () => {
               placeholder='ex) packit'
               value={formik.values.title}
               onChange={formik.handleChange}
+              isDisabled={isLoading}
             >
               <Textfield.Label>이름</Textfield.Label>
               <Textfield.InputWrapper>
@@ -160,9 +171,10 @@ const BookmarkModal = () => {
 
             <Textfield
               name='memo'
-              placeholder='ex) packit'
+              placeholder='ex) 북마크 아카이빙 사이트'
               value={formik.values.memo}
               onChange={formik.handleChange}
+              isDisabled={isLoading}
             >
               <Textfield.Label>메모</Textfield.Label>
               <Textfield.InputWrapper>
