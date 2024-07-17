@@ -69,11 +69,11 @@ const BookmarkItem = ({
         <span className='body-md text-text truncate'>{bookmarkSiteName}</span>
         <img
           className='rounded-full'
-          src={faviconUrl}
+          src={faviconUrl ?? '/logo-white.svg'}
           alt='파비콘'
           width={20}
           height={20}
-          onError={(e) => ((e.target as HTMLImageElement).src = '/logo.svg')}
+          onError={(e) => ((e.target as HTMLImageElement).src = '/logo-white.svg')}
         />
       </div>
       <div className='flex items-center justify-end px-8'>

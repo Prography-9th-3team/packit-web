@@ -108,11 +108,11 @@ const BookmarkCard = ({
           <picture>
             <img
               className='rounded-full min-w-28 h-28'
-              src={faviconUrl}
+              src={faviconUrl ?? '/logo-white.svg'}
               alt='파비콘'
               width={28}
               height={28}
-              onError={(e) => ((e.target as HTMLImageElement).src = '/logo.svg')}
+              onError={(e) => ((e.target as HTMLImageElement).src = '/logo-white.svg')}
             />
           </picture>
           <span className='body-md text-text truncate'>{bookmarkSiteName}</span>
