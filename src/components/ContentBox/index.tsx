@@ -33,7 +33,7 @@ const ContentBox = () => {
   } = useBookmarkInfinityAPI({
     size: 10,
     direction: 'DESC',
-    property: 'id',
+    property: queryParam.get('sort') ?? 'id',
     categoryId,
     isFavorite: queryParam.get('favorite') === 'true',
   });

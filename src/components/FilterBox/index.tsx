@@ -4,12 +4,19 @@ import { useCategoryList, useSaveCategory } from '@/apis/category';
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
 import useToastStore from '@/stores/toastStore';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import TabList from '../TabList';
 import { Button } from '../common/Button';
 import Divider from '../common/Divider';
 import Icon from '../common/Icon';
+import { Option } from '../common/Option';
 import AddCategory from './AddCategory';
+
+const sortList = [
+  { label: '최신순', value: 'id' },
+  { label: '이름순', value: 'updatedAt' },
+  { label: '오래된순', value: 'createdAt' },
+];
 
 const FilterBox = () => {
   const { queryParam, updateQueryString } = useQueryString();
@@ -19,12 +26,15 @@ const FilterBox = () => {
   const { mutateAsync: mutateSaveCategory } = useSaveCategory();
 
   const isLikeChecked = queryParam.get('favorite') === 'true'; // 종아요 항목 표시
+  const sortType = queryParam.get('sort') ?? 'id'; // 종아요 항목 표시
   const viewType = queryParam.get('view') ?? 'grid'; // list 타입 grid | list
 
+  const [isShowSort, setIsShowSort] = useState<boolean>(false);
   const [isOpenCategory, setIsOpenCategory] = useState<boolean>(false); // 카테고리 모달 오픈
   const [category, setCategory] = useState<string>(''); // 카테고리 텍스트
   const [isError, setIsError] = useState<boolean>(false); // 카테고리 에러
 
+  const sortTabRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
 
   const handleChangeCategory = (e: ChangeEvent<HTMLInputElement>) => {
@@ -34,10 +44,14 @@ const FilterBox = () => {
     setCategory(e.target.value);
   };
 
+  const handleSelectSortOption = (value: string) => {
+    updateQueryString('sort', value);
+    setIsShowSort(false);
+  };
+
   /**
    * TODO :
    * - 유효성 검증 case 추가 필요
-   * - 카테고리 영역 밖 클릭 or esc 닫기
    */
   const handleAddCategory = () => {
     if (!category) {
@@ -62,6 +76,19 @@ const FilterBox = () => {
       }
     });
   };
+
+  // 정렬 option 외부 클릭시 닫힘
+  useEffect(() => {
+    const handleCloseSortOption = (e: Event) => {
+      const target = e.target as HTMLElement;
+
+      if (isShowSort && !sortTabRef.current?.contains(target)) setIsShowSort(false);
+    };
+
+    window.addEventListener('click', handleCloseSortOption);
+
+    return () => window.removeEventListener('click', handleCloseSortOption);
+  }, [isShowSort]);
 
   return (
     <div>
@@ -108,9 +135,29 @@ const FilterBox = () => {
           </Button.Label>
         </Button>
         <div className='flex items-center gap-12'>
-          <span className='cursor-pointer mr-4 flex items-center gap-4 label-md text-text-minimal'>
-            최신순 <Icon name='chevronDown_s' className='w-20 h-20 ' />
-          </span>
+          {/* 정렬 START */}
+          <div className='relative' ref={sortTabRef}>
+            <span
+              className='cursor-pointer mr-4 flex items-center gap-4 label-md text-text-minimal'
+              onClick={() => {
+                setIsShowSort((prev) => !prev);
+              }}
+            >
+              {sortList.find((item) => item.value === sortType)?.label}
+              <Icon name='chevronDown_s' className='w-20 h-20 ' />
+            </span>
+            {isShowSort && (
+              <div className='absolute top-[calc(100%+8px)] w-[165px] flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer z-10'>
+                {sortList.map((item) => (
+                  <Option key={item.value} onClick={() => handleSelectSortOption(item.value)}>
+                    <Option.Label>{item.label}</Option.Label>
+                  </Option>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* 정렬 END */}
           <button onClick={() => updateQueryString('view', 'grid')}>
             <Icon
               name='grid'
