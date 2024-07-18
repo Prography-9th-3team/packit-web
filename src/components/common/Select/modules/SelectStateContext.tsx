@@ -1,10 +1,11 @@
-import { ChangeEvent, createContext, useContext } from 'react';
+import { ChangeEvent, createContext, MouseEvent, useContext } from 'react';
 
 interface DefaultValueState {
   value: string;
   placeholder?: string;
   tagList?: Array<{ id: number; label: string }>;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onClick?: (e: MouseEvent<HTMLElement>) => void;
   isDisabled?: boolean;
   isInvalid?: boolean;
 }

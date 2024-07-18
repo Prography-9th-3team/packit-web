@@ -7,10 +7,10 @@ import { useSelectState } from '../modules/SelectStateContext';
 export interface ISelectInputWrapper extends PropsWithChildren {}
 
 const SelectInputWrapper = ({ children }: ISelectInputWrapper) => {
-  const { isDisabled, isInvalid } = useSelectState();
+  const { isDisabled, isInvalid, onClick } = useSelectState();
 
   return (
-    <div className={cn(selectInputWrapperVariants({ isDisabled, isInvalid }))}>
+    <div className={cn(selectInputWrapperVariants({ isDisabled, isInvalid }))} onClick={onClick}>
       <div className='flex-1 flex items-center justify-between gap-8 overflow-y-scroll scroll-hide styled-scroll'>
         {children}
       </div>

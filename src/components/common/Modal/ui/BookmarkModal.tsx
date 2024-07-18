@@ -6,6 +6,7 @@ import {
   fetchUploadImage,
   useSaveBookmark,
 } from '@/apis/bookmark';
+import { useCategoryList, useSaveCategory } from '@/apis/category';
 import useDragUpload from '@/hooks/useDragUpload';
 import useEscKeyModalEvent from '@/hooks/useEscKeyModalEvent';
 import { cn } from '@/lib/utils';
@@ -13,11 +14,14 @@ import useModalStore from '@/stores/modalStore';
 import useToastStore from '@/stores/toastStore';
 import { useFormik } from 'formik';
 import { debounce } from 'lodash';
-import { ChangeEvent, useCallback, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import * as yup from 'yup';
 import { Button } from '../../Button';
+import Check from '../../Check';
 import Icon from '../../Icon';
+import { Option } from '../../Option';
 import { Select } from '../../Select';
+import { Tag } from '../../Tag';
 import { Textfield } from '../../Textfield';
 import ModalPortal from '../ModalPortal';
 
@@ -30,9 +34,9 @@ const BookmarkModal = () => {
 
   useEscKeyModalEvent('bookmarkModal');
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const { mutateAsync: mutateSaveBookmark } = useSaveBookmark();
+  const { data: categoryData } = useCategoryList();
+  const { mutateAsync: mutateSaveCategory } = useSaveCategory();
 
   const {
     file,
@@ -55,6 +59,7 @@ const BookmarkModal = () => {
       siteName: '',
     },
     validationSchema: yup.object({
+      memo: yup.string().max(200, '200자 이내로 작성해주세요.'),
       url: yup.string().required('URL을 입력해 주세요.'),
     }),
     onSubmit: (values) => {
@@ -62,7 +67,30 @@ const BookmarkModal = () => {
     },
   });
 
+  const categoryRef = useRef<HTMLDivElement>(null);
+
+  const [isFocus, setIsFocus] = useState<boolean>(false);
   const [category, setCategory] = useState<string>('');
+  const [selectCategory, setSelectCategory] = useState<Array<{ label: string; value: number }>>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // 카테고리 선태
+  const handleSelectCategory = async () => {
+    const res = await mutateSaveCategory(category);
+
+    handleCheckCategory(category, res.data.result);
+    setCategory('');
+  };
+
+  // 카테고리 체크
+  const handleCheckCategory = (label: string, value: number) => {
+    setSelectCategory((prev) => [...prev, { label, value }]);
+  };
+
+  // 카테고리 삭제
+  const handleRemoveCategory = (id: number) => {
+    setSelectCategory((prev) => prev.filter((item) => item.value !== id));
+  };
 
   const handleChangeUrl = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -71,12 +99,28 @@ const BookmarkModal = () => {
     delayedHTML(value);
   };
 
+  const handleChangeCategory = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = Number(e.target.value);
+    const checked = e.target.checked;
+
+    if (checked) {
+      const findCategory = categoryData?.find((item) => item.categoryId === value);
+
+      if (findCategory) {
+        handleCheckCategory(findCategory.categoryName, findCategory.categoryId);
+      }
+    } else {
+      handleRemoveCategory(value);
+    }
+  };
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const delayedHTML = useCallback(
     debounce((url) => getMetaTag(url), 600),
     [],
   );
 
+  // 메타 데이터 가져오기
   const getMetaTag = async (url: string) => {
     setIsLoading(true);
 
@@ -86,7 +130,7 @@ const BookmarkModal = () => {
       const meta = result.meta;
 
       formik.setFieldValue('title', meta.title);
-      formik.setFieldValue('memo', meta.description);
+      formik.setFieldValue('memo', meta.description.substring(0, 200));
       formik.setFieldValue('favicon', meta.favicon);
       formik.setFieldValue('representImageUrl', meta.image);
       formik.setFieldValue('siteName', meta.siteName);
@@ -116,12 +160,36 @@ const BookmarkModal = () => {
       }
     }
 
+    values.categoryIds = selectCategory.map((item) => item.value);
+
     mutateSaveBookmark(values).then(() => {
       addToast('북마크가 추가되었어요.', 'success');
 
       closeModal('bookmarkModal');
     });
   };
+
+  const categoryDataFormat = useMemo(() => {
+    return (
+      categoryData?.map((item) => ({
+        ...item,
+        checked: !!selectCategory.find((cat) => cat.value === item.categoryId),
+      })) ?? []
+    );
+  }, [categoryData, selectCategory]);
+
+  // 카테고리 옵션 외부 클릭시 닫힘
+  useEffect(() => {
+    const handleCloseOptionBox = (e: Event) => {
+      const target = e.target as HTMLElement;
+
+      if (isFocus && !categoryRef.current?.contains(target)) setIsFocus(false);
+    };
+
+    window.addEventListener('click', handleCloseOptionBox);
+
+    return () => window.removeEventListener('click', handleCloseOptionBox);
+  }, [isFocus]);
 
   return (
     <ModalPortal>
@@ -131,16 +199,59 @@ const BookmarkModal = () => {
         </div>
         <div className='py-24 flex flex-col gap-32'>
           <div className='flex flex-col gap-16'>
-            <Select
-              placeholder='카테고리를 선택하거나 입력해 주세요'
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <Select.Label>카테고리</Select.Label>
-              <Select.InputWrapper>
-                <Select.Input />
-              </Select.InputWrapper>
-            </Select>
+            {/* 카테고리 영역 START */}
+            <div className='relative h-fit' ref={categoryRef}>
+              <Select
+                placeholder={'카테고리를 선택하거나 입력해 주세요'}
+                value={category}
+                onChange={(e) => setCategory(e.target.value.substring(0.12))}
+                onClick={() => setIsFocus(true)}
+              >
+                <Select.Label>카테고리</Select.Label>
+                <Select.InputWrapper>
+                  {!isFocus && selectCategory.length > 0 && (
+                    <div className='flex items-center gap-4'>
+                      {selectCategory.map((item) => {
+                        return (
+                          <Tag
+                            key={item.value}
+                            isButton
+                            onClick={() => handleRemoveCategory(item.value)}
+                          >
+                            <Tag.Label>{item.label}</Tag.Label>
+                            <Icon name='xClose_s' className='w-16 h-16 text-icon-sub' />
+                          </Tag>
+                        );
+                      })}
+                    </div>
+                  )}
+                  <Select.Input />
+                </Select.InputWrapper>
+              </Select>
+              {isFocus && (
+                <div className='absolute top-[calc(100%+8px)] w-full max-h-320 flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer overflow-y-scroll'>
+                  {!categoryData?.find((item) => item.categoryName === category) && (
+                    <Option onClick={handleSelectCategory}>
+                      <Option.Label>
+                        <b className='body-md-bold'>추가</b>"{category}"
+                      </Option.Label>
+                      <Icon name='plus_square' className='w-20 h-20 text-text-minimal' />
+                    </Option>
+                  )}
+                  {categoryDataFormat?.map((item) => (
+                    <Option key={item.categoryId}>
+                      <Check
+                        value={item.categoryId ?? 0}
+                        onChange={handleChangeCategory}
+                        defaultChecked={item.checked}
+                      />
+                      <Option.Label>{item.categoryName}</Option.Label>
+                    </Option>
+                  ))}
+                </div>
+              )}
+            </div>
+            {/* 카테고리 영역  END*/}
 
             <Textfield
               name='url'
