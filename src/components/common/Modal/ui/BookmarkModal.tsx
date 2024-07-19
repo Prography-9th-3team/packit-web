@@ -173,7 +173,7 @@ const BookmarkModal = () => {
     return (
       categoryData?.map((item) => ({
         ...item,
-        checked: !!selectCategory.find((cat) => cat.value === item.categoryId),
+        checked: !!selectCategory.find((cat) => cat.value === item.categoryId) || !item.categoryId,
       })) ?? []
     );
   }, [categoryData, selectCategory]);

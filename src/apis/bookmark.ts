@@ -113,10 +113,17 @@ export const useSaveBookmark = () => {
 
   return useMutation<AxiosResponse, AxiosError, ISaveBookmarkDataType>({
     mutationFn: (data) => fetchData.post(url, data),
-    onSuccess: () =>
-      queryClient.invalidateQueries({
+    onSuccess: () => {
+      // 북마크 리스트 리패치
+      queryClient.removeQueries({
         queryKey: [apis.bookmark.bookmark_list],
-      }),
+      });
+
+      // 카테고리 리스트 리패치
+      queryClient.removeQueries({
+        queryKey: [apis.category.category_list],
+      });
+    },
   });
 };
 
