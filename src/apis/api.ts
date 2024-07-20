@@ -31,6 +31,8 @@ const apis = {
   category: {
     category_list: '/api/v1/category/list',
     category_save: '/api/v1/category',
+    category_delete: '/api/v1/category',
+    category_edit: '/api/v1/category',
   },
   fileUpload: {
     file: '/file',

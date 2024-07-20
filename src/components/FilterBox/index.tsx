@@ -94,8 +94,8 @@ const FilterBox = () => {
     <div>
       <div className='px-40 flex justify-between'>
         <TabList tabs={categoryData} />
-        <div className='relative'>
-          <div ref={buttonRef}>
+        <div className='relative w-[100px]'>
+          <div ref={buttonRef} className='w-[100px]'>
             <Button
               type='text'
               size='medium'
