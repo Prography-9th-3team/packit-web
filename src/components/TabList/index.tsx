@@ -15,6 +15,8 @@ interface ITabList {
   tabs?: Array<ICategoryResponseDataType>;
 }
 
+const ALL_TAB_TYPE = '전체';
+
 const TabList = ({ tabs = [] }: ITabList) => {
   const { addToast } = useToastStore();
 
@@ -27,14 +29,14 @@ const TabList = ({ tabs = [] }: ITabList) => {
   const handleModal = () => setIsControlModalOpen((prev) => !prev);
 
   const handleClickCategory = (categoryId: number) => {
-    if (queryTab === String(categoryId ?? '전체')) return;
+    if (queryTab === String(categoryId ?? ALL_TAB_TYPE)) return;
 
     setIsControlModalOpen(false);
-    updateQueryString('tab', String(categoryId ?? '전체'));
+    updateQueryString('tab', String(categoryId ?? ALL_TAB_TYPE));
   };
 
   const { queryParam, updateQueryString } = useQueryString();
-  const queryTab = queryParam.get('tab') ?? '전체';
+  const queryTab = queryParam.get('tab') ?? ALL_TAB_TYPE;
 
   const handleDeleteCategory = async (categoryId: number) => {
     await deleteCategory([categoryId]).then((res) => {
@@ -45,6 +47,13 @@ const TabList = ({ tabs = [] }: ITabList) => {
   const handleCloseModal = () => {
     setIsControlModalOpen(false);
     setIsEditMode(false);
+  };
+
+  const isEditableTab = (index: number, categoryId: number | string) => {
+    return (
+      (categoryId !== null && isHover === index) ||
+      (isControlModalOpen && queryTab === String(categoryId))
+    );
   };
 
   return (
@@ -60,7 +69,7 @@ const TabList = ({ tabs = [] }: ITabList) => {
             key={tab.categoryId}
             className={cn([
               'cursor-pointer flex h-[40px] gap-2 label-md-bold text-text transition-all duration-150 items-center relative pb-16',
-              queryTab === String(tab.categoryId ?? '전체') && 'border-b-2 border-divide-on',
+              queryTab === String(tab.categoryId ?? ALL_TAB_TYPE) && 'border-b-2 border-divide-on',
             ])}
             onClick={() => handleClickCategory(tab.categoryId)}
             onMouseEnter={() => setIsHover(index)}
@@ -69,15 +78,14 @@ const TabList = ({ tabs = [] }: ITabList) => {
             <div className='flex gap-4'>
               {tab.categoryName} <span className='text-primary'>{tab.bookMarkCount}</span>
             </div>
-            {(isHover === index ||
-              (isControlModalOpen && queryTab === String(tab.categoryId ?? '전체'))) && (
+            {isEditableTab(index, tab.categoryId) && (
               <Icon
                 name='dotsVertical'
                 className='w-16 h-16 text-text-minimal absolute left-[calc(100%-2px)] top-[2.7px]'
                 onClick={handleModal}
               />
             )}
-            {!isEditMode && isControlModalOpen && queryTab === String(tab.categoryId ?? '전체') && (
+            {!isEditMode && isControlModalOpen && queryTab === String(tab.categoryId) && (
               <div className='absolute top-[calc(100%-8px)] shadow-layer left-[calc(100%-10px)] w-[165px] h-[100px] flex flex-col gap-4 rounded-lg bg-white overflow-hidden z-10'>
                 <Option onClick={() => setIsEditMode(true)}>
                   <Option.Label>이름 수정</Option.Label>
@@ -89,7 +97,7 @@ const TabList = ({ tabs = [] }: ITabList) => {
                 </Option>
               </div>
             )}
-            {isEditMode && isControlModalOpen && queryTab === String(tab.categoryId ?? '전체') && (
+            {isEditMode && isControlModalOpen && queryTab === String(tab.categoryId) && (
               <CategoryEditModal
                 categoryName={tab.categoryName}
                 categoryId={tab.categoryId}
