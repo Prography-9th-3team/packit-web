@@ -117,7 +117,7 @@ const BookmarkModal = () => {
 
   return (
     <ModalPortal>
-      <div className='w-[432px] overflow-hidden'>
+      <div className='w-[432px] p-24 pb-16 overflow-hidden'>
         <div className='mb-24'>
           <h1 className='text-text heading-2xl-bd'>북마크 추가</h1>
         </div>
