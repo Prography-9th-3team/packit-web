@@ -68,8 +68,13 @@ const SideBar = () => {
       authStore.resetAuth();
 
       // 익스텐션 로그아웃 진행
-      if (chrome && chrome.runtime && chrome.runtime.sendMessage) {
-        chrome.runtime.sendMessage(process.env.NEXT_PUBLIC_EXTENSION_ID, {
+      if (
+        typeof window !== 'undefined' &&
+        window.chrome &&
+        window.chrome.runtime &&
+        window.chrome.runtime.sendMessage
+      ) {
+        window.chrome.runtime.sendMessage(process.env.NEXT_PUBLIC_EXTENSION_ID, {
           isLogin: false,
           accessToken: '',
         });
