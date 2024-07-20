@@ -9,6 +9,7 @@ import { cva } from 'class-variance-authority';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import LogoIcon from '../../../public/logo.svg';
+import SettingModal from '../Setting/SettingModal';
 import Avatar from '../common/Avatar';
 import { AVATAR_SIZE } from '../common/Avatar/constants';
 import { Button } from '../common/Button';
@@ -163,7 +164,8 @@ const SideBar = () => {
                   <Icon name='mail' className='w-16 h-16 text-icon' />
                   {isOpenSidebar && <Menu.Label>{SIDEBAR_MENU.IMPROVEMENT}</Menu.Label>}
                 </Menu>
-                <Menu>
+                {/* 환경설정 */}
+                <Menu onClick={() => openModal(MODAL_NAME.SETTING_MODAL)}>
                   <Icon name='setting' className='w-16 h-16 text-icon' />
                   {isOpenSidebar && <Menu.Label>{SIDEBAR_MENU.SETTING}</Menu.Label>}
                 </Menu>
@@ -175,6 +177,7 @@ const SideBar = () => {
             </div>
           </aside>
           {isModalOpen(MODAL_NAME.BOOKMARK_MODAL) && <BookmarkModal />}
+          {isModalOpen(MODAL_NAME.SETTING_MODAL) && <SettingModal />}
         </>
       )}
     </>
