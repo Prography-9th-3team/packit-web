@@ -31,7 +31,6 @@ const RouteGuard = () => {
     const token = getCookie('accessToken');
 
     if (chrome && chrome.runtime && chrome.runtime.sendMessage) {
-      console.log(!!token, token ?? '');
       chrome.runtime.sendMessage(process.env.NEXT_PUBLIC_EXTENSION_ID, {
         isLogin: !!token,
         accessToken: token ?? '',
