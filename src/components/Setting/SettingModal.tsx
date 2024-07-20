@@ -1,5 +1,7 @@
+import ModalPortal from '../common/Modal/ModalPortal';
+
 const SettingModal = () => {
-  return <div>SettingModal</div>;
+  return <ModalPortal></ModalPortal>;
 };
 
 export default SettingModal;

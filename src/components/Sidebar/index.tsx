@@ -15,6 +15,7 @@ import { Button } from '../common/Button';
 import Divider from '../common/Divider';
 import Icon from '../common/Icon';
 import { Menu } from '../common/Menu';
+import { MODAL_NAME } from '../common/Modal/types';
 import BookmarkModal from '../common/Modal/ui/BookmarkModal';
 
 const IMPROVEMENT_URL = 'https://forms.gle/dPi5voXeF3Fh7jve9'; // 개선 제안 링크
@@ -125,7 +126,7 @@ const SideBar = () => {
               </div>
               <Button
                 className='min-h-40 min-w-40'
-                onClick={() => openModal('bookmarkModal')}
+                onClick={() => openModal(MODAL_NAME.BOOKMARK_MODAL)}
                 isFull
               >
                 {isOpenSidebar && <Button.Label>북마크 추가</Button.Label>}
@@ -173,7 +174,7 @@ const SideBar = () => {
               </Menu>
             </div>
           </aside>
-          {isModalOpen('bookmarkModal') && <BookmarkModal />}
+          {isModalOpen(MODAL_NAME.BOOKMARK_MODAL) && <BookmarkModal />}
         </>
       )}
     </>

@@ -20,6 +20,7 @@ import Icon from '../../Icon';
 import { Select } from '../../Select';
 import { Textfield } from '../../Textfield';
 import ModalPortal from '../ModalPortal';
+import { MODAL_NAME } from '../types';
 
 /**
  * ModalName : bookmarkModal
@@ -28,7 +29,7 @@ const BookmarkModal = () => {
   const { closeModal } = useModalStore();
   const { addToast } = useToastStore();
 
-  useEscKeyModalEvent('bookmarkModal');
+  useEscKeyModalEvent(MODAL_NAME.BOOKMARK_MODAL);
 
   const { mutateAsync: mutateSaveBookmark } = useSaveBookmark();
 
@@ -110,7 +111,7 @@ const BookmarkModal = () => {
     mutateSaveBookmark(values).then(() => {
       addToast('북마크가 추가되었어요.', 'success');
 
-      closeModal('bookmarkModal');
+      closeModal(MODAL_NAME.BOOKMARK_MODAL);
     });
   };
 
@@ -210,7 +211,11 @@ const BookmarkModal = () => {
           </div>
         </div>
         <div className='flex justify-end gap-8'>
-          <Button type='secondary' size='large' onClick={() => closeModal('bookmarkModal')}>
+          <Button
+            type='secondary'
+            size='large'
+            onClick={() => closeModal(MODAL_NAME.BOOKMARK_MODAL)}
+          >
             <Button.Label>닫기</Button.Label>
           </Button>
           <Button type='primary' size='large' onClick={() => formik.handleSubmit()}>

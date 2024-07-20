@@ -5,6 +5,7 @@ import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 import { Button } from '../common/Button';
 import Icon from '../common/Icon';
+import { MODAL_NAME } from '../common/Modal/types';
 import { Textfield } from '../common/Textfield';
 import TextfieldInput from '../common/Textfield/ui/TextfieldInput';
 import TextfieldInputWrapper from '../common/Textfield/ui/TextfieldInputWrapper';
@@ -28,7 +29,7 @@ const AddCategory = ({
 }: IAddCategory) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  useEscKeyModalEvent('addCategory', () => handleCloseModal());
+  useEscKeyModalEvent(MODAL_NAME.ADD_CATEGORY_MODAL, () => handleCloseModal());
   useOnClickOutside([modalRef, buttonRef], () => handleCloseModal());
 
   return (
