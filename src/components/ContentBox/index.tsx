@@ -33,7 +33,7 @@ const ContentBox = () => {
   } = useBookmarkInfinityAPI({
     size: 10,
     direction: 'DESC',
-    property: 'id',
+    property: queryParam.get('sort') ?? 'id',
     categoryId,
     isFavorite: queryParam.get('favorite') === 'true',
   });
@@ -55,7 +55,7 @@ const ContentBox = () => {
       {bookmarkData?.content.length ?? 0 > 0 ? (
         <>
           {listView === 'grid' ? (
-            <div className='grid gap-20 2xl:xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1'>
+            <div className='grid gap-20 2xl:xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 grid-cols-2'>
               {bookmarkData?.content.map((item) => (
                 <BookmarkCard
                   key={item.bookMarkId}

@@ -30,9 +30,13 @@ const RouteGuard = () => {
     // 익스텐션 로그인 메시지 전달
     const token = getCookie('accessToken');
 
-    if (chrome && chrome.runtime && chrome.runtime.sendMessage) {
-      console.log(!!token, token ?? '');
-      chrome.runtime.sendMessage(process.env.NEXT_PUBLIC_EXTENSION_ID, {
+    if (
+      typeof window !== 'undefined' &&
+      window.chrome &&
+      window.chrome.runtime &&
+      window.chrome.runtime.sendMessage
+    ) {
+      window.chrome.runtime.sendMessage(process.env.NEXT_PUBLIC_EXTENSION_ID, {
         isLogin: !!token,
         accessToken: token ?? '',
       });

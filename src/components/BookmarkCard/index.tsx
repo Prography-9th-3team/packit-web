@@ -3,7 +3,6 @@
 import { useBookmarkLike } from '@/apis/bookmark';
 import { cn } from '@/lib/utils';
 import useToastStore from '@/stores/toastStore';
-import Image from 'next/image';
 import { MouseEvent, useState } from 'react';
 import Icon from '../common/Icon';
 export interface IBookmarkCard {
@@ -44,8 +43,10 @@ const BookmarkCard = ({
   const SEVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
   const { mutateAsync: mutateBookmarkLike } = useBookmarkLike();
-
   const [isLike, setIsLike] = useState(isFavorite);
+
+  const bookmarkTitle = title !== '' ? title : url;
+  const bookmarkSiteName = siteName !== '' ? siteName : url.split('/')[2];
 
   // 북마크 좋아요
   const handleToggleLike = (e: MouseEvent<HTMLButtonElement>) => {
@@ -56,12 +57,18 @@ const BookmarkCard = ({
     });
   };
 
+  // 북마크 링크 복사
   const handleCopyUrl = async (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
     navigator.clipboard.writeText(url).then(() => {
       addToast('링크가 복사되었습니다.', 'success');
     });
+  };
+
+  // empty 이미지 랜덤
+  const getRandomNumber = () => {
+    return Math.random() < 0.5 ? 1 : 2;
   };
 
   return (
@@ -93,12 +100,11 @@ const BookmarkCard = ({
           />
         ) : (
           // Default 이미지
-          <Image
+          <img
             className='aspect-[296/180] object-cover'
-            src='/assets/image/empty_image.png'
-            alt='Empty'
+            src={`/assets/image/empty_image_${getRandomNumber()}.png`}
+            alt='썸네일'
             width={650}
-            height={400}
           />
         )}
       </div>
@@ -106,24 +112,26 @@ const BookmarkCard = ({
         {categoryNames.length > 0 && (
           <span className='body-sm-bold text-primary'>{categoryNames[0]}</span>
         )}
-        <h2 className='body-lg-bold text-text'>{title}</h2>
+        <h2 className='body-lg-bold text-text truncate'>{bookmarkTitle}</h2>
         <p className='body-md text-text-sub truncate'>{memo}</p>
       </div>
-      <div className='relative px-10 flex items-center gap-8'>
-        <picture>
-          <img
-            className='rounded-full'
-            src={faviconUrl}
-            alt='파비콘'
-            width={28}
-            height={28}
-            onError={(e) => ((e.target as HTMLImageElement).src = '/logo.svg')}
-          />
-        </picture>
-        <span className='body-md text-text truncate'>{siteName}</span>
+      <div className='px-10 flex items-center justify-between gap-8'>
+        <div className='flex items-center gap-8 truncate'>
+          <picture>
+            <img
+              className='rounded-full min-w-28 h-28'
+              src={faviconUrl ?? '/logo-white.svg'}
+              alt='파비콘'
+              width={28}
+              height={28}
+              onError={(e) => ((e.target as HTMLImageElement).src = '/logo-white.svg')}
+            />
+          </picture>
+          <span className='body-md text-text truncate'>{bookmarkSiteName}</span>
+        </div>
         <div
           className={cn([
-            'absolute right-0 hidden items-center gap-12 bg-surface *:text-icon-minimal group-hover:flex',
+            'hidden items-center gap-12 *:text-icon-minimal group-hover:flex',
             isLike && 'flex',
           ])}
         >
