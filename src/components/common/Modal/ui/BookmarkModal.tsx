@@ -9,12 +9,13 @@ import {
 import { useCategoryList, useSaveCategory } from '@/apis/category';
 import useDragUpload from '@/hooks/useDragUpload';
 import useEscKeyModalEvent from '@/hooks/useEscKeyModalEvent';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
 import useToastStore from '@/stores/toastStore';
 import { useFormik } from 'formik';
 import { debounce } from 'lodash';
-import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, useCallback, useMemo, useRef, useState } from 'react';
 import * as yup from 'yup';
 import { Button } from '../../Button';
 import Check from '../../Check';
@@ -68,6 +69,8 @@ const BookmarkModal = () => {
   });
 
   const categoryRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside([categoryRef], () => setIsFocus(false));
 
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const [category, setCategory] = useState<string>('');
@@ -177,19 +180,6 @@ const BookmarkModal = () => {
       })) ?? []
     );
   }, [categoryData, selectCategory]);
-
-  // 카테고리 옵션 외부 클릭시 닫힘
-  useEffect(() => {
-    const handleCloseOptionBox = (e: Event) => {
-      const target = e.target as HTMLElement;
-
-      if (isFocus && !categoryRef.current?.contains(target)) setIsFocus(false);
-    };
-
-    window.addEventListener('click', handleCloseOptionBox);
-
-    return () => window.removeEventListener('click', handleCloseOptionBox);
-  }, [isFocus]);
 
   return (
     <ModalPortal>
