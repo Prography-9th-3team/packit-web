@@ -79,6 +79,8 @@ const BookmarkModal = () => {
 
   // 카테고리 선태
   const handleSelectCategory = async () => {
+    if (category.length === 0) return;
+
     const res = await mutateSaveCategory(category);
 
     handleCheckCategory(category, res.data.result);
@@ -223,7 +225,8 @@ const BookmarkModal = () => {
                   {!categoryData?.find((item) => item.categoryName === category) && (
                     <Option onClick={handleSelectCategory}>
                       <Option.Label>
-                        <b className='body-md-bold'>추가</b>"{category}"
+                        <b className='body-md-bold'>{'추가 '}</b>
+                        <span>"{category}"</span>
                       </Option.Label>
                       <Icon name='plus_square' className='w-20 h-20 text-text-minimal' />
                     </Option>
