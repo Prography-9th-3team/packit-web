@@ -22,7 +22,7 @@ export default function RootLayout({
       <head>
         <link rel='icon' href='/logo.svg' />
       </head>
-      <body className='flex '>
+      <body className='flex'>
         <Provider>
           <Sidebar />
           <div className='min-h-dvh flex-1 flex flex-col overflow-y-scroll styled-scroll'>

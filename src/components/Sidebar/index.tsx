@@ -7,7 +7,7 @@ import useModalStore from '@/stores/modalStore';
 import axios from 'axios';
 import { cva } from 'class-variance-authority';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LogoIcon from '../../../public/logo.svg';
 import Avatar from '../common/Avatar';
 import { AVATAR_SIZE } from '../common/Avatar/constants';
@@ -81,6 +81,15 @@ const SideBar = () => {
       }
     }
   };
+
+  // 최소 width 1024 설정
+  useEffect(() => {
+    if (!isOpenSidebar) {
+      document.body.style.minWidth = '1024px';
+    } else {
+      document.body.style.minWidth = '';
+    }
+  }, [isOpenSidebar]);
 
   return (
     <>
