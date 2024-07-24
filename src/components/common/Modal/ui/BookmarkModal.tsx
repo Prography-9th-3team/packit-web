@@ -219,7 +219,7 @@ const BookmarkModal = () => {
                 </Select.InputWrapper>
               </Select>
               {isFocus && (
-                <div className='absolute top-[calc(100%+8px)] w-full max-h-320 flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer overflow-y-scroll'>
+                <div className='absolute top-[calc(100%+8px)] w-full max-h-320 flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer overflow-y-scroll no-scroll'>
                   {!categoryData?.find((item) => item.categoryName === category) && (
                     <Option onClick={handleSelectCategory}>
                       <Option.Label>
