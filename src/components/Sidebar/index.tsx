@@ -23,7 +23,7 @@ const SideBar = () => {
   const router = useRouter();
   const pathName = usePathname();
 
-  const pathList = ['/login', '/onboarding'];
+  const pathList = ['/login', '/onboarding', '/oauth2/redirect'];
 
   const authStore = useAuthStore();
 
