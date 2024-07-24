@@ -1,6 +1,6 @@
 'use client';
 
-import { useBookmarkLike, useGetThumbnailImage } from '@/apis/bookmark';
+import { useBookmarkLike } from '@/apis/bookmark';
 import { cn } from '@/lib/utils';
 import useToastStore from '@/stores/toastStore';
 import { MouseEvent, useState } from 'react';
@@ -38,7 +38,9 @@ const BookmarkCard = ({
   const { addToast } = useToastStore();
 
   // 썸네일 API 요청
-  useGetThumbnailImage(imageUUID);
+  // const path = apis.fileUpload.thumbnail(imageUUID ?? '');
+
+  const SEVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
   const { mutateAsync: mutateBookmarkLike } = useBookmarkLike();
   const [isLike, setIsLike] = useState(isFavorite);
@@ -80,7 +82,16 @@ const BookmarkCard = ({
           'group-hover:shadow-layer group-hover:-translate-y-8 transition-all duration-200',
         ])}
       >
-        {representImageUrl ? (
+        {imageUUID ? (
+          // 등록한 썸네일 이미지
+          <img
+            className='aspect-[296/180] object-cover'
+            src={`${SEVER_URL}/file/original/${imageUUID}`}
+            alt='썸네일'
+            width={650}
+          />
+        ) : representImageUrl ? (
+          // url 썸네일 이미지
           <img
             className='aspect-[296/180] object-cover'
             src={representImageUrl}
@@ -88,6 +99,7 @@ const BookmarkCard = ({
             width={650}
           />
         ) : (
+          // Default 이미지
           <img
             className='aspect-[296/180] object-cover'
             src={`/assets/image/empty_image_${getRandomNumber()}.png`}

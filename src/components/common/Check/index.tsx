@@ -5,11 +5,18 @@ import Icon from '../Icon';
 export interface ICheck {
   name?: string;
   checked?: boolean;
-  onChange?: (checked: boolean) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   defaultChecked?: boolean;
+  value?: string | number;
 }
 
-const Check = ({ name, checked: controlledChecked, onChange, defaultChecked = false }: ICheck) => {
+const Check = ({
+  name,
+  checked: controlledChecked,
+  onChange,
+  defaultChecked = false,
+  value,
+}: ICheck) => {
   const isControlled = !!controlledChecked;
   const [checked, setChecked] = useState(defaultChecked);
 
@@ -19,7 +26,7 @@ const Check = ({ name, checked: controlledChecked, onChange, defaultChecked = fa
     if (!isControlled) {
       setChecked(checked);
     }
-    onChange?.(checked);
+    onChange?.(e);
   };
 
   const isChecked = isControlled ? controlledChecked : checked;
@@ -35,7 +42,14 @@ const Check = ({ name, checked: controlledChecked, onChange, defaultChecked = fa
         >
           {isChecked && <Icon name='checkOn_f' className='text-icon-on w-16 h-16' />}
         </div>
-        <input name={name} type='checkbox' checked={isChecked} onChange={handleOnChange} hidden />
+        <input
+          name={name}
+          type='checkbox'
+          checked={isChecked}
+          onChange={handleOnChange}
+          hidden
+          value={value}
+        />
       </label>
     </div>
   );

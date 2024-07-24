@@ -11,7 +11,7 @@ const TagLabel = ({ children }: ITagLabel) => {
   return <span className={cn(tagLabelVariants({ size, disabled }))}>{children}</span>;
 };
 
-const tagLabelVariants = cva([], {
+const tagLabelVariants = cva(['whitespace-nowrap'], {
   variants: {
     size: {
       xs: 'label-xs',

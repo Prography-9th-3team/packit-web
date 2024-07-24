@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import Check from '.';
 import { Button } from '../Button';
 
@@ -43,7 +43,9 @@ export const Controlled_Checkbox: Story = {
   render: (args) => {
     const [checked, setChecked] = useState(false);
 
-    const handleChangeChecked = (checked: boolean) => {
+    const handleChangeChecked = (e: ChangeEvent<HTMLInputElement>) => {
+      const checked = e.target.checked;
+
       setChecked(checked);
     };
 
