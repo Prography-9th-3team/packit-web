@@ -49,10 +49,6 @@ const FilterBox = () => {
     setIsShowSort(false);
   };
 
-  /**
-   * TODO :
-   * - 유효성 검증 case 추가 필요
-   */
   const handleAddCategory = () => {
     if (!category) {
       addToast('카테고리를 입력해주세요', 'error');

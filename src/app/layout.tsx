@@ -22,10 +22,10 @@ export default function RootLayout({
       <head>
         <link rel='icon' href='/logo.svg' />
       </head>
-      <body className='flex'>
+      <body className='flex '>
         <Provider>
           <Sidebar />
-          <div className='min-h-dvh w-full flex flex-col overflow-scroll styled-scroll'>
+          <div className='min-h-dvh flex-1 flex flex-col overflow-y-scroll styled-scroll'>
             <div className='flex-1'>{children}</div>
             <Footer />
           </div>
