@@ -23,8 +23,13 @@ const Redirect = () => {
           authStore.setAccessToken(token);
 
           // TODO: 이쪽 부분에서 extension <> web 로그인 통신 진행
-          if (chrome && chrome.runtime && chrome.runtime.sendMessage) {
-            chrome.runtime.sendMessage(process.env.NEXT_PUBLIC_EXTENSION_ID, {
+          if (
+            typeof window !== 'undefined' &&
+            window.chrome &&
+            window.chrome.runtime &&
+            window.chrome.runtime.sendMessage
+          ) {
+            window.chrome.runtime.sendMessage(process.env.NEXT_PUBLIC_EXTENSION_ID, {
               isLogin: true,
               accessToken: token,
             });

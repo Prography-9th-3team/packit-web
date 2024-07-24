@@ -68,8 +68,13 @@ const SideBar = () => {
       authStore.resetAuth();
 
       // 익스텐션 로그아웃 진행
-      if (chrome && chrome.runtime && chrome.runtime.sendMessage) {
-        chrome.runtime.sendMessage(process.env.NEXT_PUBLIC_EXTENSION_ID, {
+      if (
+        typeof window !== 'undefined' &&
+        window.chrome &&
+        window.chrome.runtime &&
+        window.chrome.runtime.sendMessage
+      ) {
+        window.chrome.runtime.sendMessage(process.env.NEXT_PUBLIC_EXTENSION_ID, {
           isLogin: false,
           accessToken: '',
         });
@@ -84,12 +89,19 @@ const SideBar = () => {
           <aside className={cn(sidebarVariants({ isOpenSidebar }))}>
             <div className='p-6 flex justify-between relative'>
               <LogoIcon />
-              <button
-                className={cn(sideButtonVariants({ isOpenSidebar }))}
-                onClick={handleToggleSidebar}
+              <div
+                className={cn([
+                  'hidden group-hover:block',
+                  !isOpenSidebar && 'w-60 h-40 text-right absolute -right-[60px]',
+                ])}
               >
-                <Icon name={getIcon} className='w-16 h-16 text-icon-secondary' />
-              </button>
+                <button
+                  className={cn(sideButtonVariants({ isOpenSidebar }))}
+                  onClick={handleToggleSidebar}
+                >
+                  <Icon name={getIcon} className='w-16 h-16 text-icon-secondary' />
+                </button>
+              </div>
             </div>
 
             {/* 프로필 영역 */}
@@ -99,7 +111,9 @@ const SideBar = () => {
                   profileUrl={profileData?.imageUrl}
                   size={isOpenSidebar ? AVATAR_SIZE.XL : AVATAR_SIZE.SM}
                 />
-                {isOpenSidebar && <div className='heading-lg-bd'>{profileData?.name}</div>}
+                {isOpenSidebar && (
+                  <div className='text-text heading-lg-bd'>{profileData?.name}</div>
+                )}
               </div>
               <Button
                 className='min-h-40 min-w-40'
@@ -158,6 +172,7 @@ const SideBar = () => {
 export const sidebarVariants = cva(
   [
     'h-dvh p-12 flex flex-col border-divide-minimal border-r  whitespace-nowrap bg-white transition-all duration-300',
+    'group',
   ],
   {
     variants: {
@@ -174,7 +189,7 @@ export const sideButtonVariants = cva(
   {
     variants: {
       isOpenSidebar: {
-        false: 'absolute -right-14 border border-border bg-surface',
+        false: 'border border-border bg-surface',
       },
     },
   },
