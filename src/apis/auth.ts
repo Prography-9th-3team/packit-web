@@ -31,10 +31,25 @@ export const useUserProfile = () => {
 
 export const useDeleteAccount = () => {
   const router = useRouter();
+  const authStore = useAuthStore();
   const url = apis.auth.delete_account;
 
   return useMutation<AxiosResponse, AxiosError, void>({
     mutationFn: async () => await fetchData.put(url),
-    onSuccess: () => router.push('/login'),
+    onSuccess: () => {
+      authStore.resetAuth();
+      if (
+        typeof window !== 'undefined' &&
+        window.chrome &&
+        window.chrome.runtime &&
+        window.chrome.runtime.sendMessage
+      ) {
+        window.chrome.runtime.sendMessage(process.env.NEXT_PUBLIC_EXTENSION_ID, {
+          isLogin: false,
+          accessToken: '',
+        });
+      }
+      router.push('/login');
+    },
   });
 };

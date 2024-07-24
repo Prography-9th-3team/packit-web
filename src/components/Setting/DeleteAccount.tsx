@@ -1,17 +1,23 @@
 import { useDeleteAccount } from '@/apis/auth';
 import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
+import axios from 'axios';
 import { Button } from '../common/Button';
 import { BUTTON_SIZE, BUTTON_TYPE } from '../common/Button/ui/ButtonMain';
 import { MODAL_NAME } from '../common/Modal/types';
 
 const DeleteAccount = () => {
-  const { mutate: deleteAccount } = useDeleteAccount();
+  const { mutateAsync: deleteAccount } = useDeleteAccount();
   const { closeModal } = useModalStore();
 
-  const handleDeleteAccount = () => {
-    deleteAccount();
-    closeModal(MODAL_NAME.SETTING_MODAL);
+  const handleDeleteAccount = async () => {
+    // const responseOfDeleteCookies = await axios.delete('/api/auth/cookies');
+    const responseOfDeleteAccount = await deleteAccount();
+    const res = await axios.delete('/api/auth/cookie');
+
+    if (responseOfDeleteAccount.data && res) {
+      closeModal(MODAL_NAME.SETTING_MODAL);
+    }
   };
 
   return (
@@ -32,15 +38,13 @@ const DeleteAccount = () => {
         <Button
           type={BUTTON_TYPE.SECONDARY}
           size={BUTTON_SIZE.MEDIUM}
-          onClick={handleDeleteAccount}
+          onClick={() => {
+            closeModal(MODAL_NAME.DELETE_ACCOUNT_MODAL);
+          }}
         >
           닫기
         </Button>
-        <Button
-          type={BUTTON_TYPE.CRITICAL}
-          size={BUTTON_SIZE.MEDIUM}
-          onClick={() => deleteAccount()}
-        >
+        <Button type={BUTTON_TYPE.CRITICAL} size={BUTTON_SIZE.MEDIUM} onClick={handleDeleteAccount}>
           <Button.Label>삭제</Button.Label>
         </Button>
       </div>

@@ -7,6 +7,7 @@ import Avatar from '../common/Avatar';
 import { AVATAR_SIZE } from '../common/Avatar/constants';
 import { Button } from '../common/Button';
 import { BUTTON_SIZE, BUTTON_TYPE } from '../common/Button/ui/ButtonMain';
+import Dim from '../common/Dim';
 import Icon from '../common/Icon';
 import ModalPortal from '../common/Modal/ModalPortal';
 import { MODAL_NAME } from '../common/Modal/types';
@@ -21,7 +22,10 @@ const SettingModal = () => {
 
   return (
     <ModalPortal>
-      <section className={cn('flex flex-col items-start w-[480px] h-[396px] p-24 pb-16 relative')}>
+      <Dim visible zIndex={1} />
+      <section
+        className={cn('flex flex-col items-start w-[480px] h-[396px] p-24 pb-16 relative bg-white')}
+      >
         <header className='w-full items-center self-stretch heading-2xl-bd pb-24'>환경설정</header>
 
         <div className='py-24 w-full h-[252px] flex flex-col gap-16 items-center relative'>
