@@ -100,7 +100,7 @@ const SideBar = () => {
               <LogoIcon />
               <div
                 className={cn([
-                  'hidden group-hover:block',
+                  'hidden group-hover:block h-28',
                   !isOpenSidebar && 'w-60 h-40 text-right absolute -right-[60px]',
                 ])}
               >
@@ -194,7 +194,7 @@ export const sidebarVariants = cva(
 );
 
 export const sideButtonVariants = cva(
-  ['p-6 rounded-md hover:bg-action-secondary-hover transition-all duration-300'],
+  ['p-6 h-fit rounded-md hover:bg-action-secondary-hover transition-all duration-300'],
   {
     variants: {
       isOpenSidebar: {
