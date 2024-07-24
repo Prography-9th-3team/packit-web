@@ -1,6 +1,7 @@
 'use client';
 
 import { useBookmarkLike } from '@/apis/bookmark';
+import { bookmarkValidateSiteName } from '@/constants/data';
 import { cn } from '@/lib/utils';
 import useToastStore from '@/stores/toastStore';
 import { MouseEvent, useState } from 'react';
@@ -19,9 +20,6 @@ export interface IBookmarkCard {
   onClick: () => void;
 }
 
-/**
- * TODO : s3로 변경시 thumbnail 가져오는 api 삭제
- */
 const BookmarkCard = ({
   bookMarkId,
   representImageUrl,
@@ -36,9 +34,6 @@ const BookmarkCard = ({
   onClick,
 }: IBookmarkCard) => {
   const { addToast } = useToastStore();
-
-  // 썸네일 API 요청
-  // const path = apis.fileUpload.thumbnail(imageUUID ?? '');
 
   const SEVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -90,7 +85,7 @@ const BookmarkCard = ({
             alt='썸네일'
             width={650}
           />
-        ) : representImageUrl ? (
+        ) : representImageUrl && !bookmarkValidateSiteName.includes(siteName) ? (
           // url 썸네일 이미지
           <img
             className='aspect-[296/180] object-cover'

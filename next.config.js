@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    domains: ['lh3.googleusercontent.com'], // 구글 프로필
-  },
   reactStrictMode: true,
   swcMinify: true,
   webpack(config) {
