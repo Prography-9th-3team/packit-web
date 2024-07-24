@@ -1,6 +1,7 @@
 import useAuthStore from '@/stores/authStore';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
+import { useRouter } from 'next/navigation';
 import { fetchData } from '.';
 import apis from './api';
 
@@ -25,5 +26,15 @@ export const useUserProfile = () => {
     staleTime: 1000 * 60 * 60,
     gcTime: 1000 * 60 * 60,
     enabled: authStore.isLogin(),
+  });
+};
+
+export const useDeleteAccount = () => {
+  const router = useRouter();
+  const url = apis.auth.delete_account;
+
+  return useMutation<AxiosResponse, AxiosError, void>({
+    mutationFn: async () => await fetchData.put(url),
+    onSuccess: () => router.push('/login'),
   });
 };

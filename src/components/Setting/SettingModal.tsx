@@ -12,15 +12,16 @@ import ModalPortal from '../common/Modal/ModalPortal';
 import { MODAL_NAME } from '../common/Modal/types';
 import { Tag } from '../common/Tag';
 import { TAG_SIZE } from '../common/Tag/ui/TagMain';
+import DeleteAccount from './DeleteAccount';
 
 const SettingModal = () => {
-  const { closeModal } = useModalStore();
+  const { closeModal, openModal, isModalOpen } = useModalStore();
 
   const { data: userProfile } = useUserProfile();
 
   return (
     <ModalPortal>
-      <section className={cn('flex flex-col items-start w-[480px] h-[396px] p-24 pb-16')}>
+      <section className={cn('flex flex-col items-start w-[480px] h-[396px] p-24 pb-16 relative')}>
         <header className='w-full items-center self-stretch heading-2xl-bd pb-24'>환경설정</header>
 
         <div className='py-24 w-full h-[252px] flex flex-col gap-16 items-center relative'>
@@ -41,7 +42,7 @@ const SettingModal = () => {
           <Button
             type={BUTTON_TYPE.SECONDARY}
             size={BUTTON_SIZE.TINY}
-            onClick={() => closeModal(MODAL_NAME.SETTING_MODAL)}
+            onClick={() => openModal(MODAL_NAME.DELETE_ACCOUNT_MODAL)}
             className='absolute right-0'
           >
             <Icon name='trash_can' className='w-16 h-16 text-icon-secondary' />
@@ -58,6 +59,7 @@ const SettingModal = () => {
             <Button.Label>닫기</Button.Label>
           </Button>
         </footer>
+        {isModalOpen(MODAL_NAME.DELETE_ACCOUNT_MODAL) && <DeleteAccount />}
       </section>
     </ModalPortal>
   );

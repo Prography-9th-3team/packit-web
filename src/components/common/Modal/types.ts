@@ -4,4 +4,5 @@ export enum MODAL_NAME {
   CATEGORY_EDIT_MODAL = 'categoryEditModal',
   SETTING_MODAL = 'settingModal',
   SEARCH_MODAL = 'searchModal',
+  DELETE_ACCOUNT_MODAL = 'deleteModal',
 }
