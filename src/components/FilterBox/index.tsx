@@ -10,6 +10,7 @@ import { Button } from '../common/Button';
 import Divider from '../common/Divider';
 import Icon from '../common/Icon';
 import { Option } from '../common/Option';
+import Tooltip from '../common/Tooltip';
 import AddCategory from './AddCategory';
 
 const sortList = [
@@ -154,7 +155,7 @@ const FilterBox = () => {
           </div>
 
           {/* 정렬 END */}
-          <button onClick={() => updateQueryString('view', 'grid')}>
+          <button className='relative group' onClick={() => updateQueryString('view', 'grid')}>
             <Icon
               name='grid'
               className={cn([
@@ -162,8 +163,11 @@ const FilterBox = () => {
                 viewType === 'grid' && 'text-icon',
               ])}
             />
+            <div className='absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 hidden group-hover:block'>
+              <Tooltip label='카드 보기' />
+            </div>
           </button>
-          <button onClick={() => updateQueryString('view', 'list')}>
+          <button className='relative group' onClick={() => updateQueryString('view', 'list')}>
             <Icon
               name='list'
               className={cn([
@@ -171,6 +175,9 @@ const FilterBox = () => {
                 viewType === 'list' && 'text-icon',
               ])}
             />
+            <div className='absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 hidden group-hover:block'>
+              <Tooltip label='리스트 보기' />
+            </div>
           </button>
           <Divider direction='vertical' className='h-1/2 mx-2' />
           <span className='cursor-pointer flex items-center gap-4 label-md text-text-minimal'>
