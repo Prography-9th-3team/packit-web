@@ -13,9 +13,9 @@ import { Option } from '../common/Option';
 import AddCategory from './AddCategory';
 
 const sortList = [
-  { label: '최신순', value: 'id' },
-  { label: '이름순', value: 'updatedAt' },
-  { label: '오래된순', value: 'createdAt' },
+  { label: '최신순', value: 'DESC' },
+  { label: '이름순', value: 'title' },
+  { label: '오래된순', value: 'ASC' },
 ];
 
 const FilterBox = () => {
@@ -26,7 +26,7 @@ const FilterBox = () => {
   const { mutateAsync: mutateSaveCategory } = useSaveCategory();
 
   const isLikeChecked = queryParam.get('favorite') === 'true'; // 종아요 항목 표시
-  const sortType = queryParam.get('sort') ?? 'id'; // 종아요 항목 표시
+  const sortType = queryParam.get('sort') ?? 'DESC'; // 정렬 항목 표시
   const viewType = queryParam.get('view') ?? 'grid'; // list 타입 grid | list
 
   const [isShowSort, setIsShowSort] = useState<boolean>(false);

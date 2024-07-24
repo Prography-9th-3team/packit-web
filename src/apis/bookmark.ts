@@ -8,7 +8,7 @@ import { default as apis, urlParams } from './api';
 interface IBookmarkParamDataType {
   pageNumber?: number;
   size: number;
-  direction: 'ASC' | 'DESC';
+  direction: string; // 'ASC' | 'DESC';
   property: string;
   categoryId?: string | number | null;
   isFavorite?: boolean;
