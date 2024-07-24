@@ -33,7 +33,7 @@ const AddCategory = ({
 
   return (
     <div
-      className='absolute right-0 top-[calc(100%-8px)] p-8 grid grid-cols-[300px_1fr] gap-8 bg-surface rounded-xl shadow-layer'
+      className='absolute right-0 top-[calc(100%-8px)] p-8 grid grid-cols-[300px_1fr] gap-8 bg-surface rounded-xl shadow-layer z-10'
       ref={modalRef}
     >
       <Textfield

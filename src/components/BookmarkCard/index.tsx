@@ -1,10 +1,12 @@
 'use client';
 
 import { useBookmarkLike } from '@/apis/bookmark';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { cn } from '@/lib/utils';
 import useToastStore from '@/stores/toastStore';
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useRef, useState } from 'react';
 import Icon from '../common/Icon';
+import { Option } from '../common/Option';
 export interface IBookmarkCard {
   bookMarkId: number;
   categoryNames: Array<number>;
@@ -42,8 +44,14 @@ const BookmarkCard = ({
 
   const SEVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
+  const optionRef = useRef<HTMLButtonElement>(null);
+
   const { mutateAsync: mutateBookmarkLike } = useBookmarkLike();
+
   const [isLike, setIsLike] = useState(isFavorite);
+  const [isShowOption, setIsShowOption] = useState<boolean>(false);
+
+  useOnClickOutside([optionRef], () => setIsShowOption(false));
 
   const bookmarkTitle = title !== '' ? title : url;
   const bookmarkSiteName = siteName !== '' ? siteName : url.split('/')[2];
@@ -64,6 +72,13 @@ const BookmarkCard = ({
     navigator.clipboard.writeText(url).then(() => {
       addToast('링크가 복사되었습니다.', 'success');
     });
+  };
+
+  // 북마크 옵션 오픈
+  const handleOpenOption = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
+    setIsShowOption((prev) => !prev);
   };
 
   // empty 이미지 랜덤
@@ -132,7 +147,7 @@ const BookmarkCard = ({
         <div
           className={cn([
             'hidden items-center gap-12 *:text-icon-minimal group-hover:flex',
-            isLike && 'flex',
+            (isLike || isShowOption) && 'flex',
           ])}
         >
           <button onClick={handleToggleLike}>
@@ -145,8 +160,18 @@ const BookmarkCard = ({
           <button onClick={handleCopyUrl}>
             <Icon name='link_03' className='w-20 h-20' />
           </button>
-          <button onClick={(e) => e.stopPropagation()}>
+          <button className='relative' onClick={handleOpenOption} ref={optionRef}>
             <Icon name='dotsVertical' className='w-20 h-20' />
+            {isShowOption && (
+              <div className='absolute top-[calc(100%+8px)] w-[165px] flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer z-10'>
+                <Option onClick={() => {}}>
+                  <Option.Label>수정</Option.Label>
+                </Option>
+                <Option onClick={() => {}}>
+                  <Option.Label className='text-critical'>삭제</Option.Label>
+                </Option>
+              </div>
+            )}
           </button>
         </div>
       </div>
