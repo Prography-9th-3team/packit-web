@@ -7,7 +7,7 @@ import useModalStore from '@/stores/modalStore';
 import axios from 'axios';
 import { cva } from 'class-variance-authority';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LogoIcon from '../../../public/logo.svg';
 import SettingModal from '../Setting/SettingModal';
 import Avatar from '../common/Avatar';
@@ -33,7 +33,7 @@ const SideBar = () => {
   const router = useRouter();
   const pathName = usePathname();
 
-  const pathList = ['/login', '/onboarding'];
+  const pathList = ['/login', '/onboarding', '/oauth2/redirect'];
 
   const authStore = useAuthStore();
 
@@ -92,6 +92,15 @@ const SideBar = () => {
     }
   };
 
+  // 최소 width 1024 설정
+  useEffect(() => {
+    if (!isOpenSidebar) {
+      document.body.style.minWidth = '1024px';
+    } else {
+      document.body.style.minWidth = '';
+    }
+  }, [isOpenSidebar]);
+
   return (
     <>
       {!pathList.includes(pathName) && (
@@ -101,7 +110,7 @@ const SideBar = () => {
               <LogoIcon />
               <div
                 className={cn([
-                  'hidden group-hover:block',
+                  'hidden group-hover:block h-28',
                   !isOpenSidebar && 'w-60 h-40 text-right absolute -right-[60px]',
                 ])}
               >
@@ -200,7 +209,7 @@ export const sidebarVariants = cva(
 );
 
 export const sideButtonVariants = cva(
-  ['p-6 rounded-md hover:bg-action-secondary-hover transition-all duration-300'],
+  ['p-6 h-fit rounded-md hover:bg-action-secondary-hover transition-all duration-300'],
   {
     variants: {
       isOpenSidebar: {

@@ -10,12 +10,13 @@ import { Button } from '../common/Button';
 import Divider from '../common/Divider';
 import Icon from '../common/Icon';
 import { Option } from '../common/Option';
+import Tooltip from '../common/Tooltip';
 import AddCategory from './AddCategory';
 
 const sortList = [
-  { label: '최신순', value: 'id' },
-  { label: '이름순', value: 'updatedAt' },
-  { label: '오래된순', value: 'createdAt' },
+  { label: '최신순', value: 'DESC' },
+  { label: '이름순', value: 'title' },
+  { label: '오래된순', value: 'ASC' },
 ];
 
 const FilterBox = () => {
@@ -26,7 +27,7 @@ const FilterBox = () => {
   const { mutateAsync: mutateSaveCategory } = useSaveCategory();
 
   const isLikeChecked = queryParam.get('favorite') === 'true'; // 종아요 항목 표시
-  const sortType = queryParam.get('sort') ?? 'id'; // 종아요 항목 표시
+  const sortType = queryParam.get('sort') ?? 'DESC'; // 정렬 항목 표시
   const viewType = queryParam.get('view') ?? 'grid'; // list 타입 grid | list
 
   const [isShowSort, setIsShowSort] = useState<boolean>(false);
@@ -49,10 +50,6 @@ const FilterBox = () => {
     setIsShowSort(false);
   };
 
-  /**
-   * TODO :
-   * - 유효성 검증 case 추가 필요
-   */
   const handleAddCategory = () => {
     if (!category) {
       addToast('카테고리를 입력해주세요', 'error');
@@ -158,7 +155,7 @@ const FilterBox = () => {
           </div>
 
           {/* 정렬 END */}
-          <button onClick={() => updateQueryString('view', 'grid')}>
+          <button className='relative group' onClick={() => updateQueryString('view', 'grid')}>
             <Icon
               name='grid'
               className={cn([
@@ -166,8 +163,11 @@ const FilterBox = () => {
                 viewType === 'grid' && 'text-icon',
               ])}
             />
+            <div className='absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 hidden group-hover:block'>
+              <Tooltip label='카드 보기' />
+            </div>
           </button>
-          <button onClick={() => updateQueryString('view', 'list')}>
+          <button className='relative group' onClick={() => updateQueryString('view', 'list')}>
             <Icon
               name='list'
               className={cn([
@@ -175,6 +175,9 @@ const FilterBox = () => {
                 viewType === 'list' && 'text-icon',
               ])}
             />
+            <div className='absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 hidden group-hover:block'>
+              <Tooltip label='리스트 보기' />
+            </div>
           </button>
           <Divider direction='vertical' className='h-1/2 mx-2' />
           <span className='cursor-pointer flex items-center gap-4 label-md text-text-minimal'>

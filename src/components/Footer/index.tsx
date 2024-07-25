@@ -11,7 +11,7 @@ import Logo from '../common/Logo';
 const Footer = () => {
   const pathName = usePathname();
 
-  const pathList = ['/login', '/onboarding'];
+  const pathList = ['/login', '/onboarding', '/oauth2/redirect'];
 
   return (
     <>

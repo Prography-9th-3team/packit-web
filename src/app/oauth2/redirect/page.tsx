@@ -44,7 +44,7 @@ const Redirect = () => {
     }
   }, [router]);
 
-  return <div>Redirecting...</div>;
+  return <></>;
 };
 
 export default Redirect;
