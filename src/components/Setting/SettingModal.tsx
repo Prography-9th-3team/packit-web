@@ -22,7 +22,7 @@ const SettingModal = () => {
 
   return (
     <ModalPortal>
-      <Dim visible zIndex={1} />
+      <Dim visible zIndex={1} handleClick={() => closeModal(MODAL_NAME.SETTING_MODAL)} />
       <section
         className={cn('flex flex-col items-start w-[480px] h-[396px] p-24 pb-16 relative bg-white')}
       >
