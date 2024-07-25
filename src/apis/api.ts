@@ -21,6 +21,7 @@ const apis = {
     google_login: (redirectUri: string) =>
       `${GOOGLE_LOGIN_URL}/oauth2/authorize/google?redirect_uri=${redirectUri}`,
     user_profile: '/api/v1/user/profile',
+    delete_account: '/api/v1/user/termination',
   },
   bookmark: {
     bookmark_list: '/api/v1/book-mark/list',

@@ -11,6 +11,7 @@ import BookmarkItem from '../BookmarkItem';
 import { Button } from '../common/Button';
 import Divider from '../common/Divider';
 import Icon from '../common/Icon';
+import { MODAL_NAME } from '../common/Modal/types';
 
 const ContentBox = () => {
   const [ref, inView] = useInView();
@@ -94,7 +95,7 @@ const ContentBox = () => {
           <p className='body-md text-text-sub mb-24'>
             북마크 파일을 끌어당기거나 북마크 추가 버튼을 눌러 등록해 보세요
           </p>
-          <Button type='outline' size='small' onClick={() => openModal('bookmarkModal')}>
+          <Button type='outline' size='small' onClick={() => openModal(MODAL_NAME.BOOKMARK_MODAL)}>
             <Button.Label>북마크 추가</Button.Label>
           </Button>
         </div>

@@ -5,6 +5,7 @@ import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 import { Button } from '../common/Button';
 import Icon from '../common/Icon';
+import { MODAL_NAME } from '../common/Modal/types';
 import { Textfield } from '../common/Textfield';
 import TextfieldInput from '../common/Textfield/ui/TextfieldInput';
 import TextfieldInputWrapper from '../common/Textfield/ui/TextfieldInputWrapper';
@@ -28,12 +29,12 @@ const AddCategory = ({
 }: IAddCategory) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  useEscKeyModalEvent('addCategory', () => handleCloseModal());
+  useEscKeyModalEvent(MODAL_NAME.ADD_CATEGORY_MODAL, () => handleCloseModal());
   useOnClickOutside([modalRef, buttonRef], () => handleCloseModal());
 
   return (
     <div
-      className='absolute right-0 top-[calc(100%-8px)] p-8 grid grid-cols-[300px_1fr] gap-8 bg-surface rounded-xl shadow-layer'
+      className='absolute right-0 top-[calc(100%-8px)] p-8 grid grid-cols-[300px_1fr] gap-8 bg-surface rounded-xl shadow-layer z-20'
       ref={modalRef}
     >
       <Textfield
