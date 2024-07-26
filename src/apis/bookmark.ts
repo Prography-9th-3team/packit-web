@@ -203,6 +203,9 @@ export const useBookmarkDelete = () => {
       queryClient.refetchQueries({
         queryKey: [apis.bookmark.bookmark_list],
       });
+      queryClient.refetchQueries({
+        queryKey: [apis.category.category_list],
+      });
     },
   });
 };
@@ -219,6 +222,9 @@ export const useBookmarkRestore = () => {
     onSuccess: () => {
       queryClient.refetchQueries({
         queryKey: [apis.bookmark.bookmark_list],
+      });
+      queryClient.refetchQueries({
+        queryKey: [apis.category.category_list],
       });
     },
   });

@@ -113,6 +113,7 @@ const ContentBox = () => {
                     {...item}
                     imageUUID={item.userInsertRepresentImage?.uuid}
                     onClick={() => handleOpenBlank({ url: item.url, bookMarkId: item.bookMarkId })}
+                    onDelete={() => handleDeleteBookmark(item.bookMarkId)}
                   />
                 ))}
               </div>
