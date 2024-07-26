@@ -8,7 +8,7 @@ import BookmarkCard from '../BookmarkCard';
 const Feed = () => {
   const pathName = usePathname();
 
-  const pathList = ['/login', '/onboarding', '/oauth2/redirect'];
+  const pathList = ['/login', '/onboarding', '/oauth2/redirect', '/landing'];
 
   const { data: bookmarkData } = useRecommendBookmarkList();
 
