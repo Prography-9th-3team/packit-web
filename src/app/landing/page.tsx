@@ -73,7 +73,7 @@ const Landing = () => {
         </ScrollAnimation>
 
         <ScrollAnimation repeat={true}>
-          <div className='flex justify-between mb-[169px] items-center gap-[194px]'>
+          <div className='flex justify-between mb-[169px] items-center gap-[120px]'>
             <img
               src='./assets/image/landing_image_3.png'
               alt='landing_image_3'
