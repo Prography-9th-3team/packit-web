@@ -6,6 +6,7 @@ import useToastStore from '@/stores/toastStore';
 import { MouseEvent, useRef, useState } from 'react';
 import Icon from '../common/Icon';
 import { Option } from '../common/Option';
+import Tooltip from '../common/Tooltip';
 export interface IBookmarkCard {
   bookMarkId: number;
   categoryNames: Array<number>;
@@ -97,22 +98,35 @@ const BookmarkItem = ({
         {categoryNames.length > 0 && <span className='body-md text-text'>{categoryNames[0]}</span>}
       </div>
       <div className='flex items-center justify-center gap-4 *:text-icon-minimal'>
-        <button className='w-40 h-40 flex items-center justify-center' onClick={handleToggleLike}>
+        <button
+          className='relative group w-40 h-40 flex items-center justify-center'
+          onClick={handleToggleLike}
+        >
           {isLike ? (
             <Icon name='heart_fill' className='w-16 h-16 text-primary' />
           ) : (
             <Icon name='heart' className='w-16 h-16' />
           )}
-        </button>
-        <button className='w-40 h-40 flex items-center justify-center' onClick={handleCopyUrl}>
-          <Icon name='link_03' className='w-16 h-16' />
+          <div className='absolute top-[calc(100%-4px)] left-1/2 -translate-x-1/2 hidden group-hover:block'>
+            <Tooltip label='좋아요' />
+          </div>
         </button>
         <button
-          className='relative w-40 h-40 flex items-center justify-center'
-          onClick={handleOpenOption}
-          ref={optionRef}
+          className='relative group w-40 h-40 flex items-center justify-center'
+          onClick={handleCopyUrl}
         >
-          <Icon name='dotsVertical' className='w-20 h-20' />
+          <Icon name='link_03' className='w-16 h-16' />
+          <div className='absolute top-[calc(100%-4px)] left-1/2 -translate-x-1/2 hidden group-hover:block'>
+            <Tooltip label='링크 복사' />
+          </div>
+        </button>
+        <button className='relative' onClick={handleOpenOption} ref={optionRef}>
+          <div className='relative group w-40 h-40 flex items-center justify-center'>
+            <Icon name='dotsVertical' className='w-20 h-20' />
+            <div className='absolute top-[calc(100%-4px)] left-1/2 -translate-x-1/2 hidden group-hover:block'>
+              <Tooltip label='더보기' />
+            </div>
+          </div>
           {isShowOption && (
             <div className='absolute top-[calc(100%+8px)] right-0 w-[165px] flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer z-10'>
               {/* <Option onClick={onModify}>
