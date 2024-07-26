@@ -1,8 +1,8 @@
 'use client';
 
 import { useBookmarkLike } from '@/apis/bookmark';
-import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { bookmarkValidateSiteName } from '@/constants/data';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { isValidUrl } from '@/lib/url';
 import { cn } from '@/lib/utils';
 import useToastStore from '@/stores/toastStore';
@@ -165,18 +165,18 @@ const BookmarkCard = ({
               <Icon name='link_03' className='w-20 h-20' />
             </button>
             <button className='relative' onClick={handleOpenOption} ref={optionRef}>
-            <Icon name='dotsVertical' className='w-20 h-20' />
-            {isShowOption && (
-              <div className='absolute top-[calc(100%+8px)] w-[165px] flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer z-10'>
-                {/* <Option onClick={onModify}>
+              <Icon name='dotsVertical' className='w-20 h-20' />
+              {isShowOption && (
+                <div className='absolute top-[calc(100%+8px)] w-[165px] flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer z-10'>
+                  {/* <Option onClick={onModify}>
                   <Option.Label>수정</Option.Label>
                 </Option> */}
-                <Option onClick={onDelete}>
-                  <Option.Label className='text-critical'>삭제</Option.Label>
-                </Option>
-              </div>
-            )}
-          </button>
+                  <Option onClick={onDelete}>
+                    <Option.Label className='text-critical'>삭제</Option.Label>
+                  </Option>
+                </div>
+              )}
+            </button>
           </div>
         )}
       </div>
