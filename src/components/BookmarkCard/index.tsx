@@ -2,6 +2,7 @@
 
 import { useBookmarkLike } from '@/apis/bookmark';
 import { bookmarkValidateSiteName } from '@/constants/data';
+import { isValidUrl } from '@/lib/url';
 import { cn } from '@/lib/utils';
 import useToastStore from '@/stores/toastStore';
 import { MouseEvent, useState } from 'react';
@@ -18,6 +19,7 @@ export interface IBookmarkCard {
   imageUUID?: string;
   isFavorite: boolean;
   onClick: () => void;
+  isRecommendCard?: boolean;
 }
 
 const BookmarkCard = ({
@@ -32,6 +34,7 @@ const BookmarkCard = ({
   imageUUID,
   isFavorite,
   onClick,
+  isRecommendCard = false,
 }: IBookmarkCard) => {
   const { addToast } = useToastStore();
 
@@ -85,7 +88,9 @@ const BookmarkCard = ({
             alt='썸네일'
             width={650}
           />
-        ) : representImageUrl && !bookmarkValidateSiteName.includes(siteName) ? (
+        ) : representImageUrl &&
+          !bookmarkValidateSiteName.includes(siteName) &&
+          isValidUrl(representImageUrl) ? (
           // url 썸네일 이미지
           <img
             className='aspect-[296/180] object-cover'
@@ -124,26 +129,28 @@ const BookmarkCard = ({
           </picture>
           <span className='body-md text-text truncate'>{bookmarkSiteName}</span>
         </div>
-        <div
-          className={cn([
-            'hidden items-center gap-12 *:text-icon-minimal group-hover:flex',
-            isLike && 'flex',
-          ])}
-        >
-          <button onClick={handleToggleLike}>
-            {isLike ? (
-              <Icon name='heart_fill' className='w-20 h-20 text-primary' />
-            ) : (
-              <Icon name='heart' className='w-20 h-20' />
-            )}
-          </button>
-          <button onClick={handleCopyUrl}>
-            <Icon name='link_03' className='w-20 h-20' />
-          </button>
-          <button onClick={(e) => e.stopPropagation()}>
-            <Icon name='dotsVertical' className='w-20 h-20' />
-          </button>
-        </div>
+        {!isRecommendCard && (
+          <div
+            className={cn([
+              'hidden items-center gap-12 *:text-icon-minimal group-hover:flex',
+              isLike && 'flex',
+            ])}
+          >
+            <button onClick={handleToggleLike}>
+              {isLike ? (
+                <Icon name='heart_fill' className='w-20 h-20 text-primary' />
+              ) : (
+                <Icon name='heart' className='w-20 h-20' />
+              )}
+            </button>
+            <button onClick={handleCopyUrl}>
+              <Icon name='link_03' className='w-20 h-20' />
+            </button>
+            <button onClick={(e) => e.stopPropagation()}>
+              <Icon name='dotsVertical' className='w-20 h-20' />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

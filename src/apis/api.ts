@@ -39,6 +39,9 @@ const apis = {
     file: '/file',
     thumbnail: (uuid: string) => `/file/thumb/original/${uuid}`,
   },
+  recommend: {
+    recommend_bookmarks: '/recommend/book-mark/list',
+  },
 };
 
 export default apis;
