@@ -28,6 +28,8 @@ const apis = {
     bookmark_save: '/api/v1/book-mark',
     bookmark_like: '/api/v1/book-mark/like',
     bookmark_read: '/api/v1/book-mark/read/count',
+    bookmark_delete: '/api/v1/book-mark',
+    bookmark_restore: '/api/v1/book-mark/restore',
   },
   category: {
     category_list: '/api/v1/category/list',

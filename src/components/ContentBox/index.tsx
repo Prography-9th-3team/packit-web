@@ -1,9 +1,15 @@
 'use client';
 
-import { fetchBookmarkReadCount, useBookmarkInfinityAPI } from '@/apis/bookmark';
+import {
+  fetchBookmarkReadCount,
+  useBookmarkDelete,
+  useBookmarkInfinityAPI,
+  useBookmarkRestore,
+} from '@/apis/bookmark';
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
+import useToastStore from '@/stores/toastStore';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import BookmarkCard from '../BookmarkCard';
@@ -18,6 +24,10 @@ const ContentBox = () => {
 
   const { queryParam } = useQueryString();
   const { openModal } = useModalStore();
+  const { addToast } = useToastStore();
+
+  const { mutateAsync: mutateBookmarkDelete } = useBookmarkDelete();
+  const { mutateAsync: mutateBookmarkRestore } = useBookmarkRestore();
 
   // 카테고리
   const categoryId =
@@ -47,6 +57,27 @@ const ContentBox = () => {
     window.open(url, '_blank');
   };
 
+  // 북마크 수정
+  const handleRestoreBookmark = async (bookMarkId: number) => {
+    await mutateBookmarkRestore([bookMarkId]);
+  };
+
+  // 북마크 삭제
+  const handleDeleteBookmark = async (bookMarkId: number) => {
+    const res = await mutateBookmarkDelete([bookMarkId]);
+
+    if (res.data.code === '200') {
+      addToast({
+        message: '북마크가 삭제되었어요',
+        type: 'default',
+        clickText: '복구하기 ',
+        onClick: () => {
+          handleRestoreBookmark(bookMarkId);
+        },
+      });
+    }
+  };
+
   useEffect(() => {
     if (hasNextPage) {
       fetchNextPage();
@@ -65,6 +96,8 @@ const ContentBox = () => {
                   {...item}
                   imageUUID={item.userInsertRepresentImage?.uuid}
                   onClick={() => handleOpenBlank({ url: item.url, bookMarkId: item.bookMarkId })}
+                  onDelete={() => handleDeleteBookmark(item.bookMarkId)}
+                  // onModify={() => handleDeleteBookmark(item.bookMarkId)}
                 />
               ))}
             </div>
@@ -83,6 +116,7 @@ const ContentBox = () => {
                     {...item}
                     imageUUID={item.userInsertRepresentImage?.uuid}
                     onClick={() => handleOpenBlank({ url: item.url, bookMarkId: item.bookMarkId })}
+                    onDelete={() => handleDeleteBookmark(item.bookMarkId)}
                   />
                 ))}
               </div>

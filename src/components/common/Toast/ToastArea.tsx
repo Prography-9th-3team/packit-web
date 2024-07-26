@@ -15,10 +15,12 @@ const ToastArea = () => {
         {toastList.map((item) => (
           <ToastWrapper
             key={item.id}
-            id={item.id}
             label={item.message}
-            type={item.type}
+            id={item.id ?? 0}
+            type={item.type ?? 'default'}
             time={TOAST_TIME}
+            onClick={item.onClick}
+            clickText={item.clickText}
           />
         ))}
       </AnimatePresence>
