@@ -21,6 +21,10 @@ const nextConfig = {
       source: '/file/:path*',
       destination: 'http://3.39.102.104/file',
     },
+    {
+      source: '/recommend/:path*',
+      destination: 'http://3.39.102.104/recommend/:path*',
+    },
   ],
 };
 

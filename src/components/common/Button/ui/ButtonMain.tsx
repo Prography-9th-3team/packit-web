@@ -5,6 +5,21 @@ import Spinner from '../../Spinner/Index';
 import { SPINNER_SIZE } from '../../Spinner/constants';
 import { ButtonContext } from '../modules/ButtonStateContext';
 
+export enum BUTTON_SIZE {
+  LARGE = 'large',
+  MEDIUM = 'medium',
+  SMALL = 'small',
+  TINY = 'tiny',
+}
+
+export enum BUTTON_TYPE {
+  PRIMARY = 'primary',
+  OUTLINE = 'outline',
+  SECONDARY = 'secondary',
+  CRITICAL = 'critical',
+  TEXT = 'text',
+}
+
 export interface IButtonMain extends PropsWithChildren, VariantProps<typeof buttonMainVariants> {
   isLoading?: boolean;
   isDisabled?: boolean;
@@ -15,8 +30,8 @@ export interface IButtonMain extends PropsWithChildren, VariantProps<typeof butt
 }
 
 const ButtonMain = ({
-  size = 'medium',
-  type = 'primary',
+  size = BUTTON_SIZE.MEDIUM,
+  type = BUTTON_TYPE.PRIMARY,
   children,
   onClick,
   isLoading = false,

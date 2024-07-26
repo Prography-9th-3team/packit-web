@@ -25,6 +25,7 @@ import { Select } from '../../Select';
 import { Tag } from '../../Tag';
 import { Textfield } from '../../Textfield';
 import ModalPortal from '../ModalPortal';
+import { MODAL_NAME } from '../types';
 
 /**
  * ModalName : bookmarkModal
@@ -33,7 +34,7 @@ const BookmarkModal = () => {
   const { closeModal } = useModalStore();
   const { addToast } = useToastStore();
 
-  useEscKeyModalEvent('bookmarkModal');
+  useEscKeyModalEvent(MODAL_NAME.BOOKMARK_MODAL);
 
   const { mutateAsync: mutateSaveBookmark } = useSaveBookmark();
   const { data: categoryData } = useCategoryList();
@@ -170,7 +171,7 @@ const BookmarkModal = () => {
     mutateSaveBookmark(values).then(() => {
       addToast({ message: '북마크가 추가되었어요.', type: 'success' });
 
-      closeModal('bookmarkModal');
+      closeModal(MODAL_NAME.BOOKMARK_MODAL);
     });
   };
 
@@ -185,7 +186,7 @@ const BookmarkModal = () => {
 
   return (
     <ModalPortal>
-      <div className='w-[432px] overflow-hidden'>
+      <div className='w-[432px] p-24 pb-16 overflow-hidden'>
         <div className='mb-24'>
           <h1 className='text-text heading-2xl-bd'>북마크 추가</h1>
         </div>
@@ -334,7 +335,11 @@ const BookmarkModal = () => {
           </div>
         </div>
         <div className='flex justify-end gap-8'>
-          <Button type='secondary' size='large' onClick={() => closeModal('bookmarkModal')}>
+          <Button
+            type='secondary'
+            size='large'
+            onClick={() => closeModal(MODAL_NAME.BOOKMARK_MODAL)}
+          >
             <Button.Label>닫기</Button.Label>
           </Button>
           <Button type='primary' size='large' onClick={() => formik.handleSubmit()}>

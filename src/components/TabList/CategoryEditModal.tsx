@@ -7,6 +7,7 @@ import { useEditCategory } from '@/apis/category';
 import useToastStore from '@/stores/toastStore';
 import { Button } from '../common/Button';
 import Icon from '../common/Icon';
+import { MODAL_NAME } from '../common/Modal/types';
 import { Textfield } from '../common/Textfield';
 import TextfieldInput from '../common/Textfield/ui/TextfieldInput';
 import TextfieldInputWrapper from '../common/Textfield/ui/TextfieldInputWrapper';
@@ -31,7 +32,7 @@ const CategoryEditModal = ({
   const [editCategoryName, setEditCategoryName] = useState(categoryName);
   const isError = editCategoryName === '';
 
-  useEscKeyModalEvent('category-edit-modal', () => handleCloseModal());
+  useEscKeyModalEvent(MODAL_NAME.CATEGORY_EDIT_MODAL, () => handleCloseModal());
   useOnClickOutside([modalRef], () => handleCloseModal());
 
   const { mutateAsync: editCategory } = useEditCategory();

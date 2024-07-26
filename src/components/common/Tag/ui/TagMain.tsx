@@ -3,13 +3,25 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { PropsWithChildren } from 'react';
 import { TagContext } from '../modules/TagStateContext';
 
+export enum TAG_SIZE {
+  XS = 'xs',
+  SM = 'sm',
+  DEFAULT = 'default',
+}
+
 export interface ITagMain extends PropsWithChildren, VariantProps<typeof tagMainVariants> {
   disabled?: boolean;
   isButton?: boolean;
   onClick?: () => void;
 }
 
-const TagMain = ({ size, disabled = false, isButton = false, children, onClick }: ITagMain) => {
+const TagMain = ({
+  size = TAG_SIZE.DEFAULT,
+  disabled = false,
+  isButton = false,
+  children,
+  onClick,
+}: ITagMain) => {
   return (
     <TagContext.Provider value={{ size, disabled }}>
       {isButton ? (

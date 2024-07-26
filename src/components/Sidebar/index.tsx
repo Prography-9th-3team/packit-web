@@ -7,23 +7,33 @@ import useModalStore from '@/stores/modalStore';
 import axios from 'axios';
 import { cva } from 'class-variance-authority';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LogoIcon from '../../../public/logo.svg';
+import SettingModal from '../Setting/SettingModal';
 import Avatar from '../common/Avatar';
 import { AVATAR_SIZE } from '../common/Avatar/constants';
 import { Button } from '../common/Button';
 import Divider from '../common/Divider';
 import Icon from '../common/Icon';
 import { Menu } from '../common/Menu';
+import { MODAL_NAME } from '../common/Modal/types';
 import BookmarkModal from '../common/Modal/ui/BookmarkModal';
 
 const IMPROVEMENT_URL = 'https://forms.gle/dPi5voXeF3Fh7jve9'; // 개선 제안 링크
+
+export enum SIDEBAR_MENU {
+  HOME = '홈',
+  SEARCH = '검색',
+  IMPROVEMENT = '개선 제안하기',
+  SETTING = '환경설정',
+  LOGOUT = '로그아웃',
+}
 
 const SideBar = () => {
   const router = useRouter();
   const pathName = usePathname();
 
-  const pathList = ['/login', '/onboarding'];
+  const pathList = ['/login', '/onboarding', '/oauth2/redirect'];
 
   const authStore = useAuthStore();
 
@@ -31,7 +41,7 @@ const SideBar = () => {
 
   const { openModal, isModalOpen } = useModalStore();
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(true);
-  const [selected, setSelected] = useState<string>('홈');
+  const [selected, setSelected] = useState<SIDEBAR_MENU>(SIDEBAR_MENU.HOME);
 
   const getIcon = (() => {
     return isOpenSidebar ? 'chevronLeftDouble' : 'chevronRightDouble';
@@ -48,7 +58,7 @@ const SideBar = () => {
   };
 
   // 메뉴 탭 변경
-  const handleChangeMenu = (menu: string) => {
+  const handleChangeMenu = (menu: SIDEBAR_MENU) => {
     setSelected(menu);
 
     // API 요청
@@ -82,6 +92,15 @@ const SideBar = () => {
     }
   };
 
+  // 최소 width 1024 설정
+  useEffect(() => {
+    if (!isOpenSidebar) {
+      document.body.style.minWidth = '1024px';
+    } else {
+      document.body.style.minWidth = '';
+    }
+  }, [isOpenSidebar]);
+
   return (
     <>
       {!pathList.includes(pathName) && (
@@ -91,7 +110,7 @@ const SideBar = () => {
               <LogoIcon />
               <div
                 className={cn([
-                  'hidden group-hover:block',
+                  'hidden group-hover:block h-28',
                   !isOpenSidebar && 'w-60 h-40 text-right absolute -right-[60px]',
                 ])}
               >
@@ -117,7 +136,7 @@ const SideBar = () => {
               </div>
               <Button
                 className='min-h-40 min-w-40'
-                onClick={() => openModal('bookmarkModal')}
+                onClick={() => openModal(MODAL_NAME.BOOKMARK_MODAL)}
                 isFull
               >
                 {isOpenSidebar && <Button.Label>북마크 추가</Button.Label>}
@@ -129,12 +148,15 @@ const SideBar = () => {
             <div className='mt-24 flex-1 flex flex-col gap-16'>
               <Menu onClick={handleOpenSearch}>
                 <Icon name='searchSm_s' className='w-16 h-16 text-icon' />
-                {isOpenSidebar && <Menu.Label>검색</Menu.Label>}
+                {isOpenSidebar && <Menu.Label>{SIDEBAR_MENU.SEARCH}</Menu.Label>}
               </Menu>
 
               <Divider className='bg-divide-minimal' />
               <nav>
-                <Menu isSelected={selected === '홈'} onClick={() => handleChangeMenu('홈')}>
+                <Menu
+                  isSelected={selected === SIDEBAR_MENU.HOME}
+                  onClick={() => handleChangeMenu(SIDEBAR_MENU.HOME)}
+                >
                   <Icon name='home04_s' />
                   {isOpenSidebar && <Menu.Label>홈</Menu.Label>}
                 </Menu>
@@ -149,20 +171,22 @@ const SideBar = () => {
                 )}
                 <Menu onClick={() => handleNewWindowLink(IMPROVEMENT_URL)}>
                   <Icon name='mail' className='w-16 h-16 text-icon' />
-                  {isOpenSidebar && <Menu.Label>개선 제안하기</Menu.Label>}
+                  {isOpenSidebar && <Menu.Label>{SIDEBAR_MENU.IMPROVEMENT}</Menu.Label>}
                 </Menu>
-                <Menu>
+                {/* 환경설정 */}
+                <Menu onClick={() => openModal(MODAL_NAME.SETTING_MODAL)}>
                   <Icon name='setting' className='w-16 h-16 text-icon' />
-                  {isOpenSidebar && <Menu.Label>환경설정</Menu.Label>}
+                  {isOpenSidebar && <Menu.Label>{SIDEBAR_MENU.SETTING}</Menu.Label>}
                 </Menu>
               </div>
               <Menu onClick={handleLogout}>
                 <Icon name='logout' className='w-16 h-16 text-icon' />
-                {isOpenSidebar && <Menu.Label>로그아웃</Menu.Label>}
+                {isOpenSidebar && <Menu.Label>{SIDEBAR_MENU.LOGOUT}</Menu.Label>}
               </Menu>
             </div>
           </aside>
-          {isModalOpen('bookmarkModal') && <BookmarkModal />}
+          {isModalOpen(MODAL_NAME.BOOKMARK_MODAL) && <BookmarkModal />}
+          {isModalOpen(MODAL_NAME.SETTING_MODAL) && <SettingModal />}
         </>
       )}
     </>
@@ -185,7 +209,7 @@ export const sidebarVariants = cva(
 );
 
 export const sideButtonVariants = cva(
-  ['p-6 rounded-md hover:bg-action-secondary-hover transition-all duration-300'],
+  ['p-6 h-fit rounded-md hover:bg-action-secondary-hover transition-all duration-300'],
   {
     variants: {
       isOpenSidebar: {

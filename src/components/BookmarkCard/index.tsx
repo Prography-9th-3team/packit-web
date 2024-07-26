@@ -2,6 +2,8 @@
 
 import { useBookmarkLike } from '@/apis/bookmark';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
+import { bookmarkValidateSiteName } from '@/constants/data';
+import { isValidUrl } from '@/lib/url';
 import { cn } from '@/lib/utils';
 import useToastStore from '@/stores/toastStore';
 import { MouseEvent, useRef, useState } from 'react';
@@ -21,11 +23,9 @@ export interface IBookmarkCard {
   onClick: () => void;
   onDelete?: () => void;
   onModify?: () => void;
+  isRecommendCard?: boolean;
 }
 
-/**
- * TODO : s3로 변경시 thumbnail 가져오는 api 삭제
- */
 const BookmarkCard = ({
   bookMarkId,
   representImageUrl,
@@ -39,6 +39,7 @@ const BookmarkCard = ({
   isFavorite,
   onClick,
   onDelete,
+  isRecommendCard = false,
 }: IBookmarkCard) => {
   const { addToast } = useToastStore();
 
@@ -105,7 +106,9 @@ const BookmarkCard = ({
             alt='썸네일'
             width={650}
           />
-        ) : representImageUrl ? (
+        ) : representImageUrl &&
+          !bookmarkValidateSiteName.includes(siteName) &&
+          isValidUrl(representImageUrl) ? (
           // url 썸네일 이미지
           <img
             className='aspect-[296/180] object-cover'
@@ -144,23 +147,24 @@ const BookmarkCard = ({
           </picture>
           <span className='body-md text-text truncate'>{bookmarkSiteName}</span>
         </div>
-        <div
-          className={cn([
-            'hidden items-center gap-12 *:text-icon-minimal group-hover:flex',
-            (isLike || isShowOption) && 'flex',
-          ])}
-        >
-          <button onClick={handleToggleLike}>
-            {isLike ? (
-              <Icon name='heart_fill' className='w-20 h-20 text-primary' />
-            ) : (
-              <Icon name='heart' className='w-20 h-20' />
-            )}
-          </button>
-          <button onClick={handleCopyUrl}>
-            <Icon name='link_03' className='w-20 h-20' />
-          </button>
-          <button className='relative' onClick={handleOpenOption} ref={optionRef}>
+        {!isRecommendCard && (
+          <div
+            className={cn([
+              'hidden items-center gap-12 *:text-icon-minimal group-hover:flex',
+              (isLike || isShowOption) && 'flex',
+            ])}
+          >
+            <button onClick={handleToggleLike}>
+              {isLike ? (
+                <Icon name='heart_fill' className='w-20 h-20 text-primary' />
+              ) : (
+                <Icon name='heart' className='w-20 h-20' />
+              )}
+            </button>
+            <button onClick={handleCopyUrl}>
+              <Icon name='link_03' className='w-20 h-20' />
+            </button>
+            <button className='relative' onClick={handleOpenOption} ref={optionRef}>
             <Icon name='dotsVertical' className='w-20 h-20' />
             {isShowOption && (
               <div className='absolute top-[calc(100%+8px)] w-[165px] flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer z-10'>
@@ -173,7 +177,8 @@ const BookmarkCard = ({
               </div>
             )}
           </button>
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
