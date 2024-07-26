@@ -39,9 +39,6 @@ const BookmarkCard = ({
 }: IBookmarkCard) => {
   const { addToast } = useToastStore();
 
-  // 썸네일 API 요청
-  // const path = apis.fileUpload.thumbnail(imageUUID ?? '');
-
   const SEVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
   const optionRef = useRef<HTMLButtonElement>(null);

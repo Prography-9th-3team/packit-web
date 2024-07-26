@@ -189,3 +189,37 @@ export const fetchBookmarkReadCount = (bookMarkId: number) => {
 
   return fetchData.put(url, { bookMarkId });
 };
+
+/**
+ * 북마크 삭제
+ */
+export const useBookmarkDelete = () => {
+  const queryClient = useQueryClient();
+  const url = apis.bookmark.bookmark_delete;
+
+  return useMutation<AxiosResponse, AxiosError, Array<number>>({
+    mutationFn: (data) => fetchData.delete(url, data),
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: [apis.bookmark.bookmark_list],
+      });
+    },
+  });
+};
+
+/**
+ * 북마크 삭제
+ */
+export const useBookmarkRestore = () => {
+  const queryClient = useQueryClient();
+  const url = apis.bookmark.bookmark_restore;
+
+  return useMutation<AxiosResponse, AxiosError, Array<number>>({
+    mutationFn: (data) => fetchData.post(url, data),
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: [apis.bookmark.bookmark_list],
+      });
+    },
+  });
+};

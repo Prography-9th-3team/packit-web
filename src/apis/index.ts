@@ -69,7 +69,7 @@ export const fetchData = {
     return res;
   },
 
-  delete: async <T>(url: string, data: unknown) => {
+  delete: async <T>(url: string, data?: unknown) => {
     const res = await axiosInstance<T>({
       method: 'delete',
       url: url,
