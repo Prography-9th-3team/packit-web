@@ -40,7 +40,7 @@ const TabList = ({ tabs = [] }: ITabList) => {
 
   const handleDeleteCategory = async (categoryId: number) => {
     await deleteCategory([categoryId]).then((res) => {
-      if (res.status === 200) addToast('카테고리가 삭제되었어요', 'default');
+      if (res.status === 200) addToast({ message: '카테고리가 삭제되었어요', type: 'default' });
     });
   };
 

@@ -9,9 +9,11 @@ interface IToastWrapper {
   label: string;
   type: 'default' | 'success' | 'error';
   time?: number;
+  clickText?: string;
+  onClick?: () => void;
 }
 
-const ToastWrapper = ({ id, label, type, time = 3000 }: IToastWrapper) => {
+const ToastWrapper = ({ id, label, type, time = 3000, clickText, onClick }: IToastWrapper) => {
   const { removeToast } = useToastStore();
 
   useEffect(() => {
@@ -28,7 +30,7 @@ const ToastWrapper = ({ id, label, type, time = 3000 }: IToastWrapper) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 48 }}
     >
-      <Toast type={type}>
+      <Toast type={type} onClick={onClick}>
         {type === 'success' ? (
           <Icon name='checkOn_f' className='w-16 h-16 text-icon-on' />
         ) : type === 'error' ? (
@@ -37,6 +39,7 @@ const ToastWrapper = ({ id, label, type, time = 3000 }: IToastWrapper) => {
           ''
         )}
         <Toast.Label>{label}</Toast.Label>
+        {clickText && <Toast.Button>{clickText}</Toast.Button>}
       </Toast>
     </motion.div>
   );

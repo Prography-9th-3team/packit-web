@@ -168,7 +168,7 @@ const BookmarkModal = () => {
     values.categoryIds = selectCategory.map((item) => item.value);
 
     mutateSaveBookmark(values).then(() => {
-      addToast('북마크가 추가되었어요.', 'success');
+      addToast({ message: '북마크가 추가되었어요.', type: 'success' });
 
       closeModal('bookmarkModal');
     });

@@ -55,22 +55,22 @@ const FilterBox = () => {
    */
   const handleAddCategory = () => {
     if (!category) {
-      addToast('카테고리를 입력해주세요', 'error');
+      addToast({ message: '카테고리를 입력해주세요', type: 'error' });
 
       return;
     }
     if (category === '전체') {
       setIsError(true);
-      addToast('카테고리가 이미 존재해요', 'error');
+      addToast({ message: '카테고리가 이미 존재해요', type: 'error' });
       return;
     }
 
     mutateSaveCategory(category).then((res) => {
       if (res.data.code === 'C002') {
         setIsError(true);
-        addToast(res.data.message, 'error');
+        addToast({ message: res.data.message, type: 'error' });
       } else {
-        addToast('카테고리가 추가되었어요', 'success');
+        addToast({ message: '카테고리가 추가되었어요', type: 'success' });
         setIsOpenCategory(false);
         setCategory('');
       }

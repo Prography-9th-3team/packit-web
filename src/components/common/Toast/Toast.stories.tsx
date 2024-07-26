@@ -114,13 +114,19 @@ export const ToastMotion: Story = {
 
     return (
       <div className='flex gap-8'>
-        <Button onClick={() => addToast('Success Toast', 'success')} type='primary'>
+        <Button
+          onClick={() => addToast({ message: 'Success Toast', type: 'success' })}
+          type='primary'
+        >
           <Button.Label>Success</Button.Label>
         </Button>
-        <Button onClick={() => addToast('Error Toast', 'error')} type='critical'>
+        <Button onClick={() => addToast({ message: 'Error Toast', type: 'error' })} type='critical'>
           <Button.Label>Error</Button.Label>
         </Button>
-        <Button onClick={() => addToast('Default Toast', 'default')} type='outline'>
+        <Button
+          onClick={() => addToast({ message: 'Default Toast', type: 'default' })}
+          type='outline'
+        >
           <Button.Label>Default</Button.Label>
         </Button>
 

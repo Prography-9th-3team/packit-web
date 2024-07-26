@@ -52,7 +52,7 @@ const BookmarkItem = ({
     e.stopPropagation();
 
     navigator.clipboard.writeText(url).then(() => {
-      addToast('링크가 복사되었습니다.', 'success');
+      addToast({ message: '링크가 복사되었습니다.', type: 'success' });
     });
   };
 

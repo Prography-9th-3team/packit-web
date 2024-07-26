@@ -19,6 +19,8 @@ export interface IBookmarkCard {
   imageUUID?: string;
   isFavorite: boolean;
   onClick: () => void;
+  onDelete?: () => void;
+  onModify?: () => void;
 }
 
 /**
@@ -36,6 +38,7 @@ const BookmarkCard = ({
   imageUUID,
   isFavorite,
   onClick,
+  onDelete,
 }: IBookmarkCard) => {
   const { addToast } = useToastStore();
 
@@ -67,7 +70,7 @@ const BookmarkCard = ({
     e.stopPropagation();
 
     navigator.clipboard.writeText(url).then(() => {
-      addToast('링크가 복사되었습니다.', 'success');
+      addToast({ message: '링크가 복사되었습니다.', type: 'success' });
     });
   };
 
@@ -161,10 +164,10 @@ const BookmarkCard = ({
             <Icon name='dotsVertical' className='w-20 h-20' />
             {isShowOption && (
               <div className='absolute top-[calc(100%+8px)] w-[165px] flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer z-10'>
-                <Option onClick={() => {}}>
+                {/* <Option onClick={onModify}>
                   <Option.Label>수정</Option.Label>
-                </Option>
-                <Option onClick={() => {}}>
+                </Option> */}
+                <Option onClick={onDelete}>
                   <Option.Label className='text-critical'>삭제</Option.Label>
                 </Option>
               </div>

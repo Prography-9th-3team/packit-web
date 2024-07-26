@@ -39,7 +39,7 @@ const CategoryEditModal = ({
   const handleEditCategory = async () => {
     await editCategory({ categoryId, categoryName: editCategoryName }).then((res) => {
       if (res.status === 200) {
-        addToast('카테고리 이름이 수정되었어요', 'default');
+        addToast({ message: '카테고리 이름이 수정되었어요', type: 'default' });
         handleCloseModal();
       }
     });
