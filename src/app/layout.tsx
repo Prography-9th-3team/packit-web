@@ -1,3 +1,4 @@
+import Feed from '@/components/Feed';
 import Footer from '@/components/Footer';
 import Sidebar from '@/components/Sidebar';
 import ToastArea from '@/components/common/Toast/ToastArea';
@@ -30,6 +31,7 @@ export default function RootLayout({
             <div className='flex-1'>{children}</div>
             <Footer />
           </div>
+          <Feed />
           <ToastArea />
           <div id='modal' className='styled-scroll'></div>
         </Provider>

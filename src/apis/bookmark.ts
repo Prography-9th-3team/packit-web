@@ -14,7 +14,7 @@ interface IBookmarkParamDataType {
   isFavorite?: boolean;
 }
 
-interface IBookmarkListResponseDataType {
+export interface IBookmarkListResponseDataType {
   pageInfo: {
     pageNumber: number;
     size: number;
