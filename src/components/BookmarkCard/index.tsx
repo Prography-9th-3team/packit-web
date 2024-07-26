@@ -2,6 +2,7 @@
 
 import { useBookmarkLike } from '@/apis/bookmark';
 import { bookmarkValidateSiteName } from '@/constants/data';
+import { isValidUrl } from '@/lib/url';
 import { cn } from '@/lib/utils';
 import useToastStore from '@/stores/toastStore';
 import { MouseEvent, useState } from 'react';
@@ -87,7 +88,9 @@ const BookmarkCard = ({
             alt='썸네일'
             width={650}
           />
-        ) : representImageUrl && !bookmarkValidateSiteName.includes(siteName) ? (
+        ) : representImageUrl &&
+          !bookmarkValidateSiteName.includes(siteName) &&
+          isValidUrl(representImageUrl) ? (
           // url 썸네일 이미지
           <img
             className='aspect-[296/180] object-cover'
