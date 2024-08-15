@@ -1,9 +1,18 @@
+'use client';
+
 import Icon from '@/components/common/Icon';
 import Logo from '@/components/common/Logo';
 import ScrollAnimation from '@/components/common/ScrollAnimation';
 import { cn } from '@/lib/utils';
 
 const Landing = () => {
+  const STORE_URL =
+    'https://chromewebstore.google.com/detail/packit/mcgnfjmapfnphiejjcomafjhlfcabdih?hl=ko';
+
+  const handleMoveStore = () => {
+    location.href = STORE_URL;
+  };
+
   return (
     <main>
       <header className='w-full h-[56px] px-16 md:px-32 py-[14px] md:py-16 sticky top-0 bg-white z-50 flex justify-between'>
@@ -35,6 +44,7 @@ const Landing = () => {
                 'flex bg-[#15181E] py-12 px-24 items-center justify-center rounded-full gap-8',
                 'label-lg-bold text-white text-center hover:bg-[#242935] md:mb-[88px]',
               )}
+              onClick={handleMoveStore}
             >
               <Icon name='google' className='w-16 h-16' />
               <div>지금 바로 사용해보기</div>
@@ -55,7 +65,7 @@ const Landing = () => {
             background: 'linear-gradient(180deg, #FFF 0%, #F8F9FB 17.91%)',
           }}
         >
-          <div className='mb-[149px] flex flex-col gap-80 md:gap-[194px]'>
+          <div className='mb-[84px] flex flex-col gap-80 md:gap-[194px] md:mb-[149px]'>
             <ScrollAnimation repeat={true}>
               <div className='flex flex-col-reverse justify-between items-center md:flex-row gap-32 md:gap-[60px] lg:gap-[100px] 2xl:gap-[194px]'>
                 <div className='flex flex-col h-full justify-center'>
@@ -135,9 +145,9 @@ const Landing = () => {
             </ScrollAnimation>
           </div>
 
-          <div className='mb-[20px] w-[calc(100%-40px)] h-[413px] rounded-[32px] bg-[#E2E5EC] flex flex-col items-center justify-center'>
+          <div className='relative mb-[20px] w-[calc(100%-40px)] pt-[60px] md:h-auto h-[413px] rounded-[32px] bg-[#E2E5EC] flex flex-col items-center justify-center overflow-hidden'>
             <div className='text-primary body-md-bold md:heading-2xl-bd  mb-[20px]'>
-              패킷과 함께
+              나만의 인사이트 관리
             </div>
             <div className='text-[#15181E] heading-3xl-bd md:text-[56px] md:font-bold md:leading-[130%] text-center mb-[40px]'>
               지금 패킷으로
@@ -146,13 +156,21 @@ const Landing = () => {
             </div>
             <button
               className={cn(
-                'flex bg-[#15181E] py-12 px-24 items-center justify-center rounded-full gap-8',
+                'flex bg-[#15181E] py-12 px-24 items-center justify-center rounded-full gap-8 mb-[38px]',
                 'label-lg-bold text-white text-center hover:bg-[#242935]',
               )}
+              onClick={handleMoveStore}
             >
               <Icon name='google' className='w-16 h-16' />
               <div>지금 바로 사용해보기</div>
             </button>
+
+            {/* <img
+              src='./assets/image/login_image.png'
+              alt='landing_image_1'
+              className='translate-y-320 md:hidden rounded-[18px] min-w-[768px]'
+              loading='lazy'
+            /> */}
           </div>
         </section>
       </div>
