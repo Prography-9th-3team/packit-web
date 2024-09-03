@@ -8,6 +8,10 @@ import GoogleButton from './components/GoogleButton';
 const Login = () => {
   const router = useRouter();
 
+  const handleMoveTerms = () => {
+    window.open('https://flying-syzygy-563.notion.site/b8f77a5a304c4b2d9edefe988d1d55bb', '_blank');
+  };
+
   useEffect(() => {
     const handleTokenSaved = (event: MessageEvent) => {
       if (event.origin === window.location.origin && event.data.tokenSaved) {
@@ -43,8 +47,15 @@ const Login = () => {
             <GoogleButton />
           </div>
           <span className='body-sm text-center text-text-minimal'>
-            로그인 시 서비스의 <span className='underline'>개인 정보 보호 정책</span> 및{' '}
-            <span className='underline'>서비스 약관</span>에 동의하게 되며,
+            로그인 시 서비스의{' '}
+            <span className='underline cursor-pointer' onClick={handleMoveTerms}>
+              개인 정보 보호 정책
+            </span>{' '}
+            및{' '}
+            <a className='underline cursor-pointer' onClick={handleMoveTerms}>
+              서비스 약관
+            </a>
+            에 동의하게 되며,
             <br /> 서비스 이용을 위해 이메일과 이름, 프로필 이미지를 수집합니다.
           </span>
         </div>
@@ -97,8 +108,15 @@ const Login = () => {
         >
           <GoogleButton />
           <span className='body-sm text-center text-text-minimal'>
-            로그인 시 서비스의 <span className='underline'>개인 정보 보호 정책</span> 및{' '}
-            <span className='underline'>서비스 약관</span>에 동의하게 되며,
+            로그인 시 서비스의{' '}
+            <span className='underline cursor-pointer' onClick={handleMoveTerms}>
+              개인 정보 보호 정책
+            </span>{' '}
+            및{' '}
+            <a className='underline cursor-pointer' onClick={handleMoveTerms}>
+              서비스 약관
+            </a>
+            에 동의하게 되며,
             <br /> 서비스 이용을 위해 이메일과 이름, 프로필 이미지를 수집합니다.
           </span>
         </div>
