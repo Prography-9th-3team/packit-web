@@ -27,8 +27,8 @@ const Spinner = ({ size = SPINNER_SIZE.LG }: ISinner) => {
           gradientUnits='userSpaceOnUse'
           gradientTransform='translate(32 32) rotate(-90) scale(32 32)'
         >
-          <stop offset='0.25' stopColor='white' stopOpacity='0' />
-          <stop offset='1' stopColor='white' />
+          <stop offset='0.25' stopColor='#717680' stopOpacity='0' />
+          <stop offset='1' stopColor='#717680' />
         </radialGradient>
       </defs>
     </svg>

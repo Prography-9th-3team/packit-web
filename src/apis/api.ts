@@ -30,6 +30,7 @@ const apis = {
     bookmark_read: '/api/v1/book-mark/read/count',
     bookmark_delete: '/api/v1/book-mark',
     bookmark_restore: '/api/v1/book-mark/restore',
+    bookmark_search: '/api/v1/book-mark/search',
   },
   category: {
     category_list: '/api/v1/category/list',

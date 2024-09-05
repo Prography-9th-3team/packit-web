@@ -9,6 +9,7 @@
 <Icon name='chevronDown_s' className = 'w-16 h-16 stroke-critical' />
 */
 
+export { default as arrow_right } from './arrow-narrow-right.svg';
 export { default as bell_s } from './bell_s.svg';
 export { default as bookmark_add } from './bookmark_add.svg';
 export { default as check_circle } from './check_circle.svg';

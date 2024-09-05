@@ -9,6 +9,7 @@ import { cva } from 'class-variance-authority';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import LogoIcon from '../../../public/logo.svg';
+import SearchBar from '../SearchBar';
 import SettingModal from '../Setting/SettingModal';
 import Avatar from '../common/Avatar';
 import { AVATAR_SIZE } from '../common/Avatar/constants';
@@ -42,6 +43,7 @@ const SideBar = () => {
   const { openModal, isModalOpen } = useModalStore();
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(true);
   const [selected, setSelected] = useState<SIDEBAR_MENU>(SIDEBAR_MENU.HOME);
+  const [isOpenSearchBar, setIsSearchBar] = useState<boolean>(false);
 
   const getIcon = (() => {
     return isOpenSidebar ? 'chevronLeftDouble' : 'chevronRightDouble';
@@ -54,7 +56,7 @@ const SideBar = () => {
 
   // 검색바 오픈
   const handleOpenSearch = () => {
-    alert('검색바 오픈');
+    setIsSearchBar(true);
   };
 
   // 메뉴 탭 변경
@@ -185,8 +187,12 @@ const SideBar = () => {
               </Menu>
             </div>
           </aside>
+          {/* 북마크 모달 START */}
           {isModalOpen(MODAL_NAME.BOOKMARK_MODAL) && <BookmarkModal />}
+          {/* 설정 모달 START */}
           {isModalOpen(MODAL_NAME.SETTING_MODAL) && <SettingModal />}
+          {/* 검색바 START */}
+          {isOpenSearchBar && <SearchBar handleClick={() => setIsSearchBar(false)} />}
         </>
       )}
     </>
