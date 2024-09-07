@@ -8,15 +8,16 @@ import Provider from './Provider';
 import RouteGuard from './RouteGuard';
 
 export const metadata: Metadata = {
-  title: '패킷',
-  description:
-    '성장하는 사람들을 위한 올인원 툴, 패킷으로 쉽고 간편하게 나만의 인사이트를 관리하세요.',
+  title: '패킷 - 성장하는 사람들을 위한 웹클리퍼',
+  description: '패킷으로 쉽고 간편하게 나만의 인사이트를 관리하세요.',
   icons: '/logo.svg',
   openGraph: {
-    title: 'Packit',
-    description:
-      '성장하는 사람들을 위한 올인원 툴, 패킷으로 쉽고 간편하게 나만의 인사이트를 관리하세요.',
+    title: '패킷 - 성장하는 사람들을 위한 웹클리퍼',
+    description: '패킷으로 쉽고 간편하게 나만의 인사이트를 관리하세요.',
     images: ['https://github.com/user-attachments/assets/6fadd17d-2bcf-4147-8b32-7f07ebbcde65'],
+    siteName: '패킷 - 성장하는 사람들을 위한 웹클리퍼',
+    type: 'website',
+    locale: 'ko_KR',
   },
 };
 
