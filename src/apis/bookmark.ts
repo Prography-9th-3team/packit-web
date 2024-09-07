@@ -12,6 +12,7 @@ interface IBookmarkParamDataType {
   property: string;
   categoryId?: string | number | null;
   isFavorite?: boolean;
+  keyword?: string;
 }
 
 export interface IBookmarkListResponseDataType {
@@ -227,5 +228,43 @@ export const useBookmarkRestore = () => {
         queryKey: [apis.category.category_list],
       });
     },
+  });
+};
+
+/**
+ * 북마크 검색
+ */
+export const useBookmarkSearchInfinityAPI = (params: IBookmarkParamDataType) => {
+  const url = apis.bookmark.bookmark_search;
+  const authStore = useAuthStore();
+
+  return useInfiniteQuery<any, unknown, IBookmarkListResponseDataType, any>({
+    queryKey: [apis.bookmark.bookmark_list, params],
+    queryFn: async ({ pageParam }) => {
+      const res = await fetchData.get(url, {
+        params: { ...params, pageNumber: pageParam },
+      });
+
+      return res.data;
+    },
+    initialPageParam: 0,
+    getNextPageParam: (page: any) => {
+      const { lastPage, pageNumber } = page.result.pageInfo;
+
+      return !lastPage ? pageNumber + 1 : null;
+    },
+    select: (res: InfiniteData<{ result: IBookmarkListResponseDataType }>) => {
+      const content = res.pages.reduce((prev: any, cur: any) => {
+        return [...prev, ...cur.result.content];
+      }, []);
+
+      return {
+        content,
+        pageInfo: res.pages[0].result.pageInfo,
+      };
+    },
+    staleTime: 1000 * 60 * 10,
+    gcTime: 1000 * 60 * 10,
+    enabled: authStore.isLogin() && Boolean(params.keyword),
   });
 };
