@@ -129,7 +129,8 @@ const ContentBox = () => {
           <Icon name='bookmark_add' className='w-24 h-24 text-icon-minimal mb-[14px]' />
           <h2 className='heading-lg-bd text-text mb-6'>북마크를 추가해 볼까요?</h2>
           <p className='body-md text-text-sub mb-24'>
-            북마크 파일을 끌어당기거나 북마크 추가 버튼을 눌러 등록해 보세요
+            {/* 북마크 파일을 끌어당기거나 북마크 추가 버튼을 눌러 등록해 보세요 */}
+            북마크 추가 버튼을 눌러 등록해 보세요
           </p>
           <Button type='outline' size='small' onClick={() => openModal(MODAL_NAME.BOOKMARK_MODAL)}>
             <Button.Label>북마크 추가</Button.Label>

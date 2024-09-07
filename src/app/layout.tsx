@@ -12,6 +12,12 @@ export const metadata: Metadata = {
   description:
     '성장하는 사람들을 위한 올인원 툴, 패킷으로 쉽고 간편하게 나만의 인사이트를 관리하세요.',
   icons: '/logo.svg',
+  openGraph: {
+    title: 'Packit',
+    description:
+      '성장하는 사람들을 위한 올인원 툴, 패킷으로 쉽고 간편하게 나만의 인사이트를 관리하세요.',
+    images: ['https://github.com/user-attachments/assets/6fadd17d-2bcf-4147-8b32-7f07ebbcde65'],
+  },
 };
 
 export default function RootLayout({
