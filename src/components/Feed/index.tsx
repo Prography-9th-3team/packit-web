@@ -1,5 +1,6 @@
 'use client';
 
+import { fetchBookmarkReadCount } from '@/apis/bookmark';
 import { useRecommendBookmarkList } from '@/apis/recommend';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
@@ -12,7 +13,9 @@ const Feed = () => {
 
   const { data: bookmarkData } = useRecommendBookmarkList();
 
-  const handleOpenBlank = ({ url }: { url: string }) => {
+  const handleOpenBlank = ({ url, bookMarkId }: { url: string; bookMarkId: number }) => {
+    fetchBookmarkReadCount(bookMarkId);
+
     window.open(url, '_blank');
   };
 
@@ -32,7 +35,7 @@ const Feed = () => {
                 key={item.bookMarkId}
                 {...item}
                 imageUUID={item.userInsertRepresentImage?.uuid}
-                onClick={() => handleOpenBlank({ url: item.url })}
+                onClick={() => handleOpenBlank({ url: item.url, bookMarkId: item.bookMarkId })}
                 isRecommendCard={true}
               />
             ))}
