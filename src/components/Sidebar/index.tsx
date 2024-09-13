@@ -43,7 +43,6 @@ const SideBar = () => {
   const { openModal, isModalOpen } = useModalStore();
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(true);
   const [selected, setSelected] = useState<SIDEBAR_MENU>(SIDEBAR_MENU.HOME);
-  const [isOpenSearchBar, setIsSearchBar] = useState<boolean>(false);
 
   const getIcon = (() => {
     return isOpenSidebar ? 'chevronLeftDouble' : 'chevronRightDouble';
@@ -56,7 +55,7 @@ const SideBar = () => {
 
   // 검색바 오픈
   const handleOpenSearch = () => {
-    setIsSearchBar(true);
+    openModal(MODAL_NAME.SEARCH_MODAL);
   };
 
   // 메뉴 탭 변경
@@ -192,7 +191,7 @@ const SideBar = () => {
           {/* 설정 모달 START */}
           {isModalOpen(MODAL_NAME.SETTING_MODAL) && <SettingModal />}
           {/* 검색바 START */}
-          {isOpenSearchBar && <SearchBar handleClick={() => setIsSearchBar(false)} />}
+          {isModalOpen(MODAL_NAME.SEARCH_MODAL) && <SearchBar />}
         </>
       )}
     </>

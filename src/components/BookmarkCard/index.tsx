@@ -11,19 +11,21 @@ import Icon from '../common/Icon';
 import { Option } from '../common/Option';
 export interface IBookmarkCard {
   bookMarkId: number;
-  categoryNames: Array<number>;
-  representImageUrl: string;
+  categoryNames?: Array<number>;
+  representImageUrl?: string;
   title: string;
-  memo: string;
+  memo?: string;
   faviconUrl: string;
-  siteName: string;
+  siteName?: string;
   url: string;
   imageUUID?: string;
-  isFavorite: boolean;
+  isFavorite?: boolean;
   onClick: () => void;
   onDelete?: () => void;
   onModify?: () => void;
   isRecommendCard?: boolean;
+
+  type?: 'default' | 'search';
 }
 
 const BookmarkCard = ({
@@ -40,6 +42,7 @@ const BookmarkCard = ({
   onClick,
   onDelete,
   isRecommendCard = false,
+  type = 'default',
 }: IBookmarkCard) => {
   const { addToast } = useToastStore();
 
@@ -107,7 +110,7 @@ const BookmarkCard = ({
             width={650}
           />
         ) : representImageUrl &&
-          !bookmarkValidateSiteName.includes(siteName) &&
+          !bookmarkValidateSiteName.includes(siteName ?? '') &&
           isValidUrl(representImageUrl) ? (
           // url 썸네일 이미지
           <img
@@ -127,7 +130,7 @@ const BookmarkCard = ({
         )}
       </div>
       <div className='flex flex-col gap-6 px-10'>
-        {categoryNames.length > 0 && (
+        {categoryNames && categoryNames.length > 0 && (
           <span className='body-sm-bold text-primary'>{categoryNames[0]}</span>
         )}
         <h2 className='body-lg-bold text-text truncate'>{bookmarkTitle}</h2>
@@ -154,29 +157,35 @@ const BookmarkCard = ({
               (isLike || isShowOption) && 'flex',
             ])}
           >
-            <button onClick={handleToggleLike}>
-              {isLike ? (
-                <Icon name='heart_fill' className='w-20 h-20 text-primary' />
-              ) : (
-                <Icon name='heart' className='w-20 h-20' />
-              )}
-            </button>
+            {/* 타입이 search가 아닌 경우 노출 */}
+            {type !== 'search' && (
+              <button onClick={handleToggleLike}>
+                {isLike ? (
+                  <Icon name='heart_fill' className='w-20 h-20 text-primary' />
+                ) : (
+                  <Icon name='heart' className='w-20 h-20' />
+                )}
+              </button>
+            )}
             <button onClick={handleCopyUrl}>
               <Icon name='link_03' className='w-20 h-20' />
             </button>
-            <button className='relative' onClick={handleOpenOption} ref={optionRef}>
-              <Icon name='dotsVertical' className='w-20 h-20' />
-              {isShowOption && (
-                <div className='absolute top-[calc(100%+8px)] w-[165px] flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer z-10'>
-                  {/* <Option onClick={onModify}>
+            {/* 타입이 search가 아닌 경우 노출 */}
+            {type !== 'search' && (
+              <button className='relative' onClick={handleOpenOption} ref={optionRef}>
+                <Icon name='dotsVertical' className='w-20 h-20' />
+                {isShowOption && (
+                  <div className='absolute top-[calc(100%+8px)] w-[165px] flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer z-10'>
+                    {/* <Option onClick={onModify}>
                   <Option.Label>수정</Option.Label>
                 </Option> */}
-                  <Option onClick={onDelete}>
-                    <Option.Label className='text-critical'>삭제</Option.Label>
-                  </Option>
-                </div>
-              )}
-            </button>
+                    <Option onClick={onDelete}>
+                      <Option.Label className='text-critical'>삭제</Option.Label>
+                    </Option>
+                  </div>
+                )}
+              </button>
+            )}
           </div>
         )}
       </div>

@@ -18,6 +18,7 @@ export { default as checkOff_f } from './check_off.svg';
 export { default as checkOn_f } from './check_on.svg';
 export { default as chevronLeftDouble } from './chevron-left-double.svg';
 export { default as chevronRightDouble } from './chevron-right-double.svg';
+export { default as chevronRight } from './chevron-right.svg';
 export { default as chevronDown_s } from './chevron_down.svg';
 export { default as dotsVertical } from './dots_vertical.svg';
 export { default as filePlus } from './file_plus.svg';

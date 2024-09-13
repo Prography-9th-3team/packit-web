@@ -231,6 +231,22 @@ export const useBookmarkRestore = () => {
   });
 };
 
+export interface IBookmarkSearchListResponseDataType {
+  pageInfo: {
+    pageNumber: number;
+    size: number;
+    total: number;
+    lastPage: number;
+  };
+  content: Array<{
+    bookMarkId: number;
+    faviconUrl: string;
+    memo: string;
+    title: string;
+    url: string;
+  }>;
+}
+
 /**
  * 북마크 검색
  */
@@ -238,7 +254,7 @@ export const useBookmarkSearchInfinityAPI = (params: IBookmarkParamDataType) => 
   const url = apis.bookmark.bookmark_search;
   const authStore = useAuthStore();
 
-  return useInfiniteQuery<any, unknown, IBookmarkListResponseDataType, any>({
+  return useInfiniteQuery<any, unknown, IBookmarkSearchListResponseDataType, any>({
     queryKey: [apis.bookmark.bookmark_list, params],
     queryFn: async ({ pageParam }) => {
       const res = await fetchData.get(url, {
@@ -253,7 +269,7 @@ export const useBookmarkSearchInfinityAPI = (params: IBookmarkParamDataType) => 
 
       return !lastPage ? pageNumber + 1 : null;
     },
-    select: (res: InfiniteData<{ result: IBookmarkListResponseDataType }>) => {
+    select: (res: InfiniteData<{ result: IBookmarkSearchListResponseDataType }>) => {
       const content = res.pages.reduce((prev: any, cur: any) => {
         return [...prev, ...cur.result.content];
       }, []);
