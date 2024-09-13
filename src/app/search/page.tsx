@@ -1,5 +1,3 @@
-'use client';
-
 import FilterBox from '@/components/FilterBox';
 import SearchContentBox from '@/components/SearchContentBox';
 import { Suspense } from 'react';
@@ -8,8 +6,8 @@ import SearchHeader from './components/SearchHeader';
 const Search = () => {
   return (
     <main className='min-w-[755px] bg-surface'>
-      <SearchHeader />
       <Suspense>
+        <SearchHeader />
         <FilterBox />
         {/* 컨텐츠 영역 */}
         <SearchContentBox />
