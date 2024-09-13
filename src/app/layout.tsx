@@ -2,6 +2,7 @@ import Feed from '@/components/Feed';
 import Footer from '@/components/Footer';
 import Sidebar from '@/components/Sidebar';
 import ToastArea from '@/components/common/Toast/ToastArea';
+import GoogleAnalytics from '@/lib/GoogleAnalytics';
 import type { Metadata } from 'next';
 import '../../styles/tailwind.css';
 import Provider from './Provider';
@@ -32,6 +33,9 @@ export default function RootLayout({
         <link rel='icon' href='/logo.svg' />
       </head>
       <body className='flex'>
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+        )}
         <Provider>
           <Sidebar />
           <div className='min-h-dvh flex-1 flex flex-col overflow-y-scroll styled-scroll'>
