@@ -1,5 +1,8 @@
 import { useBookmarkSearchInfinityAPI } from '@/apis/bookmark';
+import useEscKeyModalEvent from '@/hooks/useEscKeyModalEvent';
+import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
+import useModalStore from '@/stores/modalStore';
 import { debounce } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -7,19 +10,21 @@ import { useInView } from 'react-intersection-observer';
 import SearchItem from '../SearchItem';
 import Dim from '../common/Dim';
 import Icon from '../common/Icon';
+import { MODAL_NAME } from '../common/Modal/types';
 import Spinner from '../common/Spinner/Index';
 import { SPINNER_SIZE } from '../common/Spinner/constants';
 
-interface ISearchBar {
-  handleClick?: () => void;
-}
-
-const SearchBar = ({ handleClick }: ISearchBar) => {
+const SearchBar = () => {
   const [ref, inView] = useInView();
 
   const router = useRouter();
 
-  const [searchInput, setSearchInput] = useState<string>('');
+  const { updateQueryString } = useQueryString();
+  const { closeModal } = useModalStore();
+
+  useEscKeyModalEvent(MODAL_NAME.SEARCH_MODAL);
+
+  const [searchInput, setSearchInput] = useState<string>();
 
   const {
     data: bookmarkData,
@@ -40,7 +45,18 @@ const SearchBar = ({ handleClick }: ISearchBar) => {
   }, 300);
 
   const handleMoveSearchList = () => {
-    router.push('/onboarding');
+    router.push(`/search?search=${searchInput}`);
+
+    handleCloseModal();
+  };
+
+  const handleCloseModal = () => {
+    closeModal(MODAL_NAME.SEARCH_MODAL);
+  };
+
+  const handleResetSearchKeyword = () => {
+    setSearchInput('');
+    updateQueryString('search', '');
   };
 
   useEffect(() => {
@@ -51,12 +67,12 @@ const SearchBar = ({ handleClick }: ISearchBar) => {
 
   return (
     <div className=''>
-      <Dim visible zIndex={10} handleClick={handleClick} />
+      <Dim visible zIndex={10} handleClick={handleCloseModal} />
       <div>
         <div className='absolute top-[20%] left-1/2 -translate-x-1/2 z-50 w-full max-w-[480px] bg-white rounded-2xl '>
           <div
             className={cn([
-              'py-16 pl-20 pr-28 flex items-center gap-12',
+              'py-16 px-20 flex items-center gap-12',
               'w-full max-w-[480px] h-[60px]',
               searchInput && 'rounded-b-none border-b',
             ])}
@@ -65,8 +81,12 @@ const SearchBar = ({ handleClick }: ISearchBar) => {
             <input
               className='w-full outline-none heading-lg text-text placeholder:heading-lg placeholder:text-text-sub'
               placeholder='검색어 입력'
+              defaultValue={searchInput}
               onChange={handleOnChange}
             />
+            <button className='p-6 bg-surface-sub rounded-full' onClick={handleResetSearchKeyword}>
+              <Icon name='xClose_s' className='w-10 h-10 text-icon-sub' />
+            </button>
           </div>
           {searchInput && (
             // 북마크가 있을 경우
@@ -74,7 +94,7 @@ const SearchBar = ({ handleClick }: ISearchBar) => {
               {bookmarkData?.content.length ?? 0 > 0 ? (
                 <>
                   {bookmarkData?.content.map((item) => (
-                    <SearchItem key={item.bookMarkId} {...item} />
+                    <SearchItem key={item.bookMarkId} {...item} onClick={handleMoveSearchList} />
                   ))}
                   {hasNextPage && (
                     <div ref={ref} className='flex justify-center'>

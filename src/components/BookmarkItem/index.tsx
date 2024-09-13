@@ -9,17 +9,19 @@ import { Option } from '../common/Option';
 import Tooltip from '../common/Tooltip';
 export interface IBookmarkCard {
   bookMarkId: number;
-  categoryNames: Array<number>;
+  categoryNames?: Array<number>;
   title: string;
-  memo: string;
+  memo?: string;
   faviconUrl: string;
-  siteName: string;
+  siteName?: string;
   url: string;
   imageUUID?: string;
-  isFavorite: boolean;
+  isFavorite?: boolean;
   onClick: () => void;
   onModify?: () => void;
   onDelete?: () => void;
+
+  type?: 'default' | 'search';
 }
 
 /**
@@ -36,6 +38,7 @@ const BookmarkItem = ({
   isFavorite,
   onClick,
   onDelete,
+  type = 'default',
 }: IBookmarkCard) => {
   const { addToast } = useToastStore();
 
@@ -95,22 +98,27 @@ const BookmarkItem = ({
         />
       </div>
       <div className='flex items-center justify-end px-8'>
-        {categoryNames.length > 0 && <span className='body-md text-text'>{categoryNames[0]}</span>}
+        {categoryNames && categoryNames.length > 0 && (
+          <span className='body-md text-text'>{categoryNames[0]}</span>
+        )}
       </div>
       <div className='flex items-center justify-center gap-4 *:text-icon-minimal'>
-        <button
-          className='relative group w-40 h-40 flex items-center justify-center'
-          onClick={handleToggleLike}
-        >
-          {isLike ? (
-            <Icon name='heart_fill' className='w-16 h-16 text-primary' />
-          ) : (
-            <Icon name='heart' className='w-16 h-16' />
-          )}
-          <div className='absolute top-[calc(100%-4px)] left-1/2 -translate-x-1/2 hidden group-hover:block'>
-            <Tooltip label='좋아요' />
-          </div>
-        </button>
+        {/* 타입이 검색일 경우에는 노출 되지 않음 */}
+        {type !== 'search' && (
+          <button
+            className='relative group w-40 h-40 flex items-center justify-center'
+            onClick={handleToggleLike}
+          >
+            {isLike ? (
+              <Icon name='heart_fill' className='w-16 h-16 text-primary' />
+            ) : (
+              <Icon name='heart' className='w-16 h-16' />
+            )}
+            <div className='absolute top-[calc(100%-4px)] left-1/2 -translate-x-1/2 hidden group-hover:block'>
+              <Tooltip label='좋아요' />
+            </div>
+          </button>
+        )}
         <button
           className='relative group w-40 h-40 flex items-center justify-center'
           onClick={handleCopyUrl}
@@ -120,24 +128,27 @@ const BookmarkItem = ({
             <Tooltip label='링크 복사' />
           </div>
         </button>
-        <button className='relative' onClick={handleOpenOption} ref={optionRef}>
-          <div className='relative group w-40 h-40 flex items-center justify-center'>
-            <Icon name='dotsVertical' className='w-20 h-20' />
-            <div className='absolute top-[calc(100%-4px)] left-1/2 -translate-x-1/2 hidden group-hover:block'>
-              <Tooltip label='더보기' />
+        {/* 타입이 검색일 경우에는 노출 되지 않음 */}
+        {type !== 'search' && (
+          <button className='relative' onClick={handleOpenOption} ref={optionRef}>
+            <div className='relative group w-40 h-40 flex items-center justify-center'>
+              <Icon name='dotsVertical' className='w-20 h-20' />
+              <div className='absolute top-[calc(100%-4px)] left-1/2 -translate-x-1/2 hidden group-hover:block'>
+                <Tooltip label='더보기' />
+              </div>
             </div>
-          </div>
-          {isShowOption && (
-            <div className='absolute top-[calc(100%+8px)] right-0 w-[165px] flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer z-10'>
-              {/* <Option onClick={onModify}>
+            {isShowOption && (
+              <div className='absolute top-[calc(100%+8px)] right-0 w-[165px] flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer z-10'>
+                {/* <Option onClick={onModify}>
                   <Option.Label>수정</Option.Label>
                 </Option> */}
-              <Option onClick={onDelete}>
-                <Option.Label className='text-critical'>삭제</Option.Label>
-              </Option>
-            </div>
-          )}
-        </button>
+                <Option onClick={onDelete}>
+                  <Option.Label className='text-critical'>삭제</Option.Label>
+                </Option>
+              </div>
+            )}
+          </button>
+        )}
       </div>
     </div>
   );

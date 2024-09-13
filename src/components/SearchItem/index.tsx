@@ -8,9 +8,10 @@ interface ISearchItemProps {
   memo: string;
   title: string;
   url: string;
+  onClick: () => void;
 }
 
-const SearchItem = ({ bookMarkId, faviconUrl, memo, title, url }: ISearchItemProps) => {
+const SearchItem = ({ bookMarkId, faviconUrl, memo, title, url, onClick }: ISearchItemProps) => {
   const handleOpenBlank = ({ url, bookMarkId }: { url: string; bookMarkId: number }) => {
     fetchBookmarkReadCount(bookMarkId);
 
@@ -36,7 +37,10 @@ const SearchItem = ({ bookMarkId, faviconUrl, memo, title, url }: ISearchItemPro
       </div>
       <div
         className='relative hidden group-hover/item:block group/button'
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => {
+          e.stopPropagation();
+          onClick();
+        }}
       >
         <Icon name='arrow_right' className='w-20 h-20 text-icon-sub' />
         <div className='absolute top-[calc(100%+8px)] right-0 translate-x-3 hidden group-hover/button:block'>
