@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useGesture } from '@use-gesture/react';
+import { useRef, useState } from 'react';
 
 import { ICategoryResponseDataType, useDeleteCategory } from '@/apis/category';
 import useQueryString from '@/hooks/useQueyString';
@@ -56,10 +57,47 @@ const TabList = ({ tabs = [] }: ITabList) => {
     );
   };
 
+  const ulRef = useRef<HTMLUListElement>(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+
+  useGesture(
+    {
+      onDrag: ({ down, movement: [mx] }) => {
+        if (!ulRef.current) return;
+
+        if (down) {
+          isDragging.current = true;
+          ulRef.current.scrollLeft = scrollLeft.current - mx;
+        } else {
+          isDragging.current = false;
+        }
+      },
+      onDragStart: () => {
+        if (!ulRef.current) return;
+        isDragging.current = true;
+        startX.current = 0;
+        scrollLeft.current = ulRef.current.scrollLeft;
+      },
+      onDragEnd: () => {
+        isDragging.current = false;
+      },
+    },
+    {
+      target: ulRef,
+      drag: {
+        axis: 'x',
+        filterTaps: true,
+        pointer: { touch: true },
+      },
+    },
+  );
+
   return (
     <div className='h-40 relative w-[calc(100%-100px)]'>
-      {/* @TODO: 여기에 터치 x 스크롤 달아야함 */}
       <ul
+        ref={ulRef}
         className={cn(
           'absolute w-full h-[40px] flex gap-28 whitespace-nowrap hide-scroll select-none overflow-x-scroll',
           isControlModalOpen && 'h-[700px]',
