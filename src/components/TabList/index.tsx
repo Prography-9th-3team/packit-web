@@ -58,6 +58,7 @@ const TabList = ({ tabs = [] }: ITabList) => {
 
   return (
     <div className='h-40 relative w-[calc(100%-100px)]'>
+      {/* @TODO: 여기에 터치 x 스크롤 달아야함 */}
       <ul
         className={cn(
           'absolute w-full h-[40px] flex gap-28 whitespace-nowrap hide-scroll select-none overflow-x-scroll',
