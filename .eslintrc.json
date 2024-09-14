@@ -4,12 +4,12 @@
     "next",
     "next/core-web-vitals",
     "plugin:storybook/recommended",
-    "prettier",
     "plugin:@typescript-eslint/recommended",
     "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "prettier"
   ],
-  "plugins": ["@tanstack/query", "@typescript-eslint", "prettier", "react", "react-hooks"],
+  "plugins": ["@tanstack/query", "@typescript-eslint", "react", "react-hooks", "prettier"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx", "*.mdx"]

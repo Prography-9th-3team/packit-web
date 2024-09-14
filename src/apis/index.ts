@@ -1,5 +1,6 @@
-import { deleteCookie, getCookie } from '@/lib/utils';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+
+import { deleteCookie, getCookie } from '@/lib/utils';
 
 // const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 

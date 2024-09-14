@@ -1,6 +1,7 @@
+import { Suspense } from 'react';
+
 import ContentBox from '@/components/ContentBox';
 import FilterBox from '@/components/FilterBox';
-import { Suspense } from 'react';
 
 const Home = () => {
   return (

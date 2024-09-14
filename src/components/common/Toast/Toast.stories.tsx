@@ -1,5 +1,7 @@
-import useToastStore from '@/stores/toastStore';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import useToastStore from '@/stores/toastStore';
+
 import { Toast } from '.';
 import { Button } from '../Button';
 import ToastArea from './ToastArea';

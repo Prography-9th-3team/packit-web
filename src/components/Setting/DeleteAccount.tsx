@@ -1,7 +1,9 @@
+import axios from 'axios';
+
 import { useDeleteAccount } from '@/apis/auth';
 import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
-import axios from 'axios';
+
 import { Button } from '../common/Button';
 import { BUTTON_SIZE, BUTTON_TYPE } from '../common/Button/ui/ButtonMain';
 import { MODAL_NAME } from '../common/Modal/types';

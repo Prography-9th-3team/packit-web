@@ -1,6 +1,8 @@
-import useModalStore from '@/stores/modalStore';
 import { PropsWithChildren } from 'react';
 import ReactDom from 'react-dom';
+
+import useModalStore from '@/stores/modalStore';
+
 import ModalLayout from './ModalLayout';
 
 interface IModalPortal extends PropsWithChildren {}

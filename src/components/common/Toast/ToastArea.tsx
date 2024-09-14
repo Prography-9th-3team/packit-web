@@ -1,7 +1,9 @@
 'use client';
 
-import useToastStore from '@/stores/toastStore';
 import { AnimatePresence } from 'framer-motion';
+
+import useToastStore from '@/stores/toastStore';
+
 import ToastWrapper from './ToastWrapper';
 
 const TOAST_TIME = 3000; // 3초

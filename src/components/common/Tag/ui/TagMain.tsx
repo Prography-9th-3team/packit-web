@@ -1,6 +1,8 @@
-import { cn } from '@/lib/utils';
 import { VariantProps, cva } from 'class-variance-authority';
 import { PropsWithChildren } from 'react';
+
+import { cn } from '@/lib/utils';
+
 import { TagContext } from '../modules/TagStateContext';
 
 export enum TAG_SIZE {

@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import useAuthStore from '@/stores/authStore';
 import { InfiniteData, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
+
+import useAuthStore from '@/stores/authStore';
+
 import { fetchData } from '.';
 import { default as apis, urlParams } from './api';
 

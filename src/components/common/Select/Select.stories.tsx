@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ChangeEvent, useState } from 'react';
+
 import { Select } from '.';
 import Check from '../Check';
 import Icon from '../Icon';

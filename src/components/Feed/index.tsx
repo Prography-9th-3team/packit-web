@@ -1,9 +1,11 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+
 import { fetchBookmarkReadCount } from '@/apis/bookmark';
 import { useRecommendBookmarkList } from '@/apis/recommend';
 import { cn } from '@/lib/utils';
-import { usePathname } from 'next/navigation';
+
 import BookmarkCard from '../BookmarkCard';
 
 const Feed = () => {

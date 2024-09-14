@@ -1,6 +1,8 @@
-import { cn } from '@/lib/utils';
 import { VariantProps, cva } from 'class-variance-authority';
 import { PropsWithChildren } from 'react';
+
+import { cn } from '@/lib/utils';
+
 import { ToastContext } from '../modules/ToastStateContext';
 
 export interface IToastMain extends PropsWithChildren, VariantProps<typeof toastMainVariants> {

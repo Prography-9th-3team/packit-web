@@ -1,6 +1,7 @@
+import Image from 'next/image';
+
 import PackitTooltip from '@/components/PackitTooltip';
 import Icon from '@/components/common/Icon';
-import Image from 'next/image';
 
 const Onboarding = () => {
   return (

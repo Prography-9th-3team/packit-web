@@ -1,13 +1,15 @@
 'use client';
 
-import { useUserProfile } from '@/apis/auth';
-import { cn } from '@/lib/utils';
-import useAuthStore from '@/stores/authStore';
-import useModalStore from '@/stores/modalStore';
 import axios from 'axios';
 import { cva } from 'class-variance-authority';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+
+import { useUserProfile } from '@/apis/auth';
+import { cn } from '@/lib/utils';
+import useAuthStore from '@/stores/authStore';
+import useModalStore from '@/stores/modalStore';
+
 import LogoIcon from '../../../public/logo.svg';
 import SearchBar from '../SearchBar';
 import SettingModal from '../Setting/SettingModal';

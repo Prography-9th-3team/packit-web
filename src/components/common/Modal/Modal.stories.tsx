@@ -1,5 +1,7 @@
-import useModalStore from '@/stores/modalStore';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import useModalStore from '@/stores/modalStore';
+
 import { Button } from '../Button';
 import Modal from './ModalLayout';
 import BookmarkModal from './ui/BookmarkModal';

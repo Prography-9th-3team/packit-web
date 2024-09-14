@@ -1,4 +1,5 @@
 import { SVGProps } from 'react';
+
 import * as iconTypes from './lib/index';
 
 export type IconTypes = keyof typeof iconTypes;

@@ -1,7 +1,9 @@
-import useAuthStore from '@/stores/authStore';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useRouter } from 'next/navigation';
+
+import useAuthStore from '@/stores/authStore';
+
 import { fetchData } from '.';
 import apis from './api';
 

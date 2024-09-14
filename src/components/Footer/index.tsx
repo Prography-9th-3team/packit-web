@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+
 import Divider from '../common/Divider';
 import Logo from '../common/Logo';
 

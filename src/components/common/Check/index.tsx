@@ -1,5 +1,7 @@
-import { cn } from '@/lib/utils';
 import { ChangeEvent, useState } from 'react';
+
+import { cn } from '@/lib/utils';
+
 import Icon from '../Icon';
 
 export interface ICheck {

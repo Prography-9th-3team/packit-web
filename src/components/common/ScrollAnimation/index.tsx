@@ -1,6 +1,8 @@
 'use client';
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+
 import { PropsWithChildren } from 'react';
+
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface IScrollAnimation extends PropsWithChildren {
   delay?: number;

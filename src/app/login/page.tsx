@@ -1,8 +1,10 @@
 'use client';
 
-import Logo from '@/components/common/Logo';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+
+import Logo from '@/components/common/Logo';
+
 import GoogleButton from './components/GoogleButton';
 
 const Login = () => {

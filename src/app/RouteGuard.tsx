@@ -1,8 +1,9 @@
 'use client';
 
-import { getCookie } from '@/lib/utils';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+
+import { getCookie } from '@/lib/utils';
 
 const RouteGuard = () => {
   const router = useRouter();

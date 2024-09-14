@@ -1,6 +1,8 @@
-import useToastStore from '@/stores/toastStore';
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
+
+import useToastStore from '@/stores/toastStore';
+
 import { Toast } from '.';
 import Icon from '../Icon';
 

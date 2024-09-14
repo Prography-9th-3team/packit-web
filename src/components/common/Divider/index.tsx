@@ -1,5 +1,6 @@
-import { cn } from '@/lib/utils';
 import { cva } from 'class-variance-authority';
+
+import { cn } from '@/lib/utils';
 
 export interface IDivider {
   direction?: 'vertical' | 'horizontal';

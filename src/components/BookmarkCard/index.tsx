@@ -1,14 +1,17 @@
 'use client';
 
+import { MouseEvent, useRef, useState } from 'react';
+
 import { useBookmarkLike } from '@/apis/bookmark';
 import { bookmarkValidateSiteName } from '@/constants/data';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { isValidUrl } from '@/lib/url';
 import { cn } from '@/lib/utils';
 import useToastStore from '@/stores/toastStore';
-import { MouseEvent, useRef, useState } from 'react';
+
 import Icon from '../common/Icon';
 import { Option } from '../common/Option';
+
 export interface IBookmarkCard {
   bookMarkId: number;
   categoryNames?: Array<number>;

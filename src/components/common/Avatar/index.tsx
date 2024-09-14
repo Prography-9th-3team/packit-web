@@ -1,5 +1,7 @@
-import { cn } from '@/lib/utils';
 import Image from 'next/image';
+
+import { cn } from '@/lib/utils';
+
 import Icon from '../Icon';
 import { AVATAR_SIZE } from './constants';
 

@@ -7,5 +7,11 @@
   "arrowParens": "always",
   "endOfLine": "auto",
   "trailingComma": "all",
-  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-organize-imports"]
+  "importOrderSeparation": true,
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "^@/(.*)$",
+    "^[./]"
+  ],
+  "plugins": ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"]
 }

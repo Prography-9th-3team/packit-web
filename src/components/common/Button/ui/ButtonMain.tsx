@@ -1,6 +1,8 @@
-import { cn } from '@/lib/utils';
 import { VariantProps, cva } from 'class-variance-authority';
 import { PropsWithChildren } from 'react';
+
+import { cn } from '@/lib/utils';
+
 import Spinner from '../../Spinner/Index';
 import { SPINNER_SIZE } from '../../Spinner/constants';
 import { ButtonContext } from '../modules/ButtonStateContext';
