@@ -1,4 +1,5 @@
 import { PropsWithChildren } from 'react';
+
 import { useToastState } from '../modules/ToastStateContext';
 
 export interface IToastButton extends PropsWithChildren {}

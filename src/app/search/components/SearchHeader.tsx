@@ -1,12 +1,13 @@
 'use client';
 
+import { useRouter, useSearchParams } from 'next/navigation';
+
 import { useBookmarkSearchInfinityAPI } from '@/apis/bookmark';
 import { Button } from '@/components/common/Button';
 import ButtonLabel from '@/components/common/Button/ui/ButtonLabel';
 import Icon from '@/components/common/Icon';
 import { MODAL_NAME } from '@/components/common/Modal/types';
 import useModalStore from '@/stores/modalStore';
-import { useRouter, useSearchParams } from 'next/navigation';
 
 const SearchHeader = () => {
   const params = useSearchParams();

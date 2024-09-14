@@ -1,7 +1,8 @@
 'use client';
 
-import useModalStore from '@/stores/modalStore';
 import { MouseEvent, PropsWithChildren, useRef } from 'react';
+
+import useModalStore from '@/stores/modalStore';
 
 export interface IModal extends PropsWithChildren {}
 

@@ -1,6 +1,8 @@
-import { cn } from '@/lib/utils';
 import { cva } from 'class-variance-authority';
 import { PropsWithChildren } from 'react';
+
+import { cn } from '@/lib/utils';
+
 import Icon from '../../Icon';
 import { useSelectState } from '../modules/SelectStateContext';
 

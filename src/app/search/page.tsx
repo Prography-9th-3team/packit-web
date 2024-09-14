@@ -1,6 +1,8 @@
+import { Suspense } from 'react';
+
 import FilterBox from '@/components/FilterBox';
 import SearchContentBox from '@/components/SearchContentBox';
-import { Suspense } from 'react';
+
 import SearchHeader from './components/SearchHeader';
 
 const Search = () => {

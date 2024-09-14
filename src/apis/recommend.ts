@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
 
 import useAuthStore from '@/stores/authStore';
-import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
+
 import { fetchData } from '.';
 import { default as apis } from './api';
 import { IBookmarkListResponseDataType } from './bookmark';

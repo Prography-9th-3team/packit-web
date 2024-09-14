@@ -3,9 +3,9 @@
  *
  * 모달이나 기타 컴포넌트에 배경으로 사용되는 배경 컴포넌트
  */
+import { useEffect } from 'react';
 
 import { cn } from '@/lib/utils';
-import { useEffect } from 'react';
 
 interface DimProps {
   zIndex?: number;

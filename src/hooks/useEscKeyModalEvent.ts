@@ -1,5 +1,7 @@
-import useModalStore from '@/stores/modalStore';
 import { useEffect } from 'react';
+
+import useModalStore from '@/stores/modalStore';
+
 import useEventListener from './useEventListener';
 
 const useEscKeyModalEvent = (modalId: string, eventCallback?: () => void) => {

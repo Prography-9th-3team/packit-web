@@ -1,9 +1,11 @@
+import type { Metadata } from 'next';
+
 import Feed from '@/components/Feed';
 import Footer from '@/components/Footer';
 import Sidebar from '@/components/Sidebar';
 import ToastArea from '@/components/common/Toast/ToastArea';
 import GoogleAnalytics from '@/lib/GoogleAnalytics';
-import type { Metadata } from 'next';
+
 import '../../styles/tailwind.css';
 import Provider from './Provider';
 import RouteGuard from './RouteGuard';
