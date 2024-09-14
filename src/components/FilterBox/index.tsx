@@ -135,13 +135,17 @@ const FilterBox = () => {
           {/* 정렬 START */}
           <div className='relative' ref={sortTabRef}>
             <span
-              className='cursor-pointer mr-4 flex items-center gap-4 label-md text-text-minimal'
+              className='cursor-pointer mr-4 flex items-center gap-4 label-md text-text-minimal select-none'
               onClick={() => {
                 setIsShowSort((prev) => !prev);
               }}
             >
               {sortList.find((item) => item.value === sortType)?.label}
-              <Icon name='chevronDown_s' className='w-20 h-20 ' />
+              {isShowSort ? (
+                <Icon name='chevronUp' className='w-20 h-20 ' />
+              ) : (
+                <Icon name='chevronDown_s' className='w-20 h-20 ' />
+              )}
             </span>
             {isShowSort && (
               <div className='absolute top-[calc(100%+8px)] w-[165px] flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer z-10'>
