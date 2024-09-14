@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from 'lodash-es';
 import QueryString from 'qs';
 
 export const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;

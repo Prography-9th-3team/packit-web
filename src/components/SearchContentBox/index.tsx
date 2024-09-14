@@ -1,11 +1,13 @@
 'use client';
 
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+
 import { fetchBookmarkReadCount, useBookmarkSearchInfinityAPI } from '@/apis/bookmark';
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
 import useModalStore from '@/stores/modalStore';
-import { useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
+
 import BookmarkCard from '../BookmarkCard';
 import BookmarkItem from '../BookmarkItem';
 import { Button } from '../common/Button';

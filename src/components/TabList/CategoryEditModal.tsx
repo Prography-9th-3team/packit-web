@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
 
+import { useEditCategory } from '@/apis/category';
 import useEscKeyModalEvent from '@/hooks/useEscKeyModalEvent';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
-
-import { useEditCategory } from '@/apis/category';
 import useToastStore from '@/stores/toastStore';
+
 import { Button } from '../common/Button';
 import Icon from '../common/Icon';
 import { MODAL_NAME } from '../common/Modal/types';

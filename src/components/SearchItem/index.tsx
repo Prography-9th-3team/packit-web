@@ -1,4 +1,5 @@
 import { fetchBookmarkReadCount } from '@/apis/bookmark';
+
 import Icon from '../common/Icon';
 import Tooltip from '../common/Tooltip';
 

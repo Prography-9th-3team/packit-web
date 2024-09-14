@@ -1,7 +1,9 @@
 'use client';
-import useAuthStore from '@/stores/authStore';
+
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+
+import useAuthStore from '@/stores/authStore';
 
 const Redirect = () => {
   const router = useRouter();
