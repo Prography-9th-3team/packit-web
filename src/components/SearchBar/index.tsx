@@ -90,7 +90,7 @@ const SearchBar = () => {
           </div>
           {searchInput && (
             // 북마크가 있을 경우
-            <div className='max-h-[370px] w-full max-w-[480px] p-8 flex flex-col gap-8 overflow-y-scroll'>
+            <div className='max-h-[370px] w-full max-w-[480px] p-8 flex flex-col gap-8 overflow-y-auto styled-scroll'>
               {bookmarkData?.content.length ?? 0 > 0 ? (
                 <>
                   {bookmarkData?.content.map((item) => (
