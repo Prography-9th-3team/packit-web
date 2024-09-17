@@ -21,7 +21,7 @@ export interface IBookmarkCard {
   faviconUrl: string;
   siteName: string;
   url: string;
-  fileName: string;
+  fileName?: string;
   isFavorite?: boolean;
   onClick: () => void;
   onDelete?: () => void;
