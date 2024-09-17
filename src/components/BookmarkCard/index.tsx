@@ -109,7 +109,7 @@ const BookmarkCard = ({
           // 등록한 썸네일 이미지
           <img
             className='aspect-[296/180] object-cover'
-            src={`${userImageUrl}/bookmark/${fileName}`}
+            src={`${userImageUrl}/${fileName}`}
             alt='썸네일'
             width={650}
             onError={(e) =>

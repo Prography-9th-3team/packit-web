@@ -96,12 +96,7 @@ const ContentBox = () => {
                 <BookmarkCard
                   key={item.bookMarkId}
                   {...item}
-                  fileName={
-                    item.userInsertRepresentImage &&
-                    item.userInsertRepresentImage?.uuid +
-                      '.' +
-                      item.userInsertRepresentImage?.extension
-                  }
+                  fileName={item.userInsertRepresentImage?.file}
                   onClick={() => handleOpenBlank({ url: item.url, bookMarkId: item.bookMarkId })}
                   onDelete={() => handleDeleteBookmark(item.bookMarkId)}
                   // onModify={() => handleDeleteBookmark(item.bookMarkId)}
