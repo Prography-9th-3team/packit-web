@@ -14,14 +14,14 @@ import { Option } from '../common/Option';
 
 export interface IBookmarkCard {
   bookMarkId: number;
-  categoryNames?: Array<number>;
-  representImageUrl?: string;
+  categoryDtos: Array<{ categoryName: string; categoryId: number }>;
+  representImageUrl: string;
   title: string;
-  memo?: string;
+  memo: string;
   faviconUrl: string;
-  siteName?: string;
+  siteName: string;
   url: string;
-  imageUUID?: string;
+  fileName?: string;
   isFavorite?: boolean;
   onClick: () => void;
   onDelete?: () => void;
@@ -35,12 +35,12 @@ const BookmarkCard = ({
   bookMarkId,
   representImageUrl,
   title,
-  categoryNames,
+  categoryDtos,
   memo,
   faviconUrl,
   siteName,
   url,
-  imageUUID,
+  fileName,
   isFavorite,
   onClick,
   onDelete,
@@ -48,8 +48,6 @@ const BookmarkCard = ({
   type = 'default',
 }: IBookmarkCard) => {
   const { addToast } = useToastStore();
-
-  const SEVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
   const optionRef = useRef<HTMLButtonElement>(null);
 
@@ -62,6 +60,9 @@ const BookmarkCard = ({
 
   const bookmarkTitle = title !== '' ? title : url;
   const bookmarkSiteName = siteName !== '' ? siteName : url.split('/')[2];
+
+  // 이미지 url
+  const userImageUrl = process.env.NEXT_PUBLIC_AWS_S3_URL;
 
   // 북마크 좋아요
   const handleToggleLike = (e: MouseEvent<HTMLButtonElement>) => {
@@ -104,13 +105,17 @@ const BookmarkCard = ({
           'group-hover:shadow-layer group-hover:-translate-y-8 transition-all duration-200',
         ])}
       >
-        {imageUUID ? (
+        {fileName ? (
           // 등록한 썸네일 이미지
           <img
             className='aspect-[296/180] object-cover'
-            src={`${SEVER_URL}/file/original/${imageUUID}`}
+            src={`${userImageUrl}/${fileName}`}
             alt='썸네일'
             width={650}
+            onError={(e) =>
+              ((e.target as HTMLImageElement).src =
+                `/assets/image/empty_image_${getRandomNumber()}.png`)
+            }
           />
         ) : representImageUrl &&
           !bookmarkValidateSiteName.includes(siteName ?? '') &&
@@ -133,8 +138,8 @@ const BookmarkCard = ({
         )}
       </div>
       <div className='flex flex-col gap-6 px-10'>
-        {categoryNames && categoryNames.length > 0 && (
-          <span className='body-sm-bold text-primary'>{categoryNames[0]}</span>
+        {categoryDtos && categoryDtos.length > 0 && (
+          <span className='body-sm-bold text-primary'>{categoryDtos[0].categoryName}</span>
         )}
         <h2 className='body-lg-bold text-text truncate'>{bookmarkTitle}</h2>
         <p className='body-md text-text-sub truncate'>{memo}</p>

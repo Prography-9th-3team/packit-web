@@ -26,7 +26,11 @@ export interface IBookmarkListResponseDataType {
   };
   content: Array<{
     bookMarkId: number;
-    categoryNames: Array<any>;
+    categoryNames: Array<string>; // 이후 삭제
+    categoryDtos: Array<{
+      categoryName: string;
+      categoryId: number;
+    }>;
     faviconUrl: string;
     isFavorite: boolean;
     isRead: boolean;
@@ -242,10 +246,24 @@ export interface IBookmarkSearchListResponseDataType {
   };
   content: Array<{
     bookMarkId: number;
-    faviconUrl: string;
-    memo: string;
     title: string;
+    memo: string;
     url: string;
+    faviconUrl: string;
+    representImageUrl: string;
+    siteName: string;
+    userInsertRepresentImage?: {
+      name: string;
+      file: string;
+      uuid: string;
+      size: number;
+      extension: string;
+    };
+    categoryNames: Array<string>; // 이후 삭제
+    categoryDtos: Array<{
+      categoryName: string;
+      categoryId: number;
+    }>;
   }>;
 }
 

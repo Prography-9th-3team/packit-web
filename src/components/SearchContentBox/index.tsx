@@ -62,7 +62,7 @@ const SearchContentBox = () => {
                 <BookmarkCard
                   key={item.bookMarkId}
                   {...item}
-                  imageUUID={''}
+                  fileName={item.userInsertRepresentImage?.file}
                   onClick={() => handleOpenBlank({ url: item.url, bookMarkId: item.bookMarkId })}
                   type='search'
                 />
@@ -81,7 +81,6 @@ const SearchContentBox = () => {
                   <BookmarkItem
                     key={item.bookMarkId}
                     {...item}
-                    imageUUID={''}
                     onClick={() => handleOpenBlank({ url: item.url, bookMarkId: item.bookMarkId })}
                     type='search'
                   />
