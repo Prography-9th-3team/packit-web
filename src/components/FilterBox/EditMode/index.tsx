@@ -1,7 +1,11 @@
+import { useState } from 'react';
+
 import { fetchBookmarkReadCount } from '@/apis/bookmark';
+import { useCategoryList } from '@/apis/category';
 import { Button } from '@/components/common/Button';
 import Divider from '@/components/common/Divider';
 import Icon from '@/components/common/Icon';
+import { Option } from '@/components/common/Option';
 import { cn } from '@/lib/utils';
 import useEditModeStore from '@/stores/editModeStore';
 
@@ -12,6 +16,10 @@ interface Props {
 const EditMode = ({ handleEditMode }: Props) => {
   const { selectedBookmarks, getSelectedBookmarksLength, resetSelectedBookmarks } =
     useEditModeStore();
+
+  const { data: categoryData } = useCategoryList();
+
+  const [isOpenCategoryOptions, setIsOpenCategoryOptions] = useState<boolean>(false);
 
   const openNewBlankTab = async () => {
     selectedBookmarks.forEach((bookmark) => {
@@ -60,17 +68,33 @@ const EditMode = ({ handleEditMode }: Props) => {
             <Icon name='share' className='w-16 h-16 text-icon-secondary' />
             <Button.Label>새탭 열기</Button.Label>
           </Button>
-          <Button
-            type={'outline'}
-            size={'small'}
-            isDisabled={getSelectedBookmarksLength() === 0}
-            onClick={() => {
-              console.log('이동');
-            }}
-          >
-            <Icon name='flip_forward' className='w-16 h-16 text-icon-secondary' />
-            <Button.Label>이동</Button.Label>
-          </Button>
+          <div className='relative'>
+            <Button
+              type={'outline'}
+              size={'small'}
+              isDisabled={getSelectedBookmarksLength() === 0}
+              onClick={() => setIsOpenCategoryOptions((prev) => !prev)}
+            >
+              <Icon name='flip_forward' className='w-16 h-16 text-icon-secondary' />
+              <Button.Label>이동</Button.Label>
+            </Button>
+
+            {isOpenCategoryOptions && (
+              <div className='absolute top-[calc(100%+8px)] py-8 gap-4 z-[200] bg-white w-[280px] flex flex-col items-start rounded-[8px] shadow-layer'>
+                {categoryData
+                  ?.filter((category) => !!category.categoryId)
+                  .map((category) => (
+                    <Option
+                      key={category.categoryId}
+                      className='w-full cursor-pointer'
+                      onClick={() => console.log(category.categoryId)}
+                    >
+                      <Option.Label>{category.categoryName}</Option.Label>
+                    </Option>
+                  ))}
+              </div>
+            )}
+          </div>
           <Button
             type={'outline'}
             size={'small'}
@@ -96,7 +120,7 @@ const EditMode = ({ handleEditMode }: Props) => {
         >
           <Button.Label>취소</Button.Label>
         </Button>
-        {/* <Button type={'secondary'} size={'small'} className='h-32' isDisabled>
+        {/* <Button type={'primary'} size={'small'} className='h-32' isDisabled>
           <Button.Label>저장</Button.Label>
         </Button> */}
       </div>

@@ -6,9 +6,10 @@ import { cn } from '@/lib/utils';
 export interface IOptionMain extends PropsWithChildren {
   isSelected?: boolean;
   onClick?: () => void;
+  className?: string;
 }
 
-const OptionMain = ({ isSelected, onClick, children }: IOptionMain) => {
+const OptionMain = ({ isSelected, onClick, className, children }: IOptionMain) => {
   const handleOnClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
 
@@ -16,7 +17,7 @@ const OptionMain = ({ isSelected, onClick, children }: IOptionMain) => {
   };
 
   return (
-    <div className={cn(optionMainVariants({ isSelected }))} onClick={handleOnClick}>
+    <div className={cn(optionMainVariants({ isSelected }), className)} onClick={handleOnClick}>
       {children}
     </div>
   );

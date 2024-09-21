@@ -214,7 +214,7 @@ export const useBookmarkDelete = () => {
 };
 
 /**
- * 북마크 삭제
+ * 북마크 삭제 Restore
  */
 export const useBookmarkRestore = () => {
   const queryClient = useQueryClient();
