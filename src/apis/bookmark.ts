@@ -36,6 +36,7 @@ export interface IBookmarkListResponseDataType {
     siteName: string;
     title: string;
     url: string;
+    categoryDtos: { categoryId: number; categoryName: string }[];
     userInsertRepresentImage: {
       extension: string;
       file: string;

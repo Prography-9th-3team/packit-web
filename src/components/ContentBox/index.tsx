@@ -11,7 +11,7 @@ import {
 } from '@/apis/bookmark';
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
-import useEditModeStore from '@/stores/editModeStore';
+import useEditModeStore, { CategoryDtoType } from '@/stores/editModeStore';
 import useModalStore from '@/stores/modalStore';
 import useToastStore from '@/stores/toastStore';
 
@@ -61,9 +61,17 @@ const ContentBox = () => {
     window.open(url, '_blank');
   };
 
-  const handleClickBookmark = ({ url, bookmarkId }: { url: string; bookmarkId: number }) => {
+  const handleClickBookmark = ({
+    url,
+    bookmarkId,
+    categoryDtos,
+  }: {
+    url: string;
+    bookmarkId: number;
+    categoryDtos: CategoryDtoType[];
+  }) => {
     isEditMode
-      ? setSelectedBookmarks({ url, bookmarkId })
+      ? setSelectedBookmarks({ url, bookmarkId, categoryDtos })
       : handleOpenBlank({ url, bookMarkId: bookmarkId });
   };
 
@@ -106,7 +114,11 @@ const ContentBox = () => {
                   {...item}
                   imageUUID={item.userInsertRepresentImage?.uuid}
                   onClick={() => {
-                    handleClickBookmark({ url: item.url, bookmarkId: item.bookMarkId });
+                    handleClickBookmark({
+                      url: item.url,
+                      bookmarkId: item.bookMarkId,
+                      categoryDtos: item.categoryDtos,
+                    });
                   }}
                   onDelete={() => handleDeleteBookmark(item.bookMarkId)}
                   // onModify={() => handleDeleteBookmark(item.bookMarkId)}
@@ -128,7 +140,11 @@ const ContentBox = () => {
                     {...item}
                     imageUUID={item.userInsertRepresentImage?.uuid}
                     onClick={() => {
-                      handleClickBookmark({ url: item.url, bookmarkId: item.bookMarkId });
+                      handleClickBookmark({
+                        url: item.url,
+                        bookmarkId: item.bookMarkId,
+                        categoryDtos: item.categoryDtos,
+                      });
                     }}
                     onDelete={() => handleDeleteBookmark(item.bookMarkId)}
                   />
