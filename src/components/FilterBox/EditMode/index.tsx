@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { fetchBookmarkReadCount } from '@/apis/bookmark';
 import { useCategoryList } from '@/apis/category';
@@ -6,6 +6,8 @@ import { Button } from '@/components/common/Button';
 import Divider from '@/components/common/Divider';
 import Icon from '@/components/common/Icon';
 import { Option } from '@/components/common/Option';
+import useEventListener from '@/hooks/useEventListener';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { cn } from '@/lib/utils';
 import useEditModeStore from '@/stores/editModeStore';
 
@@ -20,6 +22,17 @@ const EditMode = ({ handleEditMode }: Props) => {
   const { data: categoryData } = useCategoryList();
 
   const [isOpenCategoryOptions, setIsOpenCategoryOptions] = useState<boolean>(false);
+  const moveDivRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside([moveDivRef], () => setIsOpenCategoryOptions(false));
+
+  const handleEscKeyEvent = (event: KeyboardEvent) => {
+    if (event.key === 'Escape' && isOpenCategoryOptions) {
+      setIsOpenCategoryOptions(false);
+    }
+  };
+
+  useEventListener('keydown', handleEscKeyEvent);
 
   const openNewBlankTab = async () => {
     selectedBookmarks.forEach((bookmark) => {
@@ -68,7 +81,7 @@ const EditMode = ({ handleEditMode }: Props) => {
             <Icon name='share' className='w-16 h-16 text-icon-secondary' />
             <Button.Label>새탭 열기</Button.Label>
           </Button>
-          <div className='relative'>
+          <div className='relative' ref={moveDivRef}>
             <Button
               type={'outline'}
               size={'small'}
