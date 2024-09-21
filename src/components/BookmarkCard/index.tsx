@@ -7,6 +7,7 @@ import { bookmarkValidateSiteName } from '@/constants/data';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { isValidUrl } from '@/lib/url';
 import { cn } from '@/lib/utils';
+import useEditModeStore from '@/stores/editModeStore';
 import useToastStore from '@/stores/toastStore';
 
 import Icon from '../common/Icon';
@@ -27,7 +28,6 @@ export interface IBookmarkCard {
   onDelete?: () => void;
   onModify?: () => void;
   isRecommendCard?: boolean;
-
   type?: 'default' | 'search';
 }
 
@@ -48,6 +48,7 @@ const BookmarkCard = ({
   type = 'default',
 }: IBookmarkCard) => {
   const { addToast } = useToastStore();
+  const { isSelectedBookmark, isEditMode } = useEditModeStore();
 
   const SEVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -95,7 +96,7 @@ const BookmarkCard = ({
 
   return (
     <div
-      className='cursor-pointer max-h-[342px] mb-40 flex flex-col gap-20 group'
+      className='cursor-pointer max-h-[342px] mb-40 flex flex-col gap-20 group relative'
       onClick={onClick}
     >
       <div
@@ -104,6 +105,22 @@ const BookmarkCard = ({
           'group-hover:shadow-layer group-hover:-translate-y-8 transition-all duration-200',
         ])}
       >
+        {isEditMode && !isRecommendCard && (
+          <div className='absolute top-16 left-16'>
+            <div
+              className={cn(
+                'box-content w-16 h-16 rounded-[4px] border border-solid transition-all duration-200 bg-white',
+                isSelectedBookmark(bookMarkId)
+                  ? 'bg-action-primary border-action-primary'
+                  : 'border-border',
+              )}
+            >
+              {isSelectedBookmark(bookMarkId) && (
+                <Icon name='checkOn_f' className='text-icon-on w-16 h-16' />
+              )}
+            </div>
+          </div>
+        )}
         {imageUUID ? (
           // 등록한 썸네일 이미지
           <img

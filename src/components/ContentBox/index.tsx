@@ -11,6 +11,7 @@ import {
 } from '@/apis/bookmark';
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
+import useEditModeStore from '@/stores/editModeStore';
 import useModalStore from '@/stores/modalStore';
 import useToastStore from '@/stores/toastStore';
 
@@ -27,6 +28,7 @@ const ContentBox = () => {
   const { queryParam } = useQueryString();
   const { openModal } = useModalStore();
   const { addToast } = useToastStore();
+  const { isEditMode, setSelectedBookmarks } = useEditModeStore();
 
   const { mutateAsync: mutateBookmarkDelete } = useBookmarkDelete();
   const { mutateAsync: mutateBookmarkRestore } = useBookmarkRestore();
@@ -57,6 +59,12 @@ const ContentBox = () => {
     fetchBookmarkReadCount(bookMarkId);
 
     window.open(url, '_blank');
+  };
+
+  const handleClickBookmark = ({ url, bookmarkId }: { url: string; bookmarkId: number }) => {
+    isEditMode
+      ? setSelectedBookmarks({ url, bookmarkId })
+      : handleOpenBlank({ url, bookMarkId: bookmarkId });
   };
 
   // 북마크 수정
@@ -97,7 +105,9 @@ const ContentBox = () => {
                   key={item.bookMarkId}
                   {...item}
                   imageUUID={item.userInsertRepresentImage?.uuid}
-                  onClick={() => handleOpenBlank({ url: item.url, bookMarkId: item.bookMarkId })}
+                  onClick={() => {
+                    handleClickBookmark({ url: item.url, bookmarkId: item.bookMarkId });
+                  }}
                   onDelete={() => handleDeleteBookmark(item.bookMarkId)}
                   // onModify={() => handleDeleteBookmark(item.bookMarkId)}
                 />
@@ -117,7 +127,9 @@ const ContentBox = () => {
                     key={item.bookMarkId}
                     {...item}
                     imageUUID={item.userInsertRepresentImage?.uuid}
-                    onClick={() => handleOpenBlank({ url: item.url, bookMarkId: item.bookMarkId })}
+                    onClick={() => {
+                      handleClickBookmark({ url: item.url, bookmarkId: item.bookMarkId });
+                    }}
                     onDelete={() => handleDeleteBookmark(item.bookMarkId)}
                   />
                 ))}
