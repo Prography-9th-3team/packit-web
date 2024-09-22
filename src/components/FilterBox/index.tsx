@@ -24,8 +24,10 @@ const sortList = [
 const FilterBox = () => {
   const { queryParam, updateQueryString } = useQueryString();
 
+  const search = queryParam.get('search');
+
   const { addToast } = useToastStore();
-  const { data: categoryData } = useCategoryList();
+  const { data: categoryData } = useCategoryList(search);
   const { mutateAsync: mutateSaveCategory } = useSaveCategory();
 
   const isLikeChecked = queryParam.get('favorite') === 'true'; // 종아요 항목 표시

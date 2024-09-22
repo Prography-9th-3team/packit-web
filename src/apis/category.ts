@@ -10,15 +10,22 @@ export interface ICategoryResponseDataType {
   bookMarkCount: number;
 }
 
+export type CategoryParamDataType = string | null;
+
 /**
  * 카테고리 목록
  */
-export const useCategoryList = () => {
+export const useCategoryList = (keyword: CategoryParamDataType) => {
   const url = apis.category.category_list;
 
   return useQuery<AxiosResponse, AxiosError, Array<ICategoryResponseDataType>>({
-    queryKey: [url],
-    queryFn: () => fetchData.get(url),
+    queryKey: [url, keyword],
+    queryFn: () =>
+      fetchData.get(url, {
+        params: {
+          keyword,
+        },
+      }),
     select: (res) => res.data.result,
     staleTime: 1000 * 60 * 60,
     gcTime: 1000 * 60 * 60,
