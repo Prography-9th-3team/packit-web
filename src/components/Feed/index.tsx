@@ -30,7 +30,7 @@ const Feed = () => {
             'border-l border-[#E9E9EA] styled-scroll',
           )}
         >
-          <h1 className='heading-lg-bd'>이런 사이트는 어때요?</h1>
+          <h1 className='heading-lg-bd text-text'>이런 사이트는 어때요?</h1>
           <div className='flex flex-col gap-24'>
             {bookmarkData?.content.map((item) => (
               <BookmarkCard
