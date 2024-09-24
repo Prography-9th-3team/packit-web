@@ -158,7 +158,10 @@ const SideBar = () => {
               <nav>
                 <Menu
                   isSelected={selected === SIDEBAR_MENU.HOME}
-                  onClick={() => handleChangeMenu(SIDEBAR_MENU.HOME)}
+                  onClick={() => {
+                    handleChangeMenu(SIDEBAR_MENU.HOME);
+                    router.push('/');
+                  }}
                 >
                   <Icon name='home04_s' />
                   {isOpenSidebar && <Menu.Label>홈</Menu.Label>}
