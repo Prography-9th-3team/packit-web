@@ -55,18 +55,20 @@ const FilterBox = () => {
   };
 
   const handleAddCategory = () => {
-    if (!category) {
+    const trimValue = category.trimStart();
+
+    if (!trimValue) {
       addToast({ message: '카테고리를 입력해주세요', type: 'error' });
 
       return;
     }
-    if (category === '전체') {
+    if (trimValue === '전체') {
       setIsError(true);
       addToast({ message: '카테고리가 이미 존재해요', type: 'error' });
       return;
     }
 
-    mutateSaveCategory(category).then((res) => {
+    mutateSaveCategory(trimValue).then((res) => {
       if (res.data.code === 'C002') {
         setIsError(true);
         addToast({ message: res.data.message, type: 'error' });
