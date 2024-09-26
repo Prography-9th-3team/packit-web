@@ -287,3 +287,27 @@ export const useBookmarkSearchInfinityAPI = (params: IBookmarkParamDataType) => 
     enabled: authStore.isLogin() && Boolean(params.keyword),
   });
 };
+
+export const useBookmarkMoveCategory = () => {
+  const queryClient = useQueryClient();
+  const url = apis.bookmark.bookmark_move_category;
+
+  return useMutation<
+    AxiosResponse,
+    AxiosError,
+    {
+      movingCategoryId: number;
+      bookMarkMovingDtos: { originCategoryId: number | null; bookMarkId: number }[];
+    }
+  >({
+    mutationFn: (data) => fetchData.put(url, data),
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: [apis.bookmark.bookmark_list],
+      });
+      queryClient.refetchQueries({
+        queryKey: [apis.category.category_list],
+      });
+    },
+  });
+};

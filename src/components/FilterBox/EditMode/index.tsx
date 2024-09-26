@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-import { fetchBookmarkReadCount } from '@/apis/bookmark';
+import { fetchBookmarkReadCount, useBookmarkMoveCategory } from '@/apis/bookmark';
 import { useCategoryList } from '@/apis/category';
 import { Button } from '@/components/common/Button';
 import Divider from '@/components/common/Divider';
@@ -20,6 +20,7 @@ const EditMode = ({ handleEditMode }: Props) => {
     useEditModeStore();
 
   const { data: categoryData } = useCategoryList();
+  const { mutate: moveCategory } = useBookmarkMoveCategory();
 
   const [isOpenCategoryOptions, setIsOpenCategoryOptions] = useState<boolean>(false);
   const moveDivRef = useRef<HTMLDivElement>(null);
@@ -44,6 +45,33 @@ const EditMode = ({ handleEditMode }: Props) => {
           console.error(error);
         });
     });
+  };
+
+  const handleMoveCategory = (categoryId: number) => {
+    selectedBookmarks.forEach((bookmark) => {
+      const bookmarkDtos = bookmark.categoryDtos.length
+        ? bookmark.categoryDtos.map((categoryDto) => {
+            return {
+              originCategoryId: categoryDto.categoryId,
+              bookMarkId: bookmark.bookmarkId,
+            };
+          })
+        : [{ originCategoryId: null, bookMarkId: bookmark.bookmarkId }];
+
+      moveCategory(
+        {
+          movingCategoryId: categoryId,
+          bookMarkMovingDtos: bookmarkDtos,
+        },
+        {
+          onSuccess: () => {
+            console.log('이동 성공');
+          },
+        },
+      );
+    });
+
+    setIsOpenCategoryOptions(false);
   };
 
   return (
@@ -100,7 +128,7 @@ const EditMode = ({ handleEditMode }: Props) => {
                     <Option
                       key={category.categoryId}
                       className='w-full cursor-pointer'
-                      onClick={() => console.log(category.categoryId)}
+                      onClick={() => handleMoveCategory(category.categoryId)}
                     >
                       <Option.Label>{category.categoryName}</Option.Label>
                     </Option>
