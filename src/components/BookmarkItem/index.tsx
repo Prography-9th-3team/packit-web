@@ -10,15 +10,17 @@ import Icon from '../common/Icon';
 import { Option } from '../common/Option';
 import Tooltip from '../common/Tooltip';
 
-export interface IBookmarkCard {
+export interface IBookmarkItem {
   bookMarkId: number;
-  categoryNames?: Array<number>;
+  categoryDtos: Array<{
+    categoryName: string;
+    categoryId: number;
+  }>;
   title: string;
-  memo?: string;
+  memo: string;
   faviconUrl: string;
-  siteName?: string;
+  siteName: string;
   url: string;
-  imageUUID?: string;
   isFavorite?: boolean;
   onClick: () => void;
   onModify?: () => void;
@@ -27,13 +29,10 @@ export interface IBookmarkCard {
   type?: 'default' | 'search';
 }
 
-/**
- * TODO : s3로 변경시 thumbnail 가져오는 api 삭제
- */
 const BookmarkItem = ({
   bookMarkId,
   title,
-  categoryNames,
+  categoryDtos,
   memo,
   faviconUrl,
   siteName,
@@ -42,7 +41,7 @@ const BookmarkItem = ({
   onClick,
   onDelete,
   type = 'default',
-}: IBookmarkCard) => {
+}: IBookmarkItem) => {
   const { addToast } = useToastStore();
 
   const optionRef = useRef<HTMLButtonElement>(null);
@@ -101,8 +100,8 @@ const BookmarkItem = ({
         />
       </div>
       <div className='flex items-center justify-end px-8'>
-        {categoryNames && categoryNames.length > 0 && (
-          <span className='body-md text-text'>{categoryNames[0]}</span>
+        {categoryDtos && categoryDtos.length > 0 && (
+          <span className='body-md text-text'>{categoryDtos[0].categoryName}</span>
         )}
       </div>
       <div className='flex items-center justify-center gap-4 *:text-icon-minimal'>

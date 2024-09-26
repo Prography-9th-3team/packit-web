@@ -112,7 +112,6 @@ const ContentBox = () => {
                 <BookmarkCard
                   key={item.bookMarkId}
                   {...item}
-                  imageUUID={item.userInsertRepresentImage?.uuid}
                   onClick={() => {
                     handleClickBookmark({
                       url: item.url,
@@ -138,7 +137,6 @@ const ContentBox = () => {
                   <BookmarkItem
                     key={item.bookMarkId}
                     {...item}
-                    imageUUID={item.userInsertRepresentImage?.uuid}
                     onClick={() => {
                       handleClickBookmark({
                         url: item.url,

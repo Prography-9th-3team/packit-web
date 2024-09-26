@@ -36,7 +36,7 @@ const Feed = () => {
               <BookmarkCard
                 key={item.bookMarkId}
                 {...item}
-                imageUUID={item.userInsertRepresentImage?.uuid}
+                fileName={item.userInsertRepresentImage?.file}
                 onClick={() => handleOpenBlank({ url: item.url, bookMarkId: item.bookMarkId })}
                 isRecommendCard={true}
               />
