@@ -37,6 +37,7 @@ const SearchBar = () => {
     direction: 'DESC',
     property: 'title',
     keyword: searchInput,
+    categoryId: null,
   });
 
   const handleOnChange = debounce((e: ChangeEvent<HTMLInputElement>) => {
