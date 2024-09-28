@@ -25,6 +25,7 @@ const EditMode = ({ handleEditMode }: Props) => {
   const {
     selectedBookmarks,
     getSelectedBookmarksLength,
+    resetEditMode,
     resetSelectedBookmarks,
     setEditMode,
     setDeletedBookmarks,
@@ -85,10 +86,13 @@ const EditMode = ({ handleEditMode }: Props) => {
             type: 'default',
             clickText: '복구하기 ',
             onClick: () => {
-              handleRestoreBookmarks({ target: 'moved' });
+              handleRestoreBookmarks({
+                targetIds: selectedBookmarks.map((bookmark) => bookmark.bookmarkId),
+              });
             },
           });
 
+          resetSelectedBookmarks();
           setEditMode(false);
         },
       },
@@ -103,32 +107,35 @@ const EditMode = ({ handleEditMode }: Props) => {
     mutateBookmarkDelete([...bookmarkIds], {
       onSuccess: () => {
         setDeletedBookmarks([...bookmarkIds]);
+        resetSelectedBookmarks();
         addToast({
           message: '북마크를 삭제했어요.',
           type: 'default',
           clickText: '복구하기 ',
           onClick: () => {
-            handleRestoreBookmarks({ target: 'deleted' });
+            handleRestoreBookmarks({ targetIds: bookmarkIds });
           },
         });
       },
     });
   };
 
-  const handleRestoreBookmarks = ({ target }: { target: 'all' | 'moved' | 'deleted' }) => {
-    const bookmarkIds =
-      target === 'all'
+  const handleRestoreBookmarks = ({
+    isAll = false,
+    targetIds,
+  }: {
+    isAll?: boolean;
+    targetIds?: number[];
+  }) => {
+    const bookmarkIds = targetIds
+      ? targetIds
+      : isAll
         ? [...movedBookmarks, ...deletedBookmarks]
-        : target === 'moved'
-          ? movedBookmarks
-          : deletedBookmarks;
-
-    console.log(bookmarkIds);
+        : [];
 
     mutateBookmarkRestore([...bookmarkIds], {
       onSuccess: () => {
         // @desc: 복구하고, edit mode 끄기
-        resetSelectedBookmarks();
       },
     });
   };
@@ -214,15 +221,16 @@ const EditMode = ({ handleEditMode }: Props) => {
           size={'small'}
           className='h-32'
           onClick={() => {
-            resetSelectedBookmarks();
+            handleRestoreBookmarks({ isAll: true });
+            resetEditMode();
             handleEditMode();
           }}
         >
           <Button.Label>취소</Button.Label>
         </Button>
-        {/* <Button type={'primary'} size={'small'} className='h-32' isDisabled>
+        <Button type={'primary'} size={'small'} className='h-32' onClick={handleEditMode}>
           <Button.Label>저장</Button.Label>
-        </Button> */}
+        </Button>
       </div>
     </>
   );

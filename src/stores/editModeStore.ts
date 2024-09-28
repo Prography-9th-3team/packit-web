@@ -25,6 +25,7 @@ type Store = {
     url: string;
     categoryDtos: CategoryDtoType[];
   }) => void;
+  resetEditMode: () => void;
   resetSelectedBookmarks: () => void;
   getSelectedBookmarksLength: () => number;
   setMovedBookmarks: (bookmarkIds: number[]) => void;
@@ -76,10 +77,17 @@ const useEditModeStore = create<Store>((set, get) => ({
     return get().selectedBookmarks.length;
   },
 
-  // @desc: 선택된 북마크 초기화
   resetSelectedBookmarks: () =>
     set(() => ({
       selectedBookmarks: [],
+    })),
+
+  // @desc: edit mode store 초기화
+  resetEditMode: () =>
+    set(() => ({
+      selectedBookmarks: [],
+      movedBookmarks: [],
+      deletedBookmarks: [],
     })),
 }));
 
