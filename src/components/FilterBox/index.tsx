@@ -3,6 +3,7 @@
 import { ChangeEvent, useRef, useState } from 'react';
 
 import { useCategoryList, useSaveCategory } from '@/apis/category';
+import useQueryString from '@/hooks/useQueyString';
 import useEditModeStore from '@/stores/editModeStore';
 import useToastStore from '@/stores/toastStore';
 
@@ -14,14 +15,8 @@ import AddCategory from './AddCategory';
 import EditMode from './EditMode';
 import FilterMode from './FilterMode';
 
-const sortList = [
-  { label: '최신순', value: 'DESC' },
-  { label: '이름순', value: 'title' },
-  { label: '오래된순', value: 'ASC' },
-];
-
 const FilterBox = () => {
-  const { queryParam, updateQueryString } = useQueryString();
+  const { queryParam } = useQueryString();
 
   const search = queryParam.get('search');
 

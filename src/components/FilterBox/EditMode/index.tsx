@@ -35,7 +35,7 @@ const EditMode = ({ handleEditMode }: Props) => {
   } = useEditModeStore();
   const { addToast } = useToastStore();
 
-  const { data: categoryData } = useCategoryList();
+  const { data: categoryData } = useCategoryList('');
   const { mutate: moveCategory } = useBookmarkMoveCategory();
   const { mutate: mutateBookmarkDelete } = useBookmarkDelete();
   const { mutate: mutateBookmarkRestore } = useBookmarkRestore();
