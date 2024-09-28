@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import { cva } from 'class-variance-authority';
+import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -110,11 +111,13 @@ const SideBar = () => {
         <>
           <aside className={cn(sidebarVariants({ isOpenSidebar }))}>
             <div className='p-6 flex justify-between relative'>
-              <LogoIcon />
+              <Link href={'/'}>
+                <LogoIcon />
+              </Link>
               <div
                 className={cn([
                   'hidden group-hover:block h-28',
-                  !isOpenSidebar && 'w-60 h-40 text-right absolute -right-[60px]',
+                  !isOpenSidebar && 'w-[60px] h-40 text-right absolute -right-[60px]',
                 ])}
               >
                 <button

@@ -28,6 +28,11 @@ const SearchContentBox = () => {
 
   // 목록 view
   const listView = queryParam.get('view') ?? 'grid';
+  // 카테고리
+  const categoryId =
+    queryParam.get('tab') === null || queryParam.get('tab') === '전체'
+      ? null
+      : queryParam.get('tab');
 
   const {
     data: bookmarkData,
@@ -38,6 +43,7 @@ const SearchContentBox = () => {
     direction: String(queryParam.get('sort') === 'c' ? 'ASC' : queryParam.get('sort') ?? 'DESC'),
     property: queryParam.get('sort') !== 'title' ? 'createdAt' : 'title',
     keyword: queryParam.get('search') ?? '',
+    categoryId,
   });
 
   const handleOpenBlank = ({ url, bookMarkId }: { url: string; bookMarkId: number }) => {
