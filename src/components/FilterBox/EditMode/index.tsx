@@ -1,6 +1,11 @@
 import { useRef, useState } from 'react';
 
-import { fetchBookmarkReadCount, useBookmarkMoveCategory } from '@/apis/bookmark';
+import {
+  fetchBookmarkReadCount,
+  useBookmarkDelete,
+  useBookmarkMoveCategory,
+  useBookmarkRestore,
+} from '@/apis/bookmark';
 import { useCategoryList } from '@/apis/category';
 import { Button } from '@/components/common/Button';
 import Divider from '@/components/common/Divider';
@@ -10,17 +15,29 @@ import useEventListener from '@/hooks/useEventListener';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { cn } from '@/lib/utils';
 import useEditModeStore from '@/stores/editModeStore';
+import useToastStore from '@/stores/toastStore';
 
 interface Props {
   handleEditMode: () => void;
 }
 
 const EditMode = ({ handleEditMode }: Props) => {
-  const { selectedBookmarks, getSelectedBookmarksLength, resetSelectedBookmarks } =
-    useEditModeStore();
+  const {
+    selectedBookmarks,
+    getSelectedBookmarksLength,
+    resetSelectedBookmarks,
+    setEditMode,
+    setDeletedBookmarks,
+    setMovedBookmarks,
+    movedBookmarks,
+    deletedBookmarks,
+  } = useEditModeStore();
+  const { addToast } = useToastStore();
 
   const { data: categoryData } = useCategoryList();
   const { mutate: moveCategory } = useBookmarkMoveCategory();
+  const { mutate: mutateBookmarkDelete } = useBookmarkDelete();
+  const { mutate: mutateBookmarkRestore } = useBookmarkRestore();
 
   const [isOpenCategoryOptions, setIsOpenCategoryOptions] = useState<boolean>(false);
   const moveDivRef = useRef<HTMLDivElement>(null);
@@ -48,30 +65,72 @@ const EditMode = ({ handleEditMode }: Props) => {
   };
 
   const handleMoveCategory = (categoryId: number) => {
-    selectedBookmarks.forEach((bookmark) => {
-      const bookmarkDtos = bookmark.categoryDtos.length
-        ? bookmark.categoryDtos.map((categoryDto) => {
-            return {
-              originCategoryId: categoryDto.categoryId,
-              bookMarkId: bookmark.bookmarkId,
-            };
-          })
-        : [{ originCategoryId: null, bookMarkId: bookmark.bookmarkId }];
-
-      moveCategory(
-        {
-          movingCategoryId: categoryId,
-          bookMarkMovingDtos: bookmarkDtos,
-        },
-        {
-          onSuccess: () => {
-            console.log('이동 성공');
-          },
-        },
-      );
+    const movingBookmarksDtos = selectedBookmarks.map((bookmark) => {
+      return {
+        originCategoryId: bookmark.categoryDtos.length ? bookmark.categoryDtos[0].categoryId : null,
+        bookMarkId: bookmark.bookmarkId,
+      };
     });
 
+    moveCategory(
+      {
+        movingCategoryId: categoryId,
+        bookMarkMovingDtos: movingBookmarksDtos,
+      },
+      {
+        onSuccess: () => {
+          setMovedBookmarks(selectedBookmarks.map((bookmark) => bookmark.bookmarkId));
+          addToast({
+            message: '북마크를 이동했어요.',
+            type: 'default',
+            clickText: '복구하기 ',
+            onClick: () => {
+              handleRestoreBookmarks({ target: 'moved' });
+            },
+          });
+
+          setEditMode(false);
+        },
+      },
+    );
+
     setIsOpenCategoryOptions(false);
+  };
+
+  const handleDeleteBookmarks = () => {
+    const bookmarkIds = [...selectedBookmarks.map((bookmark) => bookmark.bookmarkId)];
+
+    mutateBookmarkDelete([...bookmarkIds], {
+      onSuccess: () => {
+        setDeletedBookmarks([...bookmarkIds]);
+        addToast({
+          message: '북마크를 삭제했어요.',
+          type: 'default',
+          clickText: '복구하기 ',
+          onClick: () => {
+            handleRestoreBookmarks({ target: 'deleted' });
+          },
+        });
+      },
+    });
+  };
+
+  const handleRestoreBookmarks = ({ target }: { target: 'all' | 'moved' | 'deleted' }) => {
+    const bookmarkIds =
+      target === 'all'
+        ? [...movedBookmarks, ...deletedBookmarks]
+        : target === 'moved'
+          ? movedBookmarks
+          : deletedBookmarks;
+
+    console.log(bookmarkIds);
+
+    mutateBookmarkRestore([...bookmarkIds], {
+      onSuccess: () => {
+        // @desc: 복구하고, edit mode 끄기
+        resetSelectedBookmarks();
+      },
+    });
   };
 
   return (
@@ -141,7 +200,7 @@ const EditMode = ({ handleEditMode }: Props) => {
             size={'small'}
             isDisabled={getSelectedBookmarksLength() === 0}
             onClick={() => {
-              console.log('삭제');
+              handleDeleteBookmarks();
             }}
           >
             <Icon name='trash_can' className='w-16 h-16 text-icon-secondary' />

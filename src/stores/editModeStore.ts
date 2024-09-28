@@ -13,6 +13,8 @@ type Store = {
     url: string;
     categoryDtos: CategoryDtoType[];
   }>;
+  movedBookmarks: number[];
+  deletedBookmarks: number[];
   isSelectedBookmark: (bookmarkId: number) => boolean;
   setSelectedBookmarks: ({
     bookmarkId,
@@ -25,11 +27,15 @@ type Store = {
   }) => void;
   resetSelectedBookmarks: () => void;
   getSelectedBookmarksLength: () => number;
+  setMovedBookmarks: (bookmarkIds: number[]) => void;
+  setDeletedBookmarks: (bookmarkIds: number[]) => void;
 };
 
 const useEditModeStore = create<Store>((set, get) => ({
   isEditMode: false,
   selectedBookmarks: [],
+  movedBookmarks: [],
+  deletedBookmarks: [],
 
   setEditMode: (isEditMode: boolean) => {
     set(() => ({
@@ -46,6 +52,18 @@ const useEditModeStore = create<Store>((set, get) => ({
       selectedBookmarks: isAlreadyExist
         ? state.selectedBookmarks.filter((item) => item.bookmarkId !== bookmarkId)
         : [...state.selectedBookmarks, { bookmarkId, url, categoryDtos }],
+    }));
+  },
+
+  setMovedBookmarks: (bookmarkIds: number[]) => {
+    set((state) => ({
+      movedBookmarks: [...state.movedBookmarks, ...bookmarkIds],
+    }));
+  },
+
+  setDeletedBookmarks: (bookmarkIds: number[]) => {
+    set((state) => ({
+      deletedBookmarks: [...state.deletedBookmarks, ...bookmarkIds],
     }));
   },
 
