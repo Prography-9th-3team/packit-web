@@ -39,7 +39,7 @@ const BookmarkModal = () => {
   useEscKeyModalEvent(MODAL_NAME.BOOKMARK_MODAL);
 
   const { mutateAsync: mutateSaveBookmark } = useSaveBookmark();
-  const { data: categoryData } = useCategoryList();
+  const { data: categoryData } = useCategoryList('');
   const { mutateAsync: mutateSaveCategory } = useSaveCategory();
 
   const {
@@ -199,7 +199,7 @@ const BookmarkModal = () => {
               <Select
                 placeholder={'카테고리를 선택하거나 입력해 주세요'}
                 value={category}
-                onChange={(e) => setCategory(e.target.value.substring(0.12))}
+                onChange={(e) => setCategory(e.target.value.trimStart().substring(0, 12))}
                 onClick={() => setIsFocus(true)}
               >
                 <Select.Label>카테고리</Select.Label>
@@ -225,7 +225,7 @@ const BookmarkModal = () => {
               </Select>
               {isFocus && (
                 <div className='absolute top-[calc(100%+8px)] w-full max-h-320 flex flex-col gap-4 p-8 bg-surface rounded-lg shadow-layer overflow-y-auto styled-scroll'>
-                  {!categoryData?.find((item) => item.categoryName === category) && (
+                  {category && !categoryData?.find((item) => item.categoryName === category) && (
                     <Option onClick={handleSelectCategory}>
                       <Option.Label>
                         <b className='body-md-bold'>{'추가 '}</b>

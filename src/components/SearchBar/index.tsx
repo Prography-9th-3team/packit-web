@@ -37,6 +37,7 @@ const SearchBar = () => {
     direction: 'DESC',
     property: 'title',
     keyword: searchInput,
+    categoryId: null,
   });
 
   const handleOnChange = debounce((e: ChangeEvent<HTMLInputElement>) => {
@@ -61,11 +62,26 @@ const SearchBar = () => {
     updateQueryString('search', '');
   };
 
+  const handleEnterKeyEvent = (event: KeyboardEvent) => {
+    if (event.key === 'Enter' && (bookmarkData?.pageInfo.total ?? 0) > 0) {
+      handleMoveSearchList();
+    }
+  };
+
   useEffect(() => {
     if (hasNextPage) {
       fetchNextPage();
     }
   }, [inView]);
+
+  // Enter Key Event
+  useEffect(() => {
+    window.addEventListener('keydown', handleEnterKeyEvent);
+
+    return () => {
+      window.removeEventListener('keydown', handleEnterKeyEvent);
+    };
+  }, [handleEnterKeyEvent]);
 
   return (
     <div className=''>

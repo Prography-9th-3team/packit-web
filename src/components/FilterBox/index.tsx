@@ -14,9 +14,19 @@ import AddCategory from './AddCategory';
 import EditMode from './EditMode';
 import FilterMode from './FilterMode';
 
-const ContentTopBar = () => {
+const sortList = [
+  { label: '최신순', value: 'DESC' },
+  { label: '이름순', value: 'title' },
+  { label: '오래된순', value: 'ASC' },
+];
+
+const FilterBox = () => {
+  const { queryParam, updateQueryString } = useQueryString();
+
+  const search = queryParam.get('search');
+
   const { addToast } = useToastStore();
-  const { data: categoryData } = useCategoryList();
+  const { data: categoryData } = useCategoryList(search);
   const { mutateAsync: mutateSaveCategory } = useSaveCategory();
 
   const buttonRef = useRef<HTMLDivElement>(null);
@@ -35,18 +45,20 @@ const ContentTopBar = () => {
   };
 
   const handleAddCategory = () => {
-    if (!category) {
+    const trimValue = category.trimStart();
+
+    if (!trimValue) {
       addToast({ message: '카테고리를 입력해주세요', type: 'error' });
 
       return;
     }
-    if (category === '전체') {
+    if (trimValue === '전체') {
       setIsError(true);
       addToast({ message: '카테고리가 이미 존재해요', type: 'error' });
       return;
     }
 
-    mutateSaveCategory(category).then((res) => {
+    mutateSaveCategory(trimValue).then((res) => {
       if (res.data.code === 'C002') {
         setIsError(true);
         addToast({ message: res.data.message, type: 'error' });
@@ -99,4 +111,4 @@ const ContentTopBar = () => {
   );
 };
 
-export default ContentTopBar;
+export default FilterBox;
