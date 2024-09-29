@@ -1,3 +1,4 @@
+import { usePathname, useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 
 import {
@@ -22,6 +23,9 @@ interface Props {
 }
 
 const EditMode = ({ handleEditMode }: Props) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const {
     selectedBookmarks,
     getSelectedBookmarksLength,
@@ -70,12 +74,12 @@ const EditMode = ({ handleEditMode }: Props) => {
       return {
         originCategoryId: bookmark.categoryDtos.length ? bookmark.categoryDtos[0].categoryId : null,
         bookMarkId: bookmark.bookmarkId,
+        movingCategoryId: categoryId,
       };
     });
 
     moveCategory(
       {
-        movingCategoryId: categoryId,
         bookMarkMovingDtos: movingBookmarksDtos,
       },
       {
@@ -94,6 +98,8 @@ const EditMode = ({ handleEditMode }: Props) => {
 
           resetSelectedBookmarks();
           setEditMode(false);
+
+          router.replace(`${pathname}/?tab=${categoryId}`);
         },
       },
     );

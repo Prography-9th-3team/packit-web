@@ -319,8 +319,11 @@ export const useBookmarkMoveCategory = () => {
     AxiosResponse,
     AxiosError,
     {
-      movingCategoryId: number;
-      bookMarkMovingDtos: { originCategoryId: number | null; bookMarkId: number }[];
+      bookMarkMovingDtos: {
+        originCategoryId: number | null;
+        movingCategoryId: number;
+        bookMarkId: number;
+      }[];
     }
   >({
     mutationFn: (data) => fetchData.put(url, data),
