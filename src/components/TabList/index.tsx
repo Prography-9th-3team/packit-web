@@ -4,6 +4,7 @@ import { useGesture } from '@use-gesture/react';
 import { useRef, useState } from 'react';
 
 import { ICategoryResponseDataType, useDeleteCategory } from '@/apis/category';
+import useKeyEvent from '@/hooks/useKeyEvent';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
@@ -102,8 +103,8 @@ const TabList = ({ tabs = [] }: ITabList) => {
     },
   );
 
-  useOnClickOutside([modalRef, selectRef, categoryEditRef], () => setIsControlModalOpen(false));
-
+  useOnClickOutside([modalRef, selectRef, categoryEditRef], () => handleCloseModal());
+  useKeyEvent({ targetKey: ['Escape'], callback: handleCloseModal });
   return (
     <div className='h-40 relative w-[calc(100%-100px)]'>
       <ul
