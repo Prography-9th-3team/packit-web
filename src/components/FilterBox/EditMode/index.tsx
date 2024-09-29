@@ -35,7 +35,7 @@ const EditMode = ({ handleEditMode }: Props) => {
   } = useEditModeStore();
   const { addToast } = useToastStore();
 
-  const { data: categoryData } = useCategoryList('');
+  const { data: categoryData } = useCategoryList(null);
   const { mutate: moveCategory } = useBookmarkMoveCategory();
   const { mutate: mutateBookmarkDelete } = useBookmarkDelete();
   const { mutate: mutateBookmarkRestore } = useBookmarkRestore();
@@ -84,7 +84,7 @@ const EditMode = ({ handleEditMode }: Props) => {
           addToast({
             message: '북마크를 이동했어요.',
             type: 'default',
-            clickText: '복구하기 ',
+            clickText: '복구하기',
             onClick: () => {
               handleRestoreBookmarks({
                 targetIds: selectedBookmarks.map((bookmark) => bookmark.bookmarkId),
@@ -111,7 +111,7 @@ const EditMode = ({ handleEditMode }: Props) => {
         addToast({
           message: '북마크를 삭제했어요.',
           type: 'default',
-          clickText: '복구하기 ',
+          clickText: '복구하기',
           onClick: () => {
             handleRestoreBookmarks({ targetIds: bookmarkIds });
           },
@@ -133,11 +133,7 @@ const EditMode = ({ handleEditMode }: Props) => {
         ? [...movedBookmarks, ...deletedBookmarks]
         : [];
 
-    mutateBookmarkRestore([...bookmarkIds], {
-      onSuccess: () => {
-        // @desc: 복구하고, edit mode 끄기
-      },
-    });
+    mutateBookmarkRestore([...bookmarkIds]);
   };
 
   return (

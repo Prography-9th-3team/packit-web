@@ -43,7 +43,7 @@ export const useSaveCategory = () => {
     mutationFn: (data) => fetchData.post(url, {}, { categoryName: decodeURI(data) }),
     onSuccess: () =>
       queryClient.invalidateQueries({
-        queryKey: [apis.category.category_list],
+        queryKey: [apis.category.category_list, null],
       }),
   });
 };
