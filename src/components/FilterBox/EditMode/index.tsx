@@ -25,7 +25,6 @@ const EditMode = ({ handleEditMode }: Props) => {
     resetEditMode,
     resetSelectedBookmarks,
     setDeletedBookmarks,
-    movedBookmarks,
     deletedBookmarks,
   } = useEditModeStore();
   const { addToast } = useToastStore();
@@ -86,11 +85,9 @@ const EditMode = ({ handleEditMode }: Props) => {
     isAll?: boolean;
     targetIds?: number[];
   }) => {
-    const bookmarkIds = targetIds
-      ? targetIds
-      : isAll
-        ? [...movedBookmarks, ...deletedBookmarks]
-        : [];
+    const bookmarkIds = targetIds ? targetIds : isAll ? [...deletedBookmarks] : [];
+
+    if (deletedBookmarks.length === 0) return;
 
     mutateBookmarkRestore([...bookmarkIds]);
   };
