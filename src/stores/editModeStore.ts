@@ -5,31 +5,33 @@ export type CategoryDtoType = {
   categoryName: string;
 };
 
+type Bookmark = {
+  bookmarkId: number;
+  url: string;
+  categoryDtos: CategoryDtoType[];
+};
+
+export type MovingBookmarkDto = {
+  originCategoryId: number | null;
+  bookMarkId: number;
+  movingCategoryId: number | null;
+};
+
 type Store = {
   isEditMode: boolean;
   setEditMode: (isEditMode: boolean) => void;
-  selectedBookmarks: Array<{
-    bookmarkId: number;
-    url: string;
-    categoryDtos: CategoryDtoType[];
-  }>;
+  selectedBookmarks: Bookmark[];
   movedBookmarks: number[];
   deletedBookmarks: number[];
   isSelectedBookmark: (bookmarkId: number) => boolean;
-  setSelectedBookmarks: ({
-    bookmarkId,
-    url,
-    categoryDtos,
-  }: {
-    bookmarkId: number;
-    url: string;
-    categoryDtos: CategoryDtoType[];
-  }) => void;
+  setSelectedBookmarks: (bookmark: Bookmark) => void;
   resetEditMode: () => void;
   resetSelectedBookmarks: () => void;
   getSelectedBookmarksLength: () => number;
   setMovedBookmarks: (bookmarkIds: number[]) => void;
   setDeletedBookmarks: (bookmarkIds: number[]) => void;
+  isOpenCategoryOptions: boolean;
+  setIsOpenCategoryOptions: (isOpen: boolean) => void;
 };
 
 const useEditModeStore = create<Store>((set, get) => ({
@@ -37,58 +39,60 @@ const useEditModeStore = create<Store>((set, get) => ({
   selectedBookmarks: [],
   movedBookmarks: [],
   deletedBookmarks: [],
+  isOpenCategoryOptions: false,
 
   setEditMode: (isEditMode: boolean) => {
-    set(() => ({
-      isEditMode,
-    }));
+    set({ isEditMode });
   },
 
-  // @desc: 선택된 북마크 추가
-  setSelectedBookmarks: ({ bookmarkId, url, categoryDtos }) => {
-    const isAlreadyExist = get().selectedBookmarks.some((item) => item.bookmarkId === bookmarkId);
+  setSelectedBookmarks: (bookmark: Bookmark) => {
+    const isAlreadyExist = get().selectedBookmarks.some(
+      (item) => item.bookmarkId === bookmark.bookmarkId,
+    );
 
-    set((state) => ({
-      // @desc: toggle 되게끔
+    set({
       selectedBookmarks: isAlreadyExist
-        ? state.selectedBookmarks.filter((item) => item.bookmarkId !== bookmarkId)
-        : [...state.selectedBookmarks, { bookmarkId, url, categoryDtos }],
-    }));
+        ? get().selectedBookmarks.filter((item) => item.bookmarkId !== bookmark.bookmarkId)
+        : [...get().selectedBookmarks, bookmark],
+    });
   },
 
   setMovedBookmarks: (bookmarkIds: number[]) => {
-    set((state) => ({
-      movedBookmarks: [...state.movedBookmarks, ...bookmarkIds],
-    }));
+    set({
+      movedBookmarks: [...get().movedBookmarks, ...bookmarkIds],
+    });
   },
 
   setDeletedBookmarks: (bookmarkIds: number[]) => {
-    set((state) => ({
-      deletedBookmarks: [...state.deletedBookmarks, ...bookmarkIds],
-    }));
+    set({
+      deletedBookmarks: [...get().deletedBookmarks, ...bookmarkIds],
+    });
   },
 
   isSelectedBookmark: (bookmarkId: number) => {
     return get().selectedBookmarks.some((item) => item.bookmarkId === bookmarkId);
   },
 
-  // @desc: 선택된 북마크 개수 반환
   getSelectedBookmarksLength: () => {
     return get().selectedBookmarks.length;
   },
 
-  resetSelectedBookmarks: () =>
-    set(() => ({
-      selectedBookmarks: [],
-    })),
+  resetSelectedBookmarks: () => {
+    set({ selectedBookmarks: [] });
+  },
 
-  // @desc: edit mode store 초기화
-  resetEditMode: () =>
-    set(() => ({
+  resetEditMode: () => {
+    set({
       selectedBookmarks: [],
       movedBookmarks: [],
       deletedBookmarks: [],
-    })),
+      isEditMode: false,
+    });
+  },
+
+  setIsOpenCategoryOptions: (isOpen: boolean) => {
+    set({ isOpenCategoryOptions: isOpen });
+  },
 }));
 
 export default useEditModeStore;

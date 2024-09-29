@@ -321,7 +321,7 @@ export const useBookmarkMoveCategory = () => {
     {
       bookMarkMovingDtos: {
         originCategoryId: number | null;
-        movingCategoryId: number;
+        movingCategoryId: number | null;
         bookMarkId: number;
       }[];
     }

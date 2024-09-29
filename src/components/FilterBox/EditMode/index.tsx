@@ -1,12 +1,6 @@
-import { usePathname, useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 
-import {
-  fetchBookmarkReadCount,
-  useBookmarkDelete,
-  useBookmarkMoveCategory,
-  useBookmarkRestore,
-} from '@/apis/bookmark';
+import { fetchBookmarkReadCount, useBookmarkDelete, useBookmarkRestore } from '@/apis/bookmark';
 import { useCategoryList } from '@/apis/category';
 import { Button } from '@/components/common/Button';
 import Divider from '@/components/common/Divider';
@@ -18,32 +12,29 @@ import { cn } from '@/lib/utils';
 import useEditModeStore from '@/stores/editModeStore';
 import useToastStore from '@/stores/toastStore';
 
+import useHandleMoveCategory from './hooks/useHandleMoveCategory';
+
 interface Props {
   handleEditMode: () => void;
 }
 
 const EditMode = ({ handleEditMode }: Props) => {
-  const router = useRouter();
-  const pathname = usePathname();
-
   const {
     selectedBookmarks,
     getSelectedBookmarksLength,
     resetEditMode,
     resetSelectedBookmarks,
-    setEditMode,
     setDeletedBookmarks,
-    setMovedBookmarks,
     movedBookmarks,
     deletedBookmarks,
   } = useEditModeStore();
   const { addToast } = useToastStore();
 
   const { data: categoryData } = useCategoryList(null);
-  const { mutate: moveCategory } = useBookmarkMoveCategory();
+
   const { mutate: mutateBookmarkDelete } = useBookmarkDelete();
   const { mutate: mutateBookmarkRestore } = useBookmarkRestore();
-
+  const { handleMoveCategory } = useHandleMoveCategory();
   const [isOpenCategoryOptions, setIsOpenCategoryOptions] = useState<boolean>(false);
   const moveDivRef = useRef<HTMLDivElement>(null);
 
@@ -67,44 +58,6 @@ const EditMode = ({ handleEditMode }: Props) => {
           console.error(error);
         });
     });
-  };
-
-  const handleMoveCategory = (categoryId: number) => {
-    const movingBookmarksDtos = selectedBookmarks.map((bookmark) => {
-      return {
-        originCategoryId: bookmark.categoryDtos.length ? bookmark.categoryDtos[0].categoryId : null,
-        bookMarkId: bookmark.bookmarkId,
-        movingCategoryId: categoryId,
-      };
-    });
-
-    moveCategory(
-      {
-        bookMarkMovingDtos: movingBookmarksDtos,
-      },
-      {
-        onSuccess: () => {
-          setMovedBookmarks(selectedBookmarks.map((bookmark) => bookmark.bookmarkId));
-          addToast({
-            message: '북마크를 이동했어요.',
-            type: 'default',
-            clickText: '복구하기',
-            onClick: () => {
-              handleRestoreBookmarks({
-                targetIds: selectedBookmarks.map((bookmark) => bookmark.bookmarkId),
-              });
-            },
-          });
-
-          resetSelectedBookmarks();
-          setEditMode(false);
-
-          router.replace(`${pathname}/?tab=${categoryId}`);
-        },
-      },
-    );
-
-    setIsOpenCategoryOptions(false);
   };
 
   const handleDeleteBookmarks = () => {
