@@ -4,6 +4,7 @@ import { useGesture } from '@use-gesture/react';
 import { useRef, useState } from 'react';
 
 import { ICategoryResponseDataType, useDeleteCategory } from '@/apis/category';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
 import useQueryString from '@/hooks/useQueyString';
 import { cn } from '@/lib/utils';
 import useToastStore from '@/stores/toastStore';
@@ -25,9 +26,16 @@ const TabList = ({ tabs = [] }: ITabList) => {
   const [isControlModalOpen, setIsControlModalOpen] = useState<boolean>(false);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
+  const modalRef = useRef<HTMLDivElement>(null);
+  const selectRef = useRef<HTMLDivElement>(null);
+  const categoryEditRef = useRef<HTMLDivElement>(null);
+
   const { mutateAsync: deleteCategory } = useDeleteCategory();
 
-  const handleModal = () => setIsControlModalOpen((prev) => !prev);
+  const handleModal = (e: React.MouseEvent<SVGSVGElement>) => {
+    e.preventDefault();
+    setIsControlModalOpen((prev) => !prev);
+  };
 
   const handleClickCategory = (categoryId: number) => {
     if (queryTab === String(categoryId ?? ALL_TAB_TYPE)) return;
@@ -94,6 +102,8 @@ const TabList = ({ tabs = [] }: ITabList) => {
     },
   );
 
+  useOnClickOutside([modalRef, selectRef, categoryEditRef], () => setIsControlModalOpen(false));
+
   return (
     <div className='h-40 relative w-[calc(100%-100px)]'>
       <ul
@@ -124,25 +134,31 @@ const TabList = ({ tabs = [] }: ITabList) => {
                 onClick={handleModal}
               />
             )}
-            {!isEditMode && isControlModalOpen && queryTab === String(tab.categoryId) && (
-              <div className='absolute top-[calc(100%-8px)] shadow-layer left-[calc(100%-10px)] w-[165px] h-[100px] flex flex-col gap-4 rounded-lg bg-white overflow-hidden z-10'>
-                <Option onClick={() => setIsEditMode(true)}>
-                  <Option.Label>이름 수정</Option.Label>
-                </Option>
-                <Option onClick={() => handleDeleteCategory(tab.categoryId)}>
-                  <Option.Label>
-                    <span className='text-text-critical'>삭제</span>
-                  </Option.Label>
-                </Option>
-              </div>
-            )}
-            {isEditMode && isControlModalOpen && queryTab === String(tab.categoryId) && (
-              <CategoryEditModal
-                categoryName={tab.categoryName}
-                categoryId={tab.categoryId}
-                handleCloseModal={handleCloseModal}
-              />
-            )}
+            <div ref={modalRef}>
+              {!isEditMode && isControlModalOpen && queryTab === String(tab.categoryId) && (
+                <div
+                  className='absolute top-[calc(100%-8px)] shadow-layer left-[calc(100%-10px)] w-[165px] h-[100px] flex flex-col gap-4 rounded-lg bg-white overflow-hidden z-10'
+                  ref={selectRef}
+                >
+                  <Option onClick={() => setIsEditMode(true)}>
+                    <Option.Label>이름 수정</Option.Label>
+                  </Option>
+                  <Option onClick={() => handleDeleteCategory(tab.categoryId)}>
+                    <Option.Label>
+                      <span className='text-text-critical'>삭제</span>
+                    </Option.Label>
+                  </Option>
+                </div>
+              )}
+              {isEditMode && isControlModalOpen && queryTab === String(tab.categoryId) && (
+                <CategoryEditModal
+                  categoryName={tab.categoryName}
+                  categoryId={tab.categoryId}
+                  handleCloseModal={handleCloseModal}
+                  categoryEditRef={categoryEditRef}
+                />
+              )}
+            </div>
           </li>
         ))}
       </ul>
