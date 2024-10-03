@@ -85,6 +85,13 @@ const SearchBar = () => {
     };
   }, [handleEnterKeyEvent]);
 
+  // search bar Auto focus
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   return (
     <div className=''>
       <Dim visible zIndex={10} handleClick={handleCloseModal} />
