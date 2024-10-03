@@ -1,6 +1,6 @@
 'use client';
 
-import { MouseEvent, useRef, useState } from 'react';
+import { MouseEvent, useMemo, useRef, useState } from 'react';
 
 import { useBookmarkLike } from '@/apis/bookmark';
 import { bookmarkValidateSiteName } from '@/constants/data';
@@ -90,9 +90,9 @@ const BookmarkCard = ({
   };
 
   // empty 이미지 랜덤
-  const getRandomNumber = () => {
+  const getRandomNumber = useMemo(() => {
     return Math.random() < 0.5 ? 1 : 2;
-  };
+  }, []);
 
   return (
     <div
@@ -114,7 +114,7 @@ const BookmarkCard = ({
             width={650}
             onError={(e) =>
               ((e.target as HTMLImageElement).src =
-                `/assets/image/empty_image_${getRandomNumber()}.png`)
+                `/assets/image/empty_image_${getRandomNumber}.png`)
             }
           />
         ) : representImageUrl &&
@@ -131,7 +131,7 @@ const BookmarkCard = ({
           // Default 이미지
           <img
             className='aspect-[296/180] object-cover'
-            src={`/assets/image/empty_image_${getRandomNumber()}.png`}
+            src={`/assets/image/empty_image_${getRandomNumber}.png`}
             alt='썸네일'
             width={650}
           />
