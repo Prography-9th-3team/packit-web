@@ -28,6 +28,7 @@ const Check = ({
     if (!isControlled) {
       setChecked(checked);
     }
+
     onChange?.(e);
   };
 
@@ -38,7 +39,7 @@ const Check = ({
       <label>
         <div
           className={cn(
-            'box-content w-16 h-16 rounded-[4px] border border-solid transition-all duration-200',
+            'box-content w-16 h-16 rounded-[4px] border border-solid transition-all duration-200 bg-white',
             isChecked ? 'bg-action-primary border-action-primary' : 'border-border',
           )}
         >

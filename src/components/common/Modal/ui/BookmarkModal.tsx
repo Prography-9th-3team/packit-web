@@ -39,7 +39,7 @@ const BookmarkModal = () => {
   useEscKeyModalEvent(MODAL_NAME.BOOKMARK_MODAL);
 
   const { mutateAsync: mutateSaveBookmark } = useSaveBookmark();
-  const { data: categoryData } = useCategoryList('');
+  const { data: categoryData } = useCategoryList(null);
   const { mutateAsync: mutateSaveCategory } = useSaveCategory();
 
   const {

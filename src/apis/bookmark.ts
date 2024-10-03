@@ -3,6 +3,7 @@ import { InfiniteData, useInfiniteQuery, useMutation, useQueryClient } from '@ta
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import useAuthStore from '@/stores/authStore';
+import useToastStore from '@/stores/toastStore';
 
 import { fetchData } from '.';
 import { default as apis, urlParams } from './api';
@@ -211,18 +212,19 @@ export const useBookmarkDelete = () => {
         queryKey: [apis.bookmark.bookmark_list],
       });
       queryClient.refetchQueries({
-        queryKey: [apis.category.category_list],
+        queryKey: [apis.category.category_list, null],
       });
     },
   });
 };
 
 /**
- * 북마크 삭제
+ * 북마크 삭제 Restore
  */
 export const useBookmarkRestore = () => {
   const queryClient = useQueryClient();
   const url = apis.bookmark.bookmark_restore;
+  const { addToast } = useToastStore();
 
   return useMutation<AxiosResponse, AxiosError, Array<number>>({
     mutationFn: (data) => fetchData.post(url, data),
@@ -232,6 +234,10 @@ export const useBookmarkRestore = () => {
       });
       queryClient.refetchQueries({
         queryKey: [apis.category.category_list],
+      });
+      addToast({
+        message: '북마크가 복구되었어요.',
+        type: 'default',
       });
     },
   });
@@ -302,5 +308,32 @@ export const useBookmarkSearchInfinityAPI = (params: IBookmarkParamDataType) => 
     staleTime: 1000 * 60 * 10,
     gcTime: 1000 * 60 * 10,
     enabled: authStore.isLogin() && Boolean(params.keyword),
+  });
+};
+
+export const useBookmarkMoveCategory = () => {
+  const queryClient = useQueryClient();
+  const url = apis.bookmark.bookmark_move_category;
+
+  return useMutation<
+    AxiosResponse,
+    AxiosError,
+    {
+      bookMarkMovingDtos: {
+        originCategoryId: number | null;
+        movingCategoryId: number | null;
+        bookMarkId: number;
+      }[];
+    }
+  >({
+    mutationFn: (data) => fetchData.put(url, data),
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: [apis.bookmark.bookmark_list],
+      });
+      queryClient.refetchQueries({
+        queryKey: [apis.category.category_list],
+      });
+    },
   });
 };
