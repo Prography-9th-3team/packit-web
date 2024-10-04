@@ -1,6 +1,6 @@
 import { debounce } from 'lodash-es';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { useBookmarkSearchInfinityAPI } from '@/apis/bookmark';
@@ -26,6 +26,7 @@ const SearchBar = () => {
 
   useEscKeyModalEvent(MODAL_NAME.SEARCH_MODAL);
 
+  const inputRef = useRef<HTMLInputElement>(null);
   const [searchInput, setSearchInput] = useState<string>();
 
   const {
@@ -60,6 +61,7 @@ const SearchBar = () => {
   const handleResetSearchKeyword = () => {
     setSearchInput('');
     updateQueryString('search', '');
+    if (inputRef.current) inputRef.current.value = '';
   };
 
   const handleEnterKeyEvent = (event: KeyboardEvent) => {
@@ -83,6 +85,13 @@ const SearchBar = () => {
     };
   }, [handleEnterKeyEvent]);
 
+  // search bar Auto focus
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   return (
     <div className=''>
       <Dim visible zIndex={10} handleClick={handleCloseModal} />
@@ -97,6 +106,7 @@ const SearchBar = () => {
           >
             <Icon name='searchSm_s' className='w-20 h-20' />
             <input
+              ref={inputRef}
               className='w-full outline-none heading-lg text-text placeholder:heading-lg placeholder:text-text-sub'
               placeholder='검색어 입력'
               defaultValue={searchInput}
