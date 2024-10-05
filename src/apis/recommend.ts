@@ -15,7 +15,7 @@ export const useRecommendBookmarkList = () => {
     queryKey: [apis.bookmark.bookmark_list],
     queryFn: async ({ pageParam }) => {
       const res = await fetchData.get(url, {
-        params: { pageNumber: pageParam, size: 8 },
+        params: { pageNumber: pageParam, size: 20 },
       });
 
       return res.data;
