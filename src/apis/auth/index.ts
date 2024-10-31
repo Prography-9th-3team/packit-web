@@ -4,18 +4,12 @@ import { useRouter } from 'next/navigation';
 
 import useAuthStore from '@/stores/authStore';
 
-import { fetchData } from '.';
-import apis from './api';
-
-interface IUserProfileResponseDataType {
-  name: string;
-  email: string;
-  imageUrl: string;
-  createdAt: string;
-}
+import { fetchData } from '..';
+import apis from '../api';
+import { IUserProfileResponseDataType } from './type';
 
 /**
- * 우저 정보
+ * 유저 정보
  */
 export const useUserProfile = () => {
   const url = apis.auth.user_profile;
