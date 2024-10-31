@@ -1,4 +1,4 @@
-import _ from 'lodash-es';
+import { isEmpty, omitBy, isNil, isNaN } from 'lodash-es';
 import QueryString from 'qs';
 
 export const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -6,14 +6,12 @@ export const GOOGLE_LOGIN_URL = process.env.NEXT_PUBLIC_GOOGLE_LOGIN_BASE_URL;
 
 export const urlParams = (obj = {}, nullable = false) => {
   if (nullable) {
-    return _.isEmpty(obj) ? '' : '?' + QueryString.stringify(obj);
+    return isEmpty(obj) ? '' : '?' + QueryString.stringify(obj);
   }
 
-  const filteredObj = _.omitBy(obj, (value) => _.isNil(value) || _.isNaN(value));
+  const filteredObj = omitBy(obj, (value) => isNil(value) || isNaN(value));
 
-  return _.isEmpty(filteredObj)
-    ? ''
-    : '?' + QueryString.stringify(filteredObj, { skipNulls: true });
+  return isEmpty(filteredObj) ? '' : '?' + QueryString.stringify(filteredObj, { skipNulls: true });
 };
 
 const apis = {
