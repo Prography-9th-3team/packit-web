@@ -21,6 +21,7 @@
     "no-redeclare": "off",
     "no-duplicate-imports": "error",
     "@next/next/no-html-link-for-pages": "error",
+    "@next/next/no-img-element": "off",
     "@tanstack/query/stable-query-client": "error",
     "prettier/prettier": "error",
     "react/react-in-jsx-scope": "off",
@@ -28,6 +29,7 @@
     "react/no-unescaped-entities": "off",
     "react/no-unknown-property": "off",
     "react-hooks/rules-of-hooks": "off",
+    "react-hooks/exhaustive-deps": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-unused-vars": "error",
     "padding-line-between-statements": [

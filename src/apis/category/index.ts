@@ -1,16 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 
-import { fetchData } from '.';
-import apis from './api';
-
-export interface ICategoryResponseDataType {
-  categoryId: number;
-  categoryName: string;
-  bookMarkCount: number;
-}
-
-export type CategoryParamDataType = string | null;
+import { fetchData } from '..';
+import apis from '../api';
+import { CategoryParamDataType, ICategoryResponseDataType } from './type';
 
 /**
  * 카테고리 목록
@@ -48,6 +41,9 @@ export const useSaveCategory = () => {
   });
 };
 
+/**
+ * 카테고리 삭제
+ */
 export const useDeleteCategory = () => {
   const queryClient = useQueryClient();
   const url = apis.category.category_delete;
@@ -61,6 +57,9 @@ export const useDeleteCategory = () => {
   });
 };
 
+/**
+ * 카테고리 수정
+ */
 export const useEditCategory = () => {
   const queryClient = useQueryClient();
   const url = apis.category.category_edit;

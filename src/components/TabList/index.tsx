@@ -3,7 +3,8 @@
 import { useGesture } from '@use-gesture/react';
 import { useRef, useState } from 'react';
 
-import { ICategoryResponseDataType, useDeleteCategory } from '@/apis/category';
+import { useDeleteCategory } from '@/apis/category';
+import { ICategoryResponseDataType } from '@/apis/category/type';
 import useKeyEvent from '@/hooks/useKeyEvent';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import useQueryString from '@/hooks/useQueyString';
