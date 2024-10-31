@@ -3,9 +3,9 @@ import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
 
 import useAuthStore from '@/stores/authStore';
 
-import { fetchData } from '.';
-import { default as apis } from './api';
-import { IBookmarkListResponseDataType } from './bookmark';
+import { fetchData } from '..';
+import { default as apis } from '../api';
+import { IBookmarkListResponseDataType } from '../bookmark/type';
 
 export const useRecommendBookmarkList = () => {
   const url = apis.recommend.recommend_bookmarks;

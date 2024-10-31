@@ -5,13 +5,10 @@ import { debounce } from 'lodash-es';
 import { ChangeEvent, useCallback, useMemo, useRef, useState } from 'react';
 import * as yup from 'yup';
 
-import {
-  ISaveBookmarkDataType,
-  fetchGetMetaData,
-  fetchUploadImage,
-  useSaveBookmark,
-} from '@/apis/bookmark';
+import { useSaveBookmark } from '@/apis/bookmark';
+import { ISaveBookmarkDataType } from '@/apis/bookmark/type';
 import { useCategoryList, useSaveCategory } from '@/apis/category';
+import { fetchGetMetaData, fetchUploadImage } from '@/apis/common';
 import useDragUpload from '@/hooks/useDragUpload';
 import useEscKeyModalEvent from '@/hooks/useEscKeyModalEvent';
 import useOnClickOutside from '@/hooks/useOnClickOutside';

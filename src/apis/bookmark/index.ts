@@ -1,55 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { InfiniteData, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import useAuthStore from '@/stores/authStore';
 import useToastStore from '@/stores/toastStore';
 
-import { fetchData } from '.';
-import { default as apis, urlParams } from './api';
-
-interface IBookmarkParamDataType {
-  pageNumber?: number;
-  size: number;
-  direction: string; // 'ASC' | 'DESC';
-  property: string;
-  categoryId?: string | number | null;
-  isFavorite?: boolean;
-  keyword?: string;
-}
-
-export interface IBookmarkListResponseDataType {
-  pageInfo: {
-    pageNumber: number;
-    size: number;
-    total: number;
-    lastPage: number;
-  };
-  content: Array<{
-    bookMarkId: number;
-    categoryNames: Array<string>; // 이후 삭제
-    categoryDtos: Array<{
-      categoryName: string;
-      categoryId: number;
-    }>;
-    faviconUrl: string;
-    isFavorite: boolean;
-    isRead: boolean;
-    memo: string;
-    readCount: number;
-    representImageUrl: string;
-    siteName: string;
-    title: string;
-    url: string;
-    userInsertRepresentImage: {
-      extension: string;
-      file: string;
-      name: string;
-      size: number;
-      uuid: string;
-    };
-  }>;
-}
+import { fetchData } from '..';
+import { default as apis, urlParams } from '../api';
+import {
+  BookmarkLikeDataType,
+  IBookmarkListResponseDataType,
+  IBookmarkParamDataType,
+  IBookmarkSearchListResponseDataType,
+  ISaveBookmarkDataType,
+} from './type';
 
 /**
  * 북마크 목록
@@ -89,23 +53,6 @@ export const useBookmarkInfinityAPI = (params: IBookmarkParamDataType) => {
   });
 };
 
-export interface ISaveBookmarkDataType {
-  categoryIds: Array<number>;
-  url: string;
-  title: string;
-  memo: string;
-  favicon?: string;
-  siteName?: string;
-  representImageUrl: string;
-  userInsertRepresentImage?: {
-    name: string;
-    file: string;
-    uuid: string;
-    size: number;
-    extension: string;
-  };
-}
-
 /**
  * 북마크 등록
  */
@@ -129,55 +76,6 @@ export const useSaveBookmark = () => {
   });
 };
 
-interface IMetaResponseDataType {
-  title: string;
-  siteName: string;
-  favicon: string;
-  description: string;
-  image: string;
-}
-
-/**
- * Meta tag 가져오기
- */
-export const fetchGetMetaData = async (url: string) => {
-  try {
-    const res = await fetchData.get<{ meta: IMetaResponseDataType }>('/api/meta', {
-      params: { url },
-    });
-
-    return res.data.result;
-  } catch {
-    console.error('북마크를 할 수 없는 페이지입니다');
-  }
-};
-
-/**
- * 북마크 이미지 업로드
- * TODO : FormData API 추가 필요
- */
-export const fetchUploadImage = async (formData: FormData) => {
-  const url = apis.fileUpload.file;
-
-  try {
-    const res = await axios.post(url, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-
-    return res.data;
-  } catch {
-    console.error('파일 업로드에 실패했습니다.');
-  }
-  return;
-};
-
-interface BookmarkLikeDataType {
-  bookMarkId: number;
-  isFavorite: boolean;
-}
-
 /**
  * 북마크 좋아요
  */
@@ -190,7 +88,7 @@ export const useBookmarkLike = () => {
 };
 
 /**
- * 북마크 조회
+ * 북마크 읽음 조회
  */
 export const fetchBookmarkReadCount = (bookMarkId: number) => {
   const url = apis.bookmark.bookmark_read;
@@ -243,36 +141,6 @@ export const useBookmarkRestore = () => {
   });
 };
 
-export interface IBookmarkSearchListResponseDataType {
-  pageInfo: {
-    pageNumber: number;
-    size: number;
-    total: number;
-    lastPage: number;
-  };
-  content: Array<{
-    bookMarkId: number;
-    title: string;
-    memo: string;
-    url: string;
-    faviconUrl: string;
-    representImageUrl: string;
-    siteName: string;
-    userInsertRepresentImage?: {
-      name: string;
-      file: string;
-      uuid: string;
-      size: number;
-      extension: string;
-    };
-    categoryNames: Array<string>; // 이후 삭제
-    categoryDtos: Array<{
-      categoryName: string;
-      categoryId: number;
-    }>;
-  }>;
-}
-
 /**
  * 북마크 검색
  */
@@ -311,6 +179,9 @@ export const useBookmarkSearchInfinityAPI = (params: IBookmarkParamDataType) => 
   });
 };
 
+/**
+ * 북마크 카테고리 이동
+ */
 export const useBookmarkMoveCategory = () => {
   const queryClient = useQueryClient();
   const url = apis.bookmark.bookmark_move_category;
